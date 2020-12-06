@@ -14,11 +14,30 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #272640;
-QMessageBox {
-	color: white;
+   <string notr="true">QMainWindow {
+background-color: #272640;
 }
-</string>
+
+QInputDialog {
+background-color: #272640;
+font: &quot;Open Sans Semibold&quot;;
+color: #ffffff;
+}
+
+QInputDialog QPushButton {
+background-color: #272640;
+font: &quot;Open Sans&quot;;
+color: #ffffff;
+}
+
+QInputDialog QPushButton:hover {
+ background-color: #006466;
+}
+
+QInputDialog QLabel {
+font: &quot;Open Sans Light&quot;;
+color: #ffffff;
+}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -185,11 +204,7 @@ font-size: 26px;</string>
        </sizepolicy>
       </property>
       <property name="styleSheet">
-       <string notr="true">
-background-color: #212f45;
-
-
-</string>
+       <string notr="true">background-color: #212f45;</string>
       </property>
       <property name="currentIndex">
        <number>0</number>

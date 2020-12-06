@@ -171,12 +171,34 @@ void OpenstreamMainWindow::allocateSharedMemoryFootprint() {
 }
 
 void OpenstreamMainWindow::sharedMemoryFootprintErrorMessage() {
-    if(QMessageBox::Ok == QMessageBox::critical(this,
-                                                tr("Application Error"),
-                                                tr("Sunshine launcher is already executing.")))
-    {
-        exit(EXIT_FAILURE);
-    }
+    QMessageBox m = QMessageBox(QMessageBox::Icon::Critical,
+                                "Application error",
+                                "Sunshine launcher is already executing.",
+                                QMessageBox::StandardButton::Close);
+
+    m.setStyleSheet("QMessageBox"
+                    "{"
+                    "color: rgb(255, 170, 0);"
+                    "background-color: #272640;"
+                    "}"
+                    "QPushButton"
+                    "{"
+                    "background-color: #272640;"
+                    "color: #FFFFFF;"
+                    "text-align: center;"
+                    "font: \"Open Sans Light\";"
+                    "}"
+                    "QPushButton:hover"
+                    "{"
+                    "background-color: #006466;"
+                    "}"
+                    "QLabel"
+                    "{"
+                    "color: #ffffff;"
+                    "font: \"Open Sans Light\";"
+                    "}");
+    m.exec();
+    exit(EXIT_FAILURE);
 }
 
 void OpenstreamMainWindow::allocateNewProcess() {

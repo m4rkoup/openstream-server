@@ -23,6 +23,14 @@ int main(int argc, char *argv[])
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
     QApplication a(argc, argv);
+
+    if(!QSystemTrayIcon::isSystemTrayAvailable()) {
+        QMessageBox::critical(nullptr, "Sunshine Launcher",
+                              QObject::tr("I couldn't detect any system tray on the system."));
+        return 1;
+    }
+    QApplication::setQuitOnLastWindowClosed(false);
+
     OpenstreamMainWindow w;
 
     /**

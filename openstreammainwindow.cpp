@@ -1,10 +1,6 @@
 #include "openstreammainwindow.h"
 #include "ui_openstreammainwindow.h"
 
-#include <QCloseEvent>
-#include <QDebug>
-#include <QMessageBox>
-
 OpenstreamMainWindow::OpenstreamMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::OpenstreamMainWindow)
@@ -16,6 +12,10 @@ OpenstreamMainWindow::OpenstreamMainWindow(QWidget *parent) :
     createMinimalActions();
     createTrayIcon();
     allocateNewProcess();
+
+    /*Auth pin handling related*/
+    auth_pin_handler = new AuthPinHandler();
+    allocate_auth_listener();
 
     /*Connections*/
     connect(ui->start_button,
@@ -30,12 +30,17 @@ OpenstreamMainWindow::OpenstreamMainWindow(QWidget *parent) :
             &QSystemTrayIcon::activated,
             this,
             &OpenstreamMainWindow::trayIconActivated);
+    connect(this,
+            &OpenstreamMainWindow::auth_finished,
+            this,
+            &OpenstreamMainWindow::authListenerWorkerRegeneration);
     //This restores de QTrayApp when the notification is clicked
     connect(trayIcon,
             &QSystemTrayIcon::messageClicked,
             this,
             &QWidget::showNormal);
     setWindowTitle(tr("Open Stream"));
+
 
     icon_off = new QIcon(":/images/joystick.png");
     icon_on = new QIcon(":/images/joystick_on.png");
@@ -63,8 +68,7 @@ void OpenstreamMainWindow::createMinimalActions() {
    connect(restoreAction, &QAction::triggered, this, &QWidget::showNormal);
 
    quitAction = new QAction(tr("&Quit"), this);
-   //TODO: Adapt this line to the new functionality
-   //connect(quitAction, &QAction::triggered, this, &Launcher::stopHostBeforeClose);
+   connect(quitAction, &QAction::triggered, this, &OpenstreamMainWindow::stopHostBeforeClose);
    connect(quitAction, &QAction::triggered, qApp, &QCoreApplication::quit);
 }
 
@@ -271,3 +275,68 @@ void OpenstreamMainWindow::appStoppedWatch() {
 void OpenstreamMainWindow::stopHostBeforeClose() {
     this->stopSunshine();
 }
+
+void OpenstreamMainWindow::on_event_loop_started() {
+    appStart();
+}
+
+
+void OpenstreamMainWindow::allocate_auth_listener() {
+    auth_listener_thread = new QThread();
+    auth_listener_worker = new AuthListenerWorker();
+    auth_listener_worker->moveToThread(auth_listener_thread);
+    connect(auth_listener_worker,
+            &AuthListenerWorker::auth_attempt,
+            this,
+            &OpenstreamMainWindow::showAuthMessagePopUp);
+    connect(auth_listener_worker,
+            &AuthListenerWorker::auth_attempt,
+            this,
+            &OpenstreamMainWindow::inputAuthPinCapture);
+    connect(auth_listener_thread,
+            &QThread::started,
+            auth_listener_worker,
+            &AuthListenerWorker::start_listening);
+    connect(auth_listener_worker,
+            &AuthListenerWorker::finished,
+            auth_listener_thread,
+            &QThread::quit);
+    connect(auth_listener_worker,
+            &AuthListenerWorker::finished,
+            auth_listener_worker,
+            &QObject::deleteLater);
+    connect(auth_listener_thread,
+            &QThread::finished,
+            auth_listener_thread,
+            &QThread::deleteLater);
+    auth_listener_thread->start();
+}
+
+void OpenstreamMainWindow::authListenerWorkerRegeneration() {
+    allocate_auth_listener();
+}
+
+void OpenstreamMainWindow::inputAuthPinCapture() {
+    bool ok;
+    QString pin = QInputDialog::getText(this, tr("Introduce PIN"),
+                                        tr("PIN:"), QLineEdit::Normal,
+                                        "", &ok);
+    if(ok) {
+        qDebug() << "PIN captured!: " << pin << Qt::endl;
+        auth_pin_handler->send_host_pin(pin);
+    }
+    else {
+        qDebug() << "NO PIN captured! :( " << pin << Qt::endl;
+    }
+
+    emit auth_finished(); /*Restart named pipe listening*/
+}
+
+void OpenstreamMainWindow::showAuthMessagePopUp() {
+    QString title = QString(tr("Client is trying to connect"));
+    QString body = QString(tr("A client wants to use openstream.\n"
+                              "Click this message for introduce your pin"));
+
+    trayIcon->showMessage(title, body, trayIcon->icon(), 60 * 100000);
+}
+

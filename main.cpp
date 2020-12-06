@@ -10,6 +10,7 @@
 #include "openstreammainwindow.h"
 #include <QStatusBar>
 #include <QFontDatabase>
+#include <QTimer>
 
 int main(int argc, char *argv[])
 {
@@ -67,6 +68,8 @@ int main(int argc, char *argv[])
     QFontDatabase::addApplicationFont(":resources/fonts/OpenSans-SemiBold.ttf");
     QFontDatabase::addApplicationFont(":resources/fonts/OpenSans-SemiBoldItalic.ttf");
     w.show();
+
+    QTimer::singleShot(1000 / 2, &w, &OpenstreamMainWindow::on_event_loop_started);
 
     return a.exec();
 

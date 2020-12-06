@@ -7,6 +7,14 @@
 #include <QMenu>
 #include <QSharedMemory>
 #include <QProcess>
+#include <QCloseEvent>
+#include <QDebug>
+#include <QMessageBox>
+#include <QThread>
+#include <QInputDialog>
+
+#include "auth_listener_worker.h"
+#include "auth_pin_handler.h"
 
 
 namespace Ui {
@@ -22,8 +30,25 @@ public:
     void setVisible(bool visible) override;
     ~OpenstreamMainWindow();
 
+public slots:
+    /**
+     * @brief on_event_loop_started
+     * Automatically starts the host for usability with
+     * Auto start functionality when systems boot.
+     */
+    void on_event_loop_started();
+
 protected:
     void closeEvent(QCloseEvent *) override;
+
+signals:
+    /**
+     * @brief auth_finished is emitted when the authentication pin dialog
+     * has been closed.
+     * It doesn't matter if the pairing was succesful or not. After the dialog
+     * has been closed, the named pipe will be waiting again.
+     */
+    void auth_finished();
 
 private slots:
     void trayIconActivated(QSystemTrayIcon::ActivationReason reason);
@@ -35,6 +60,26 @@ private slots:
     void stopHostBeforeClose();
     void set_off_host_state_indicator();
     void set_on_host_state_indicator();
+
+    /**
+     * @brief authListenerWorkerRegeneration is intended to be
+     * executed after destruction of auth_listener_thread.
+     * It will regenerate the IPC thread after a new client
+     * has tried to be paired.
+     */
+    void authListenerWorkerRegeneration();
+
+    /**
+     * @brief showAuthMessagePopUp activates a pop-up message
+     * when IPC communication is received from the streamming host
+     */
+    void showAuthMessagePopUp();
+
+    /**
+     * @brief inputAuthPinCapture opens a dialog for capture of
+     * the authentication pin challenge
+     */
+    void inputAuthPinCapture();
 
 private:
     Ui::OpenstreamMainWindow *ui;
@@ -75,14 +120,21 @@ private:
     QIcon *icon_on;
     /*State indicator*/
 
+    /*Tray app related*/
     QAction *minimizeAction;
     QAction *maximizeAction;
     QAction *restoreAction;
     QAction *quitAction;
 
-
     QSystemTrayIcon *trayIcon;
     QMenu *trayIconMenu;
+
+    /*Auth pin related*/
+    AuthListenerWorker *auth_listener_worker;
+    QThread *auth_listener_thread;
+    void allocate_auth_listener();
+    AuthPinHandler *auth_pin_handler;
+
 };
 
 #endif // OPENSTREAMMAINWINDOW_H

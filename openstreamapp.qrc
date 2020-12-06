@@ -17,5 +17,18 @@
         <file>fonts/OpenSans-Regular.ttf</file>
         <file>fonts/OpenSans-SemiBold.ttf</file>
         <file>fonts/OpenSans-SemiBoldItalic.ttf</file>
+        <file>images/check-ic.png</file>
+        <file>images/configure-ic.png</file>
+        <file>images/down-arrow-blue-16-ic.png</file>
+        <file>images/down-arrow-circular-ic-16.png</file>
+        <file>images/down-arrow-ic-16.png</file>
+        <file>images/down-arrow-ic.png</file>
+        <file>images/down-arrow-light-ic.png</file>
+        <file>images/off-ic.png</file>
+        <file>images/off.jpg</file>
+        <file>images/on-ic.png</file>
+        <file>images/on.jpg</file>
+        <file>images/terminal-ic.png</file>
+        <file>images/uncheck-ic.png</file>
     </qresource>
 </RCC>

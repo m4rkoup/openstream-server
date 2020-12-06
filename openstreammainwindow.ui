@@ -86,8 +86,8 @@ font-size: 26px;</string>
           <string>Start</string>
          </property>
          <property name="icon">
-          <iconset>
-           <normaloff>:/resources/icons/on-ic.png</normaloff>:/resources/icons/on-ic.png</iconset>
+          <iconset resource="openstreamapp.qrc">
+           <normaloff>:/images/on-ic.png</normaloff>:/images/on-ic.png</iconset>
          </property>
         </widget>
        </item>
@@ -119,8 +119,8 @@ font-size: 26px;</string>
           <string>Stop</string>
          </property>
          <property name="icon">
-          <iconset>
-           <normaloff>:/resources/icons/off-ic.png</normaloff>:/resources/icons/off-ic.png</iconset>
+          <iconset resource="openstreamapp.qrc">
+           <normaloff>:/images/off-ic.png</normaloff>:/images/off-ic.png</iconset>
          </property>
         </widget>
        </item>
@@ -152,8 +152,8 @@ font-size: 26px;</string>
           <string>Configure</string>
          </property>
          <property name="icon">
-          <iconset>
-           <normaloff>:/resources/icons/configure-ic.png</normaloff>:/resources/icons/configure-ic.png</iconset>
+          <iconset resource="openstreamapp.qrc">
+           <normaloff>:/images/configure-ic.png</normaloff>:/images/configure-ic.png</iconset>
          </property>
         </widget>
        </item>
@@ -217,7 +217,7 @@ background-color: #212f45;
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap>:/resources/icons/terminal-ic.png</pixmap>
+             <pixmap resource="openstreamapp.qrc">:/images/terminal-ic.png</pixmap>
             </property>
            </widget>
           </item>
@@ -1165,6 +1165,8 @@ font-size: 14px;</string>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="openstreamapp.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -15,6 +15,9 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: #272640;
+QMessageBox {
+	color: white;
+}
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">

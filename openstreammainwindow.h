@@ -5,6 +5,7 @@
 #include <QSystemTrayIcon>
 #include <QAction>
 #include <QMenu>
+#include <QSharedMemory>
 
 namespace Ui {
 class OpenstreamMainWindow;
@@ -28,6 +29,16 @@ private slots:
 
 private:
     Ui::OpenstreamMainWindow *ui;
+
+    /*Shared Memory Footprint functionality*/
+    /*/**
+     * is used to keep only
+     * one instance of the program in the computer.
+     */
+    QString sharedMemoryFootprintKey = "OPEN STREAM";
+    QSharedMemory *sharedMemoryFootprint;
+    void allocateSharedMemoryFootprint();
+    void sharedMemoryFootprintErrorMessage();
 
     /*TrayIcon functionality*/
     void createMainGroupBox();

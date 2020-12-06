@@ -2,12 +2,15 @@
 #include "ui_openstreammainwindow.h"
 
 #include <QCloseEvent>
+#include <QDebug>
+#include <QMessageBox>
 
 OpenstreamMainWindow::OpenstreamMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::OpenstreamMainWindow)
 {
     ui->setupUi(this);
+    allocateSharedMemoryFootprint();
     createMinimalActions();
     createTrayIcon();
 
@@ -28,6 +31,10 @@ OpenstreamMainWindow::~OpenstreamMainWindow()
     delete ui;
 }
 
+/**
+ * @brief OpenstreamMainWindow::createMinimalActions
+ * creates the minimal actions for the Tray application popup menu.
+ */
 void OpenstreamMainWindow::createMinimalActions() {
    this->minimizeAction = new QAction(tr("Mi&nimize"), this);
    connect(minimizeAction, &QAction::triggered, this, &QWidget::hide);
@@ -44,6 +51,11 @@ void OpenstreamMainWindow::createMinimalActions() {
    connect(quitAction, &QAction::triggered, qApp, &QCoreApplication::quit);
 }
 
+/**
+ * @brief OpenstreamMainWindow::createTrayIcon
+ * creates the Tray icon object for tray functionality.
+ * Should be called after createMinimalActions.
+ */
 void OpenstreamMainWindow::createTrayIcon() {
     trayIconMenu = new QMenu(this);
     trayIconMenu->addAction(minimizeAction);
@@ -63,6 +75,11 @@ void OpenstreamMainWindow::createTrayIcon() {
     trayIcon->setToolTip(STATE_STOPPED_MSG_TRAY);
 }
 
+/**
+ * @brief OpenstreamMainWindow::trayIconActivated
+ * deals with user mouse interactions
+ * @param reason
+ */
 void OpenstreamMainWindow::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
 {
     switch(reason) {
@@ -75,6 +92,11 @@ void OpenstreamMainWindow::trayIconActivated(QSystemTrayIcon::ActivationReason r
     }
 }
 
+/**
+ * @brief OpenstreamMainWindow::setVisible
+ * overriden setVisible for tray application.
+ * @param visible
+ */
 void OpenstreamMainWindow::setVisible(bool visible) {
     minimizeAction->setEnabled(visible);
     maximizeAction->setEnabled(!isMaximized());
@@ -83,10 +105,55 @@ void OpenstreamMainWindow::setVisible(bool visible) {
 
 }
 
+/**
+ * @brief OpenstreamMainWindow::closeEvent
+ * overriden closeEvent for tray application.
+ * @param event
+ */
 void OpenstreamMainWindow::closeEvent(QCloseEvent *event)
 {
     if(trayIcon->isVisible()) {
         hide();
         event->ignore();
+    }
+}
+
+/**
+ * @brief OpenstreamMainWindow::allocateSharedMemoryFootprint
+ * Checks if another application is running with the same memory footprint.
+ */
+void OpenstreamMainWindow::allocateSharedMemoryFootprint() {
+    sharedMemoryFootprint = new QSharedMemory(sharedMemoryFootprintKey, this);
+    bool semaphore = sharedMemoryFootprint->create(4);
+    if(semaphore) {
+        qDebug() << "Starting new application. Not previous footprint found." << endl;
+    }
+    else {
+        switch(sharedMemoryFootprint->error())
+        {
+            case QSharedMemory::InvalidSize:
+                qDebug() << "Invalid footprint size" << endl;
+                break;
+           case QSharedMemory::QSharedMemory::KeyError:
+                qDebug() << "Invalid footprint key" << endl;
+                break;
+           case QSharedMemory::AlreadyExists:
+                qDebug() << "An instance of Sunshine Launcher is already running."
+                         << "Closing current instance." << endl;
+                sharedMemoryFootprintErrorMessage();
+                break;
+           default:
+                qDebug() << "Unknown error found creating shared memory footprint" << endl;
+        }
+
+    }
+}
+
+void OpenstreamMainWindow::sharedMemoryFootprintErrorMessage() {
+    if(QMessageBox::Ok == QMessageBox::critical(this,
+                                                tr("Application Error"),
+                                                tr("Sunshine launcher is already executing.")))
+    {
+        exit(EXIT_FAILURE);
     }
 }

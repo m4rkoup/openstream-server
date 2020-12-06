@@ -21,15 +21,21 @@ int main(int argc, char *argv[])
       */
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-
     QApplication a(argc, argv);
-
     if(!QSystemTrayIcon::isSystemTrayAvailable()) {
         QMessageBox::critical(nullptr, "Sunshine Launcher",
                               QObject::tr("I couldn't detect any system tray on the system."));
         return 1;
     }
     QApplication::setQuitOnLastWindowClosed(false);
+
+    /**
+      * This code deals with the Auto Star mechanism
+      */
+    old_auto_start_remove();
+    QString app_dir = QDir::toNativeSeparators(QCoreApplication::applicationDirPath());
+    QString app_name = QCoreApplication::applicationName() + ".exe";
+    set_windows_auto_start(app_dir, app_name);
 
     OpenstreamMainWindow w;
 

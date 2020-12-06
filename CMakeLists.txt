@@ -45,6 +45,9 @@ add_executable(openstreamapp
   launcher.h
   set_priority_class.h
   set_priority_class.cpp
+  openstreammainwindow.h
+  openstreammainwindow.cpp
+  openstreammainwindow.ui
   openstreamapp.qrc
 )
 

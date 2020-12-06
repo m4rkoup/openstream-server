@@ -10,14 +10,31 @@ OpenstreamMainWindow::OpenstreamMainWindow(QWidget *parent) :
     ui(new Ui::OpenstreamMainWindow)
 {
     ui->setupUi(this);
+    ui->main_area_console_output->setReadOnly(true);
+
     allocateSharedMemoryFootprint();
     createMinimalActions();
     createTrayIcon();
+    allocateNewProcess();
 
-    connect(trayIcon, &QSystemTrayIcon::activated, this, &OpenstreamMainWindow::trayIconActivated);
-
+    /*Connections*/
+    connect(ui->start_button,
+            &QAbstractButton::clicked,
+            this,
+            &OpenstreamMainWindow::startSunshine);
+    connect(ui->stop_button,
+            &QAbstractButton::clicked,
+            this,
+            &OpenstreamMainWindow::stopSunshine);
+    connect(trayIcon,
+            &QSystemTrayIcon::activated,
+            this,
+            &OpenstreamMainWindow::trayIconActivated);
     //This restores de QTrayApp when the notification is clicked
-    connect(trayIcon, &QSystemTrayIcon::messageClicked, this, &QWidget::showNormal);
+    connect(trayIcon,
+            &QSystemTrayIcon::messageClicked,
+            this,
+            &QWidget::showNormal);
     setWindowTitle(tr("Open Stream"));
 
     icon_off = new QIcon(":/images/joystick.png");
@@ -156,4 +173,101 @@ void OpenstreamMainWindow::sharedMemoryFootprintErrorMessage() {
     {
         exit(EXIT_FAILURE);
     }
+}
+
+void OpenstreamMainWindow::allocateNewProcess() {
+    proc = new QProcess;
+}
+
+void OpenstreamMainWindow::startSunshine() {
+    switch(proc->state()) {
+        case QProcess::NotRunning:
+            appStart();
+            break;
+        case QProcess::Starting:
+            appStarting();
+            break;
+        case QProcess::Running:
+            appRunning();
+            break;
+        default:
+            qDebug() << "Unknown host state" << Qt::endl;
+    }
+}
+
+void OpenstreamMainWindow::stopSunshine() {
+    qDebug() << "Stoping sunshine process...";
+    qint64 pid = proc->processId();
+    if(pid > 0) {
+        //TODO: research use of kill vs terminate
+        proc->kill();
+        //Allocate new process
+        delete proc;
+        allocateNewProcess();
+        qDebug() << "Process host stopped " << pid << Qt::endl;
+    }
+    else {
+        qDebug() << "Process currently stopped.";
+    }
+}
+
+void OpenstreamMainWindow::appStart() {
+    qDebug() << "Start application" << Qt::endl;
+    QString app_dir = QCoreApplication::applicationDirPath();
+    connect(proc, &QProcess::readyReadStandardOutput, this, &OpenstreamMainWindow::updateAppConsole);
+    connect(proc, &QProcess::readyRead, this, &OpenstreamMainWindow::updateAppConsole);
+    connect(proc, &QProcess::readyReadStandardError, this, &OpenstreamMainWindow::updateAppConsoleError);
+    connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
+                this, &OpenstreamMainWindow::appStoppedWatch);
+    connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
+            this, &OpenstreamMainWindow::set_off_host_state_indicator);
+    proc->open(QProcess::Unbuffered);
+    proc->start(app_dir + "/openstreamhost/openstreamhost.exe", QStringList() << app_dir + *SUNSHINE_CONF);
+    this->set_on_host_state_indicator();
+    qDebug() << "Application started" << Qt::endl;
+}
+
+void OpenstreamMainWindow::appStarting() {
+    qDebug() << "A sunshine host is currently starting" << Qt::endl;
+    QMessageBox::information(this, "Sunshine Launcher",
+                             tr("A sunshine host is currently starting"));
+}
+
+void OpenstreamMainWindow::appRunning() {
+    qDebug() << "A sunshine host was already started" << Qt::endl;
+    QMessageBox::information(this, "Sunshine Launcher",
+                             tr("A sunshine host was already started"));
+}
+
+void OpenstreamMainWindow::set_on_host_state_indicator() {
+    ui->main_area_status_label->setText(STATE_RUNNING_MSG);
+    trayIcon->setIcon(*icon_on);
+    trayIcon->setToolTip(STATE_RUNNING_MSG);
+}
+
+void OpenstreamMainWindow::set_off_host_state_indicator() {
+    ui->main_area_status_label->setText(STATE_STOPPED_MSG);
+    trayIcon->setIcon(*icon_off);
+    trayIcon->setToolTip(STATE_STOPPED_MSG);
+}
+
+void OpenstreamMainWindow::updateAppConsole() {
+    QByteArray strData = proc->readAllStandardOutput();
+    ui->main_area_console_output->moveCursor (QTextCursor::End);
+    ui->main_area_console_output->insertPlainText(strData);
+}
+
+void OpenstreamMainWindow::updateAppConsoleError()
+{
+    QByteArray strData = proc->readAllStandardError();
+    ui->main_area_console_output->moveCursor (QTextCursor::End);
+    ui->main_area_console_output->append(strData);
+}
+
+void OpenstreamMainWindow::appStoppedWatch() {
+    qDebug() << "Streamming host was stopped" << Qt::endl;
+}
+
+void OpenstreamMainWindow::stopHostBeforeClose() {
+    this->stopSunshine();
 }

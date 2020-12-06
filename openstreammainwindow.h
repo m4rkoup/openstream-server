@@ -6,6 +6,8 @@
 #include <QAction>
 #include <QMenu>
 #include <QSharedMemory>
+#include <QProcess>
+
 
 namespace Ui {
 class OpenstreamMainWindow;
@@ -25,10 +27,29 @@ protected:
 
 private slots:
     void trayIconActivated(QSystemTrayIcon::ActivationReason reason);
-
+    void startSunshine();
+    void stopSunshine();
+    void updateAppConsole();
+    void updateAppConsoleError();
+    void appStoppedWatch();
+    void stopHostBeforeClose();
+    void set_off_host_state_indicator();
+    void set_on_host_state_indicator();
 
 private:
     Ui::OpenstreamMainWindow *ui;
+    QString *SUNSHINE_CONF = new QString("/assets/sunshine.conf");
+
+
+    //QProces to handle the Sunshine underneath binary executable.
+    QProcess *proc;
+    void allocateNewProcess();
+
+    /*Private API for start/stop*/
+    void startSunshineApp();
+    void appStart();
+    void appStarting();
+    void appRunning();
 
     /*Shared Memory Footprint functionality*/
     /*/**
@@ -46,6 +67,8 @@ private:
     void createTrayIcon();
 
     /*State indicator*/
+    QString STATE_RUNNING_MSG = "Server Up";
+    QString STATE_STOPPED_MSG = "Server Down";
     QString STATE_RUNNING_MSG_TRAY = "Openstream - Running";
     QString STATE_STOPPED_MSG_TRAY = "Openstream - Stopped";
     QIcon *icon_off;

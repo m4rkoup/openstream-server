@@ -147,24 +147,24 @@ void OpenstreamMainWindow::allocateSharedMemoryFootprint() {
     sharedMemoryFootprint = new QSharedMemory(sharedMemoryFootprintKey, this);
     bool semaphore = sharedMemoryFootprint->create(4);
     if(semaphore) {
-        qDebug() << "Starting new application. Not previous footprint found." << endl;
+        qDebug() << "Starting new application. Not previous footprint found." << Qt::endl;
     }
     else {
         switch(sharedMemoryFootprint->error())
         {
             case QSharedMemory::InvalidSize:
-                qDebug() << "Invalid footprint size" << endl;
+                qDebug() << "Invalid footprint size" << Qt::endl;
                 break;
            case QSharedMemory::QSharedMemory::KeyError:
-                qDebug() << "Invalid footprint key" << endl;
+                qDebug() << "Invalid footprint key" << Qt::endl;
                 break;
            case QSharedMemory::AlreadyExists:
                 qDebug() << "An instance of Sunshine Launcher is already running."
-                         << "Closing current instance." << endl;
+                         << "Closing current instance." << Qt::endl;
                 sharedMemoryFootprintErrorMessage();
                 break;
            default:
-                qDebug() << "Unknown error found creating shared memory footprint" << endl;
+                qDebug() << "Unknown error found creating shared memory footprint" << Qt::endl;
         }
 
     }

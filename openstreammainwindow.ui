@@ -207,7 +207,7 @@ font-size: 26px;</string>
        <string notr="true">background-color: #212f45;</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -371,7 +371,7 @@ font-size: 14px;</string>
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="main_area_title_label">
+           <widget class="QLabel" name="config_panel_title_label">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
               <horstretch>10</horstretch>
@@ -466,7 +466,7 @@ font-size: 14px;</string>
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_8">
                <item>
-                <widget class="QPushButton" name="pushButton_7">
+                <widget class="QPushButton" name="h264_NVENC_select_button">
                  <property name="font">
                   <font>
                    <pointsize>-1</pointsize>
@@ -476,7 +476,7 @@ font-size: 14px;</string>
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">#pushButton_7 {
+                  <string notr="true">#h264_NVENC_select_button {
   background-color: #272640;
   color: #FFFFFF;
   font-size: 14px;
@@ -486,7 +486,7 @@ font-size: 14px;</string>
   border: none;
 }
 
-#pushButton_7:hover {
+#h264_NVENC_select_button:hover {
   background-color: #006466;
 }</string>
                  </property>
@@ -496,9 +496,9 @@ font-size: 14px;</string>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_8">
+                <widget class="QPushButton" name="h264_NVENC_configure_button">
                  <property name="styleSheet">
-                  <string notr="true">#pushButton_8 {
+                  <string notr="true">#h264_NVENC_configure_button {
   background-color: #272640;
   color: #FFFFFF;
   font-size: 14px;
@@ -508,7 +508,7 @@ font-size: 14px;</string>
   border: none;
 }
 
-#pushButton_8:hover {
+#h264_NVENC_configure_button:hover {
   background-color: #006466;
 }</string>
                  </property>
@@ -586,7 +586,7 @@ resolution-up-to 60 fps
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_5">
                <item>
-                <widget class="QPushButton" name="pushButton">
+                <widget class="QPushButton" name="h264_CPU_select_button">
                  <property name="font">
                   <font>
                    <pointsize>-1</pointsize>
@@ -596,7 +596,7 @@ resolution-up-to 60 fps
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">#pushButton {
+                  <string notr="true">#h264_CPU_select_button {
   background-color: #272640;
   color: #FFFFFF;
   font-size: 14px;
@@ -606,7 +606,7 @@ resolution-up-to 60 fps
   border: none;
 }
 
-#pushButton:hover {
+#h264_CPU_select_button:hover {
   background-color: #006466;
 }</string>
                  </property>
@@ -614,15 +614,15 @@ resolution-up-to 60 fps
                   <string/>
                  </property>
                  <property name="icon">
-                  <iconset>
-                   <normaloff>:/resources/icons/check-ic.png</normaloff>:/resources/icons/check-ic.png</iconset>
+                  <iconset resource="openstreamapp.qrc">
+                   <normaloff>:/images/check-ic.png</normaloff>:/images/check-ic.png</iconset>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_2">
+                <widget class="QPushButton" name="h264_CPU_configuration_button">
                  <property name="styleSheet">
-                  <string notr="true">#pushButton_2 {
+                  <string notr="true">#h264_CPU_configuration_button {
   background-color: #272640;
   color: #FFFFFF;
   font-size: 14px;
@@ -632,7 +632,7 @@ resolution-up-to 60 fps
   border: none;
 }
 
-#pushButton_2:hover {
+#h264_CPU_configuration_button:hover {
   background-color: #006466;
 }</string>
                  </property>
@@ -704,7 +704,7 @@ font-size: 14px;</string>
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_7">
                <item>
-                <widget class="QPushButton" name="pushButton_5">
+                <widget class="QPushButton" name="h265_CPU_select_button">
                  <property name="font">
                   <font>
                    <pointsize>-1</pointsize>
@@ -714,7 +714,7 @@ font-size: 14px;</string>
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">#pushButton_5 {
+                  <string notr="true">#h265_CPU_select_button {
   background-color: #272640;
   color: #FFFFFF;
   font-size: 14px;
@@ -724,7 +724,7 @@ font-size: 14px;</string>
   border: none;
 }
 
-#pushButton_5:hover {
+#h265_CPU_select_button:hover {
   background-color: #006466;
 }</string>
                  </property>
@@ -734,9 +734,9 @@ font-size: 14px;</string>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_6">
+                <widget class="QPushButton" name="h265_CPU_configure_button">
                  <property name="styleSheet">
-                  <string notr="true">#pushButton_6 {
+                  <string notr="true">#h265_CPU_configure_button {
   background-color: #272640;
   color: #FFFFFF;
   font-size: 14px;
@@ -746,7 +746,7 @@ font-size: 14px;</string>
   border: none;
 }
 
-#pushButton_6:hover {
+#h265_CPU_configure_button:hover {
   background-color: #006466;
 }</string>
                  </property>
@@ -828,7 +828,7 @@ font-size: 14px;</string>
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_9">
                <item>
-                <widget class="QPushButton" name="pushButton_9">
+                <widget class="QPushButton" name="h265_NVENC_select_button">
                  <property name="font">
                   <font>
                    <pointsize>-1</pointsize>
@@ -838,7 +838,7 @@ font-size: 14px;</string>
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">#pushButton_9 {
+                  <string notr="true">#h265_NVENC_select_button {
   background-color: #272640;
   color: #FFFFFF;
   font-size: 14px;
@@ -848,7 +848,7 @@ font-size: 14px;</string>
   border: none;
 }
 
-#pushButton_9:hover {
+#h265_NVENC_select_button:hover {
   background-color: #006466;
 }</string>
                  </property>
@@ -858,9 +858,9 @@ font-size: 14px;</string>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_10">
+                <widget class="QPushButton" name="h265_NVENC_configure_button">
                  <property name="styleSheet">
-                  <string notr="true">#pushButton_10 {
+                  <string notr="true">#h265_NVENC_configure_button {
   background-color: #272640;
   color: #FFFFFF;
   font-size: 14px;
@@ -870,7 +870,7 @@ font-size: 14px;</string>
   border: none;
 }
 
-#pushButton_10:hover {
+#h265_NVENC_configure_button:hover {
   background-color: #006466;
 }</string>
                  </property>
@@ -942,7 +942,7 @@ font-size: 14px;</string>
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_11">
                <item>
-                <widget class="QPushButton" name="pushButton_13">
+                <widget class="QPushButton" name="h265_AMD_select_button">
                  <property name="font">
                   <font>
                    <pointsize>-1</pointsize>
@@ -952,7 +952,7 @@ font-size: 14px;</string>
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">#pushButton_13 {
+                  <string notr="true">#h265_AMD_select_button {
   background-color: #272640;
   color: #FFFFFF;
   font-size: 14px;
@@ -962,7 +962,7 @@ font-size: 14px;</string>
   border: none;
 }
 
-#pushButton_13:hover {
+#h265_AMD_select_button:hover {
   background-color: #006466;
 }</string>
                  </property>
@@ -972,9 +972,9 @@ font-size: 14px;</string>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_14">
+                <widget class="QPushButton" name="h265_AMD_configure_button">
                  <property name="styleSheet">
-                  <string notr="true">#pushButton_14 {
+                  <string notr="true">#h265_AMD_configure_button {
   background-color: #272640;
   color: #FFFFFF;
   font-size: 14px;
@@ -984,7 +984,7 @@ font-size: 14px;</string>
   border: none;
 }
 
-#pushButton_14:hover {
+#h265_AMD_configure_button:hover {
   background-color: #006466;
 }</string>
                  </property>
@@ -1056,7 +1056,7 @@ font-size: 14px;</string>
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_10">
                <item>
-                <widget class="QPushButton" name="pushButton_11">
+                <widget class="QPushButton" name="h264_AMD_select_button">
                  <property name="font">
                   <font>
                    <pointsize>-1</pointsize>
@@ -1066,7 +1066,7 @@ font-size: 14px;</string>
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">#pushButton_11 {
+                  <string notr="true">#h264_AMD_select_button {
   background-color: #272640;
   color: #FFFFFF;
   font-size: 14px;
@@ -1076,7 +1076,7 @@ font-size: 14px;</string>
   border: none;
 }
 
-#pushButton_11:hover {
+#h264_AMD_select_button:hover {
   background-color: #006466;
 }</string>
                  </property>
@@ -1086,9 +1086,9 @@ font-size: 14px;</string>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_12">
+                <widget class="QPushButton" name="h264_AMD_configure_button">
                  <property name="styleSheet">
-                  <string notr="true">#pushButton_12 {
+                  <string notr="true">#h264_AMD_configure_button {
   background-color: #272640;
   color: #FFFFFF;
   font-size: 14px;
@@ -1098,7 +1098,7 @@ font-size: 14px;</string>
   border: none;
 }
 
-#pushButton_12:hover {
+#h264_AMD_configure_button:hover {
   background-color: #006466;
 }</string>
                  </property>
@@ -1130,7 +1130,7 @@ font-size: 14px;</string>
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_15">
+           <widget class="QPushButton" name="apply_config_button">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
               <horstretch>1</horstretch>
@@ -1138,7 +1138,7 @@ font-size: 14px;</string>
              </sizepolicy>
             </property>
             <property name="styleSheet">
-             <string notr="true">#pushButton_15 {
+             <string notr="true">#apply_config_button {
   background-color: #272640;
   color: #FFFFFF;
   font-size: 14px;
@@ -1148,7 +1148,7 @@ font-size: 14px;</string>
   border: none;
 }
 
-#pushButton_15:hover {
+#apply_config_button:hover {
   background-color: #006466;
 }</string>
             </property>

@@ -7,6 +7,8 @@ OpenstreamMainWindow::OpenstreamMainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->main_area_console_output->setReadOnly(true);
+    ui->main_area_widget->setCurrentIndex(0);
+
 
     allocateSharedMemoryFootprint();
     createMinimalActions();
@@ -387,6 +389,23 @@ void OpenstreamMainWindow::showAuthMessagePopUp() {
     trayIcon->showMessage(title, body, trayIcon->icon(), 60 * 100000);
 }
 
-void OpenstreamMainWindow::onStartButtonClicked() {
+void OpenstreamMainWindow::on_apply_config_button_clicked()
+{
+    ui->main_area_widget->setCurrentIndex(0);
+    ui->start_button->setEnabled(true);
+    ui->stop_button->setEnabled(true);
+}
+
+void OpenstreamMainWindow::on_cancel_config_button_clicked()
+{
+    ui->main_area_widget->setCurrentIndex(0);
+    ui->start_button->setEnabled(true);
+    ui->stop_button->setEnabled(true);
+}
+
+void OpenstreamMainWindow::on_configure_button_clicked()
+{
     ui->main_area_widget->setCurrentIndex(1);
+    ui->start_button->setEnabled(false);
+    ui->stop_button->setEnabled(false);
 }

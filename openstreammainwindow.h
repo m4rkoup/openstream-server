@@ -51,6 +51,9 @@ signals:
     void auth_finished();
 
 private slots:
+    void on_cancel_config_button_clicked();
+
+private slots:
     void trayIconActivated(QSystemTrayIcon::ActivationReason reason);
     void startSunshine();
     void stopSunshine();
@@ -81,7 +84,8 @@ private slots:
      */
     void inputAuthPinCapture();
 
-    void onStartButtonClicked();
+    void on_configure_button_clicked();
+    void on_apply_config_button_clicked();
 
 private:
     Ui::OpenstreamMainWindow *ui;

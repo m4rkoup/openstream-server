@@ -9,6 +9,8 @@ OpenstreamMainWindow::OpenstreamMainWindow(QWidget *parent) :
     ui->main_area_console_output->setReadOnly(true);
     ui->main_area_widget->setCurrentIndex(0);
 
+    h265CPUConfigDialog = new h265ConfigurationDialog(this);
+    h265CPUConfigDialog->hide();
 
     allocateSharedMemoryFootprint();
     createMinimalActions();
@@ -408,4 +410,13 @@ void OpenstreamMainWindow::on_configure_button_clicked()
     ui->main_area_widget->setCurrentIndex(1);
     ui->start_button->setEnabled(false);
     ui->stop_button->setEnabled(false);
+}
+
+void OpenstreamMainWindow::h265ConfigurationClicked() {
+    h265CPUConfigDialog->exec();
+}
+
+void OpenstreamMainWindow::on_h265_CPU_configure_button_clicked()
+{
+    h265ConfigurationClicked();
 }

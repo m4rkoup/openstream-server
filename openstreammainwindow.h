@@ -15,6 +15,7 @@
 
 #include "auth_listener_worker.h"
 #include "auth_pin_handler.h"
+#include "h265configurationdialog.h"
 
 
 namespace Ui {
@@ -49,6 +50,9 @@ signals:
      * has been closed, the named pipe will be waiting again.
      */
     void auth_finished();
+
+private slots:
+    void on_h265_CPU_configure_button_clicked();
 
 private slots:
     void on_cancel_config_button_clicked();
@@ -140,6 +144,10 @@ private:
     QThread *auth_listener_thread;
     void allocate_auth_listener();
     AuthPinHandler *auth_pin_handler;
+
+    /*Configuration Dialogs*/
+    h265ConfigurationDialog *h265CPUConfigDialog;
+    void h265ConfigurationClicked();
 
 };
 

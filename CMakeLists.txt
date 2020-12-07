@@ -48,6 +48,9 @@ add_executable(openstreamapp
   openstreammainwindow.h
   openstreammainwindow.cpp
   openstreammainwindow.ui
+  h265configurationdialog.h
+  h265configurationdialog.cpp
+  h265configurationdialog.ui
   openstreamapp.qrc
 )
 

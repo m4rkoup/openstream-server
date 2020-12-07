@@ -261,8 +261,33 @@ void OpenstreamMainWindow::appStarting() {
 
 void OpenstreamMainWindow::appRunning() {
     qDebug() << "A sunshine host was already started" << Qt::endl;
-    QMessageBox::information(this, "Sunshine Launcher",
-                             tr("A sunshine host was already started"));
+    QMessageBox m = QMessageBox(
+                QMessageBox::Icon::Information,
+                "Openstream start",
+                "A openstream server is already up",
+                QMessageBox::StandardButton::Ok);
+    m.setStyleSheet("QMessageBox"
+                    "{"
+                    "color: rgb(255, 170, 0);"
+                    "background-color: #272640;"
+                    "}"
+                    "QPushButton"
+                    "{"
+                    "background-color: #272640;"
+                    "color: #FFFFFF;"
+                    "text-align: center;"
+                    "font: \"Open Sans Light\";"
+                    "}"
+                    "QPushButton:hover"
+                    "{"
+                    "background-color: #006466;"
+                    "}"
+                    "QLabel"
+                    "{"
+                    "color: #ffffff;"
+                    "font: \"Open Sans Light\";"
+                    "}");
+    m.exec();
 }
 
 void OpenstreamMainWindow::set_on_host_state_indicator() {
@@ -362,3 +387,6 @@ void OpenstreamMainWindow::showAuthMessagePopUp() {
     trayIcon->showMessage(title, body, trayIcon->icon(), 60 * 100000);
 }
 
+void OpenstreamMainWindow::onStartButtonClicked() {
+    ui->main_area_widget->setCurrentIndex(1);
+}

@@ -81,6 +81,8 @@ private slots:
      */
     void inputAuthPinCapture();
 
+    void onStartButtonClicked();
+
 private:
     Ui::OpenstreamMainWindow *ui;
     QString *SUNSHINE_CONF = new QString("/assets/sunshine.conf");

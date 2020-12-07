@@ -207,7 +207,7 @@ font-size: 26px;</string>
        <string notr="true">background-color: #212f45;</string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page">
        <layout class="QVBoxLayout" name="verticalLayout_2">

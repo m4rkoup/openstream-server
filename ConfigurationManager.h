@@ -23,6 +23,7 @@ public:
     void saveConfiguration();
     QString getKey(QString key);
     void restoreDefaultConfiguration(QString filename);
+    void reloadInMemoryValues();
 
 private:
 

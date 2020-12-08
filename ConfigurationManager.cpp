@@ -8,18 +8,7 @@ ConfigurationManager::ConfigurationManager(QString encoder_conf_filename)
     loadRootConfiguration();
 }
 
-void ConfigurationManager::loadRootConfiguration()
-{
-    if(!folderAssetsExists()){
-        QDir().mkdir(ASSETS_FOLDER_FILE_PATH);
-        copyAssetsFiles();
-    }
-
-    else if(!configFileExists()) {
-        copyAssetsFiles();
-    }
-
-
+void ConfigurationManager::reloadInMemoryValues() {
     QFile inputFile(CONFIG_FILE_PATH);
     if(inputFile.open(QIODevice::ReadOnly))
     {
@@ -39,6 +28,20 @@ void ConfigurationManager::loadRootConfiguration()
         }
     }
     inputFile.close();
+}
+
+void ConfigurationManager::loadRootConfiguration()
+{
+    if(!folderAssetsExists()){
+        QDir().mkdir(ASSETS_FOLDER_FILE_PATH);
+        copyAssetsFiles();
+    }
+
+    else if(!configFileExists()) {
+        copyAssetsFiles();
+    }
+
+    reloadInMemoryValues();
 }
 
 void ConfigurationManager::saveConfiguration()
@@ -98,5 +101,8 @@ void ConfigurationManager::copyAssetsFiles() {
 }
 
 void ConfigurationManager::restoreDefaultConfiguration(QString filename) {
-    QFile().copy(QString(":assets/") + filename, ASSETS_FOLDER_FILE_PATH + filename);
+    QFile().remove(ASSETS_FOLDER_FILE_PATH + filename);
+    QFile().copy(QString(":assets") + filename, ASSETS_FOLDER_FILE_PATH + filename);
+    qDebug() << "Copied: " << QString(":assets") + filename << Qt::endl;
+    qDebug() << "To: " << ASSETS_FOLDER_FILE_PATH + filename << Qt::endl;
 }

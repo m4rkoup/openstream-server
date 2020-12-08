@@ -105,13 +105,13 @@ h265ConfigurationDialog::~h265ConfigurationDialog()
 }
 
 void h265ConfigurationDialog::restoreDefaultsValues() {
-    config->restoreDefaultConfiguration("h265CPU.conf");
+    config->restoreDefaultConfiguration("/h265CPU.conf");
 }
 
 /**
  * @brief h265ConfigurationDialog::setLoadedValues
  * Set the values in the GUI form according to the last state found in
- * the encoder configuration file.
+ * the encoder configuration file, and already saved in the In Memory config.
  */
 void h265ConfigurationDialog::setLoadedValues() {
     /*Encoder preset*/
@@ -129,20 +129,21 @@ void h265ConfigurationDialog::setLoadedValues() {
     }
 
     /*System Priority*/
-    if(config->getKey("system_priority") == SYS_PRIORITY_ABOVE_NORMAL_LABEL) {
+    /*Compare against the configuration values (1,2,3)*/
+    if(config->getKey("system_priority") == SYS_PRIORITY_ABOVE_NORMAL) {
        ui->h265_cpu_process_priority_combobox->setCurrentIndex(0);
        entries_snapshot.insert("system_priority", SYS_PRIORITY_ABOVE_NORMAL);
     }
-    else if(config->getKey("system_priority") == SYS_PRIORITY_HIGH_LABEL) {
+    else if(config->getKey("system_priority") == SYS_PRIORITY_HIGH) {
         ui->h265_cpu_process_priority_combobox->setCurrentIndex(1);
         entries_snapshot.insert("system_priority", SYS_PRIORITY_HIGH);
     }
-    else if(config->getKey("system_priority") == SYS_PRIORITY_REAL_TIME_LABEL) {
+    else if(config->getKey("system_priority") == SYS_PRIORITY_REAL_TIME) {
         ui->h265_cpu_process_priority_combobox->setCurrentIndex(2);
         entries_snapshot.insert("system_priority", SYS_PRIORITY_REAL_TIME);
     }
 
-    /*Frame Threads*/
+    /*Frame threads*/
     if(config->getKey("min_threads") == FRAME_THREADS_2) {
         ui->h265_cpu_frame_threads_combobox->setCurrentIndex(0);
         entries_snapshot.insert("min_threads", FRAME_THREADS_2);
@@ -162,23 +163,24 @@ void h265ConfigurationDialog::setLoadedValues() {
 
     /*pool threads*/
     if(config->getKey("pools") == POOL_THREADS_2) {
-        ui->h265_cpu_frame_threads_combobox->setCurrentIndex(0);
+        ui->h265_cpu_pool_threads_combobox->setCurrentIndex(0);
         entries_snapshot.insert("pools", POOL_THREADS_2);
     }
     else if(config->getKey("pools") == POOL_THREADS_4) {
-        ui->h265_cpu_frame_threads_combobox->setCurrentIndex(1);
+        ui->h265_cpu_pool_threads_combobox->setCurrentIndex(1);
         entries_snapshot.insert("pools", POOL_THREADS_4);
     }
     else if(config->getKey("pools") == POOL_THREADS_6) {
-        ui->h265_cpu_frame_threads_combobox->setCurrentIndex(2);
+        ui->h265_cpu_pool_threads_combobox->setCurrentIndex(2);
         entries_snapshot.insert("pools", POOL_THREADS_6);
     }
     else if(config->getKey("pools") == POOL_THREADS_8) {
-        ui->h265_cpu_frame_threads_combobox->setCurrentIndex(3);
+        ui->h265_cpu_pool_threads_combobox->setCurrentIndex(3);
         entries_snapshot.insert("pools", POOL_THREADS_8);
     }
 
     /*CRF VS VBV VS QP*/
+    qDebug() << "CRF" << config->getKey("on_crf") << Qt::endl;
     if(config->getKey("on_crf") == "1") {
         setCRForVBVorQP("crf");
     }
@@ -188,40 +190,43 @@ void h265ConfigurationDialog::setLoadedValues() {
     else if(config->getKey("on_qp") == "1") {
         setCRForVBVorQP("qp");
     }
+    entries_snapshot.insert("on_crf", config->getKey("on_crf"));
+    entries_snapshot.insert("on_vbv", config->getKey("on_vbv"));
+    entries_snapshot.insert("on_crf", config->getKey("on_crf"));
 
     /*vbv-maxrate*/
-    if(config->getKey("vbv_maxrate") == VBV_MAX_RATE_10_LABEL) {
+    if(config->getKey("vbv_maxrate") == VBV_MAX_RATE_10) {
         ui->h265_cpu_vbv_max_rate_value_combobox->setCurrentIndex(0);
         entries_snapshot.insert("vbv_maxrate", VBV_MAX_RATE_10);
     }
-    else if(config->getKey("vbv_maxrate") == VBV_MAX_RATE_20_LABEL) {
+    else if(config->getKey("vbv_maxrate") == VBV_MAX_RATE_20) {
         ui->h265_cpu_vbv_max_rate_value_combobox->setCurrentIndex(1);
         entries_snapshot.insert("vbv_maxrate", VBV_MAX_RATE_20);
     }
-    else if(config->getKey("vbv_maxrate") == VBV_MAX_RATE_30_LABEL) {
+    else if(config->getKey("vbv_maxrate") == VBV_MAX_RATE_30) {
         ui->h265_cpu_vbv_max_rate_value_combobox->setCurrentIndex(2);
         entries_snapshot.insert("vbv_maxrate", VBV_MAX_RATE_30);
 
     }
-    else if(config->getKey("vbv_maxrate") == VBV_MAX_RATE_40_LABEL) {
+    else if(config->getKey("vbv_maxrate") == VBV_MAX_RATE_40) {
         ui->h265_cpu_vbv_max_rate_value_combobox->setCurrentIndex(3);
         entries_snapshot.insert("vbv_maxrate", VBV_MAX_RATE_40);
     }
 
     /*vbv-bufsize*/
-    if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_1_LABEL) {
+    if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_1) {
         ui->h265_cpu_vbv_bufsize_combobox->setCurrentIndex(0);
         entries_snapshot.insert("vbv_bufsize", VBV_BUFSIZE_1);
     }
-    else if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_5_LABEL) {
+    else if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_5) {
         ui->h265_cpu_vbv_bufsize_combobox->setCurrentIndex(1);
         entries_snapshot.insert("vbv_bufsize", VBV_BUFSIZE_5);
     }
-    else if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_10_LABEL) {
+    else if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_10) {
         ui->h265_cpu_vbv_bufsize_combobox->setCurrentIndex(2);
         entries_snapshot.insert("vbv_bufsize", VBV_BUFSIZE_10);
     }
-    else if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_15_LABEL) {
+    else if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_15) {
         ui->h265_cpu_vbv_bufsize_combobox->setCurrentIndex(3);
         entries_snapshot.insert("vbv_bufsize", VBV_BUFSIZE_15);
     }
@@ -279,7 +284,6 @@ void h265ConfigurationDialog::setLoadedValues() {
         ui->h265_cpu_fec_percentage_combobox->setCurrentIndex(3);
         entries_snapshot.insert("qp", FEC_40);
     }
-
 }
 
 /**
@@ -337,4 +341,148 @@ void h265ConfigurationDialog::on_h265_cpu_qp_on_radio_button_clicked()
 {
     ui->h265_cpu_vbv_max_rate_off_radio_button->setChecked(true);
     ui->h265_cpu_crf_off_radio_button->setChecked(true);
+}
+
+void h265ConfigurationDialog::on_h265_cpu_cancel_button_clicked()
+{
+    this->hide();
+    this->setLoadedValues();
+}
+
+/**
+ * @brief h265ConfigurationDialog::on_h265_cpu_restore_button_clicked
+ * restore default values from resources file. It copies the resources
+ * file to the assets folder.
+ */
+void h265ConfigurationDialog::on_h265_cpu_restore_button_clicked()
+{
+    restoreDefaultsValues();
+    config->reloadInMemoryValues();
+    setLoadedValues();
+}
+
+/**
+ * @brief h265ConfigurationDialog::on_h265_cpu_ok_button_clicked
+ *
+ * - Go through all the values collected values from the GUI
+ * - If some is diferent to the in-memory snapshot values, rewrites the configuration file.
+ * - Invokes the event to auto-restart the host if app is running.
+ */
+void h265ConfigurationDialog::on_h265_cpu_ok_button_clicked()
+{
+    /*Encoder Speed*/
+    QString selected_encoder_speed_value = ui->h265_cpu_encoding_speed_combobox->currentText();
+    config->setEntry("sw_preset", selected_encoder_speed_value);
+    /*System priority*/
+    QString selected_system_priority_label = ui->h265_cpu_process_priority_combobox->currentText();
+    if(selected_system_priority_label == SYS_PRIORITY_ABOVE_NORMAL_LABEL) {
+        config->setEntry("system_priority", SYS_PRIORITY_ABOVE_NORMAL);
+    }
+    else if (selected_system_priority_label == SYS_PRIORITY_HIGH_LABEL) {
+        config->setEntry("system_priority", SYS_PRIORITY_HIGH);
+    }
+    else if(selected_system_priority_label == SYS_PRIORITY_REAL_TIME_LABEL) {
+        config->setEntry("system_priority", SYS_PRIORITY_REAL_TIME);
+    }
+    /*Frame threads*/
+    QString selected_frame_threads = ui->h265_cpu_frame_threads_combobox->currentText();
+    config->setEntry("min_threads", selected_frame_threads);
+    /*Pool threads*/
+    QString selected_pool_threads = ui->h265_cpu_pool_threads_combobox->currentText();
+    config->setEntry("pools", selected_pool_threads);
+
+    /*VBV maxrate value*/
+    QString selected_vbv_maxrate_label = ui->h265_cpu_vbv_max_rate_value_combobox->currentText();
+    if(selected_vbv_maxrate_label == VBV_MAX_RATE_10_LABEL) {
+        config->setEntry("vbv_maxrate", VBV_MAX_RATE_10);
+    }
+    else if(selected_vbv_maxrate_label == VBV_MAX_RATE_20_LABEL) {
+        config->setEntry("vbv_maxrate", VBV_MAX_RATE_20);
+    }
+    else if(selected_vbv_maxrate_label == VBV_MAX_RATE_30_LABEL) {
+        config->setEntry("vbv_maxrate", VBV_MAX_RATE_30);
+    }
+    else if(selected_vbv_maxrate_label == VBV_MAX_RATE_40_LABEL) {
+        config->setEntry("vbv_maxrate", VBV_MAX_RATE_40);
+    }
+    /*VBV bufsize*/
+    QString selected_vbv_bufsize_label = ui->h265_cpu_vbv_bufsize_combobox->currentText();
+    if(selected_vbv_bufsize_label == VBV_BUFSIZE_1_LABEL) {
+        config->setEntry("vbv_bufsize", VBV_BUFSIZE_1);
+    }
+    else if(selected_vbv_bufsize_label == VBV_BUFSIZE_5_LABEL) {
+        config->setEntry("vbv_bufsize", VBV_BUFSIZE_5);
+    }
+    else if(selected_vbv_bufsize_label == VBV_BUFSIZE_10) {
+        config->setEntry("vbv_bufsize", VBV_BUFSIZE_10);
+    }
+    else if(selected_vbv_bufsize_label == VBV_BUFSIZE_15_LABEL) {
+        config->setEntry("vbv_bufsize", VBV_BUFSIZE_15);
+    }
+    /*crf rate*/
+    QString selected_crf = ui->h265_cpu_crf_rate_combobox->currentText();
+    config->setEntry("crf", selected_crf);
+    /*qp*/
+    QString selected_qp = ui->h265_cpu_qp_rate_combobox->currentText();
+    config->setEntry("qp", selected_qp);
+    /*fec percentage*/
+    QString selected_fec = ui->h265_cpu_fec_percentage_combobox->currentText();
+    config->setEntry("fec_percentage", selected_fec);
+
+    if(ui->h265_cpu_crf_on_radio_button->isChecked()) {
+         config->setEntry("on_crf", "1");
+         config->setEntry("on_vbv", "0");
+         config->setEntry("on_qp", "0");
+         config->setEntry("vbv_bufsize", "0");
+         config->setEntry("qp", "0");
+    }
+    else if(ui->h265_cpu_vbv_max_rate_on_radio_button->isChecked()) {
+        config->setEntry("on_crf", "0");
+        config->setEntry("on_vbv", "1");
+        config->setEntry("on_qp", "0");
+        config->setEntry("qp", "0");
+        config->setEntry("crf", "0");
+    }
+    else if(ui->h265_cpu_qp_on_radio_button->isChecked()) {
+        config->setEntry("on_crf", "0");
+        config->setEntry("on_vbv", "0");
+        config->setEntry("on_qp", "1");
+        config->setEntry("crf", "0");
+        config->setEntry("vbv_bufsize", "0");
+    }
+
+    /**
+    * This logic can be handled manually, since each encoder does not have
+    * many configuration options exposed.
+    */
+    if( entries_snapshot.value("sw_preset") != config->getKey("sw_preset") ||
+        entries_snapshot.value("system_priority") != config->getKey("system_priority") ||
+        entries_snapshot.value("min_threads") != config->getKey("min_threads") ||
+        entries_snapshot.value("pools") != config->getKey("pools") ||
+        entries_snapshot.value("vbv_maxrate") != config->getKey("vbv_maxrate") ||
+        entries_snapshot.value("vbv_bufsize") != config->getKey("vbv_bufsize") ||
+        entries_snapshot.value("crf") != config->getKey("crf") ||
+        entries_snapshot.value("qp") != config->getKey("qp") ||
+        entries_snapshot.value("fec_percentage") != config->getKey("fec_percentage") ||
+        entries_snapshot.value("on_crf") != config->getKey("on_crf") ||
+        entries_snapshot.value("on_qp") != config->getKey("on_qp") ||
+        entries_snapshot.value("on_vbv") != config->getKey("on_vbv")) {
+            entries_snapshot.value("sw_preset", config->getKey("sw_preset"));
+            entries_snapshot.value("system_priority", config->getKey("system_priority"));
+            entries_snapshot.value("min_threads", config->getKey("min_threads"));
+            entries_snapshot.value("pools", config->getKey("pools"));
+            entries_snapshot.value("vbv_maxrate", config->getKey("vbv_maxrate"));
+            entries_snapshot.value("vbv_bufsize", config->getKey("vbv_bufsize"));
+            entries_snapshot.value("crf", config->getKey("crf"));
+            entries_snapshot.value("qp",config->getKey("qp"));
+            entries_snapshot.value("fec_percentage", config->getKey("fec_percentage"));
+            entries_snapshot.value("on_crf", config->getKey("on_crf"));
+            entries_snapshot.value("on_qp", config->getKey("on_qp"));
+            entries_snapshot.value("on_vbv", config->getKey("on_vbv"));
+            emit configuration_changed();
+            qDebug() << "Configuration Changed Detected";
+            return;
+    }
+
+    return;
 }

@@ -70,7 +70,7 @@ font-size: 20px;</string>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_6">
+    <layout class="QHBoxLayout" name="horizontalLayout_7">
      <item>
       <widget class="QLabel" name="h265_cpu_encoding_speed_label">
        <property name="sizePolicy">
@@ -167,7 +167,7 @@ QComboBox QAbstractItemView {
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_7">
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
      <item>
       <widget class="QLabel" name="h265_cpu_process_priority_label">
        <property name="styleSheet">
@@ -227,7 +227,7 @@ QComboBox::drop-down {
 }
 
 QComboBox::down-arrow {
-   image: url(:images/down-arrow-blue-16-ic.png);
+    image: url(:images/down-arrow-blue-16-ic.png);
     height: 12px;
 	width: 12px;
 }
@@ -1171,7 +1171,7 @@ QComboBox QAbstractItemView {
 }</string>
        </property>
        <property name="text">
-        <string>Restore</string>
+        <string>Restore Defaults</string>
        </property>
       </widget>
      </item>
@@ -1199,7 +1199,7 @@ QComboBox QAbstractItemView {
 }</string>
        </property>
        <property name="text">
-        <string>OK</string>
+        <string>Ok</string>
        </property>
       </widget>
      </item>

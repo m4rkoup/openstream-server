@@ -16,14 +16,15 @@ public:
     explicit h265ConfigurationDialog(QWidget *parent = nullptr);
     ~h265ConfigurationDialog();
 
-private slots:
+    void on_h265_cpu_ok_button_clicked();
+    void on_h265_cpu_restore_button_clicked();
+    void on_h265_cpu_cancel_button_clicked();
     void on_h265_cpu_qp_on_radio_button_clicked();
-
-private slots:
     void on_h265_cpu_crf_on_radio_button_clicked();
-
-private slots:
     void on_h265_cpu_vbv_max_rate_on_radio_button_clicked();
+
+signals:
+    void configuration_changed();
 
 private:
     Ui::h265ConfigurationDialog *ui;
@@ -60,7 +61,7 @@ private:
     //Pool Threads
     QString POOL_THREADS_2 = QString("2");
     QString POOL_THREADS_4 = QString("4");
-    QString POOL_THREADS_6 = QString("8");
+    QString POOL_THREADS_6 = QString("6");
     QString POOL_THREADS_8 = QString("8");
 
     //VBV-MAX-Rate

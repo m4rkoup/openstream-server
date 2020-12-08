@@ -455,40 +455,8 @@ void h265ConfigurationDialog::on_h265_cpu_ok_button_clicked()
         config->setEntry("vbv_bufsize", "0");
     }
 
-    /**
-    * This logic can be handled manually, since each encoder does not have
-    * many configuration options exposed.
-    */
-    if( entries_snapshot.value("sw_preset") != config->getKey("sw_preset") ||
-        entries_snapshot.value("system_priority") != config->getKey("system_priority") ||
-        entries_snapshot.value("min_threads") != config->getKey("min_threads") ||
-        entries_snapshot.value("pools") != config->getKey("pools") ||
-        entries_snapshot.value("vbv_maxrate") != config->getKey("vbv_maxrate") ||
-        entries_snapshot.value("vbv_bufsize") != config->getKey("vbv_bufsize") ||
-        entries_snapshot.value("crf") != config->getKey("crf") ||
-        entries_snapshot.value("qp") != config->getKey("qp") ||
-        entries_snapshot.value("fec_percentage") != config->getKey("fec_percentage") ||
-        entries_snapshot.value("on_crf") != config->getKey("on_crf") ||
-        entries_snapshot.value("on_qp") != config->getKey("on_qp") ||
-        entries_snapshot.value("on_vbv") != config->getKey("on_vbv")) {
-            entries_snapshot.value("sw_preset", config->getKey("sw_preset"));
-            entries_snapshot.value("system_priority", config->getKey("system_priority"));
-            entries_snapshot.value("min_threads", config->getKey("min_threads"));
-            entries_snapshot.value("pools", config->getKey("pools"));
-            entries_snapshot.value("vbv_maxrate", config->getKey("vbv_maxrate"));
-            entries_snapshot.value("vbv_bufsize", config->getKey("vbv_bufsize"));
-            entries_snapshot.value("crf", config->getKey("crf"));
-            entries_snapshot.value("qp",config->getKey("qp"));
-            entries_snapshot.value("fec_percentage", config->getKey("fec_percentage"));
-            entries_snapshot.value("on_crf", config->getKey("on_crf"));
-            entries_snapshot.value("on_qp", config->getKey("on_qp"));
-            entries_snapshot.value("on_vbv", config->getKey("on_vbv"));
-            qDebug() << "Configuration changes detected";
-            emit configuration_changed();
-            this->hide();
-            return;
-    }
-    qDebug() << "No configuration changes detected";
+    config->saveConfiguration();
+    emit configuration_changed();
     this->hide();
     return;
 }

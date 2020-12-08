@@ -103,6 +103,7 @@ void ConfigurationManager::copyAssetsFiles() {
 void ConfigurationManager::restoreDefaultConfiguration(QString filename) {
     QFile().remove(ASSETS_FOLDER_FILE_PATH + filename);
     QFile().copy(QString(":assets") + filename, ASSETS_FOLDER_FILE_PATH + filename);
+    QFile::setPermissions(ASSETS_FOLDER_FILE_PATH + filename, QFileDevice::ReadOwner|QFileDevice::WriteOwner);
     qDebug() << "Copied: " << QString(":assets") + filename << Qt::endl;
     qDebug() << "To: " << ASSETS_FOLDER_FILE_PATH + filename << Qt::endl;
 }

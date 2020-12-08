@@ -183,16 +183,74 @@ void h265ConfigurationDialog::setLoadedValues() {
     qDebug() << "CRF" << config->getKey("on_crf") << Qt::endl;
     if(config->getKey("on_crf") == "1") {
         setCRForVBVorQP("crf");
+        /*CRF*/
+        if(config->getKey("crf") == CRF_15) {
+            ui->h265_cpu_crf_rate_combobox->setCurrentIndex(0);
+            entries_snapshot.insert("crf", CRF_15);
+        }
+        else if(config->getKey("crf") == CRF_20) {
+            ui->h265_cpu_crf_rate_combobox->setCurrentIndex(1);
+            entries_snapshot.insert("crf", CRF_20);
+        }
+        else if(config->getKey("crf") == CRF_25) {
+            ui->h265_cpu_crf_rate_combobox->setCurrentIndex(2);
+            entries_snapshot.insert("crf", CRF_25);
+        }
+        else if(config->getKey("crf") == CRF_30) {
+            ui->h265_cpu_crf_rate_combobox->setCurrentIndex(3);
+            entries_snapshot.insert("crf", CRF_30);
+        }
+        entries_snapshot.insert("vbv_bufsize", "0");
+        entries_snapshot.insert("qp", "0");
     }
     else if(config->getKey("on_vbv") == "1") {
         setCRForVBVorQP("vbv");
+        /*VBV Bufsize*/
+        if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_1) {
+            ui->h265_cpu_vbv_bufsize_combobox->setCurrentIndex(0);
+            entries_snapshot.insert("vbv_maxrate", VBV_BUFSIZE_1);
+        }
+        else if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_5) {
+            ui->h265_cpu_vbv_bufsize_combobox->setCurrentIndex(1);
+            entries_snapshot.insert("vbv_bufsize", VBV_BUFSIZE_5);
+        }
+        else if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_10) {
+            ui->h265_cpu_vbv_bufsize_combobox->setCurrentIndex(2);
+            entries_snapshot.insert("vbv_maxrate", VBV_BUFSIZE_10);
+
+        }
+        else if(config->getKey("vbv_bufsize") ==  VBV_BUFSIZE_15) {
+            ui->h265_cpu_vbv_bufsize_combobox->setCurrentIndex(3);
+            entries_snapshot.insert("vbv_maxrate",  VBV_BUFSIZE_15);
+        }
+        entries_snapshot.insert("crf", "0");
+        entries_snapshot.insert("qp", "0");
     }
     else if(config->getKey("on_qp") == "1") {
         setCRForVBVorQP("qp");
+        /*QP*/
+        if(config->getKey("qp") == QP_15) {
+            ui->h265_cpu_qp_rate_combobox->setCurrentIndex(0);
+            entries_snapshot.insert("qp", QP_15);
+        }
+        else if(config->getKey("qp") == QP_20) {
+            ui->h265_cpu_qp_rate_combobox->setCurrentIndex(1);
+            entries_snapshot.insert("qp", QP_20);
+        }
+        else if(config->getKey("qp") == QP_25) {
+            ui->h265_cpu_qp_rate_combobox->setCurrentIndex(2);
+            entries_snapshot.insert("qp", QP_25);
+        }
+        else if(config->getKey("qp") == QP_30) {
+            ui->h265_cpu_qp_rate_combobox->setCurrentIndex(3);
+            entries_snapshot.insert("qp", QP_30);
+        }
+        entries_snapshot.insert("crf", "0");
+        entries_snapshot.insert("vbv_bufsize", "0");
     }
     entries_snapshot.insert("on_crf", config->getKey("on_crf"));
     entries_snapshot.insert("on_vbv", config->getKey("on_vbv"));
-    entries_snapshot.insert("on_crf", config->getKey("on_crf"));
+    entries_snapshot.insert("on_qp", config->getKey("on_qp"));
 
     /*vbv-maxrate*/
     if(config->getKey("vbv_maxrate") == VBV_MAX_RATE_10) {
@@ -213,76 +271,22 @@ void h265ConfigurationDialog::setLoadedValues() {
         entries_snapshot.insert("vbv_maxrate", VBV_MAX_RATE_40);
     }
 
-    /*vbv-bufsize*/
-    if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_1) {
-        ui->h265_cpu_vbv_bufsize_combobox->setCurrentIndex(0);
-        entries_snapshot.insert("vbv_bufsize", VBV_BUFSIZE_1);
-    }
-    else if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_5) {
-        ui->h265_cpu_vbv_bufsize_combobox->setCurrentIndex(1);
-        entries_snapshot.insert("vbv_bufsize", VBV_BUFSIZE_5);
-    }
-    else if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_10) {
-        ui->h265_cpu_vbv_bufsize_combobox->setCurrentIndex(2);
-        entries_snapshot.insert("vbv_bufsize", VBV_BUFSIZE_10);
-    }
-    else if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_15) {
-        ui->h265_cpu_vbv_bufsize_combobox->setCurrentIndex(3);
-        entries_snapshot.insert("vbv_bufsize", VBV_BUFSIZE_15);
-    }
-
-    /*CRF*/
-    if(config->getKey("crf") == CRF_15) {
-        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(0);
-        entries_snapshot.insert("crf", CRF_15);
-    }
-    else if(config->getKey("crf") == CRF_20) {
-        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(1);
-        entries_snapshot.insert("crf", CRF_20);
-    }
-    else if(config->getKey("crf") == CRF_25) {
-        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(2);
-        entries_snapshot.insert("crf", CRF_25);
-    }
-    else if(config->getKey("crf") == CRF_30) {
-        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(3);
-        entries_snapshot.insert("crf", CRF_30);
-    }
-
-    /*QP*/
-    if(config->getKey("qp") == QP_15) {
-        ui->h265_cpu_qp_rate_combobox->setCurrentIndex(0);
-        entries_snapshot.insert("qp", QP_15);
-    }
-    else if(config->getKey("qp") == QP_20) {
-        ui->h265_cpu_qp_rate_combobox->setCurrentIndex(1);
-        entries_snapshot.insert("qp", QP_20);
-    }
-    else if(config->getKey("qp") == QP_25) {
-        ui->h265_cpu_qp_rate_combobox->setCurrentIndex(2);
-        entries_snapshot.insert("qp", QP_25);
-    }
-    else if(config->getKey("qp") == QP_30) {
-        ui->h265_cpu_qp_rate_combobox->setCurrentIndex(3);
-        entries_snapshot.insert("qp", QP_30);
-    }
-
     /*FEC*/
     if(config->getKey("fec_percentage") == FEC_10) {
         ui->h265_cpu_fec_percentage_combobox->setCurrentIndex(0);
-        entries_snapshot.insert("qp", FEC_10);
+        entries_snapshot.insert("fec_percentage", FEC_10);
     }
     else if(config->getKey("fec_percentage") == FEC_20) {
         ui->h265_cpu_fec_percentage_combobox->setCurrentIndex(1);
-        entries_snapshot.insert("qp", FEC_20);
+        entries_snapshot.insert("fec_percentage", FEC_20);
     }
     else if(config->getKey("fec_percentage") == FEC_30) {
         ui->h265_cpu_fec_percentage_combobox->setCurrentIndex(2);
-        entries_snapshot.insert("qp", FEC_30);
+        entries_snapshot.insert("fec_percentage", FEC_30);
     }
     else if(config->getKey("fec_percentage") == FEC_40) {
         ui->h265_cpu_fec_percentage_combobox->setCurrentIndex(3);
-        entries_snapshot.insert("qp", FEC_40);
+        entries_snapshot.insert("fec_percentage", FEC_40);
     }
 }
 
@@ -479,10 +483,12 @@ void h265ConfigurationDialog::on_h265_cpu_ok_button_clicked()
             entries_snapshot.value("on_crf", config->getKey("on_crf"));
             entries_snapshot.value("on_qp", config->getKey("on_qp"));
             entries_snapshot.value("on_vbv", config->getKey("on_vbv"));
+            qDebug() << "Configuration changes detected";
             emit configuration_changed();
-            qDebug() << "Configuration Changed Detected";
+            this->hide();
             return;
     }
-
+    qDebug() << "No configuration changes detected";
+    this->hide();
     return;
 }

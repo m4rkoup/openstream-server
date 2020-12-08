@@ -16,6 +16,7 @@ public:
     explicit h265ConfigurationDialog(QWidget *parent = nullptr);
     ~h265ConfigurationDialog();
 
+public slots:
     void on_h265_cpu_ok_button_clicked();
     void on_h265_cpu_restore_button_clicked();
     void on_h265_cpu_cancel_button_clicked();

@@ -10,7 +10,7 @@ OpenstreamMainWindow::OpenstreamMainWindow(QWidget *parent) :
     ui->main_area_widget->setCurrentIndex(0);
 
     h265CPUConfigDialog = new h265ConfigurationDialog(this);
-    h265CPUConfigDialog->hide();
+
 
     allocateSharedMemoryFootprint();
     createMinimalActions();
@@ -43,9 +43,14 @@ OpenstreamMainWindow::OpenstreamMainWindow(QWidget *parent) :
             &QSystemTrayIcon::messageClicked,
             this,
             &QWidget::showNormal);
+    connect(h265CPUConfigDialog,
+            &h265ConfigurationDialog::configuration_changed,
+            this,
+            &OpenstreamMainWindow::configuration_changed_apply);
+
     setWindowTitle(tr("Open Stream"));
 
-
+    h265CPUConfigDialog->hide();
     icon_off = new QIcon(":/images/joystick.png");
     icon_on = new QIcon(":/images/joystick_on.png");
     trayIcon->setIcon(*icon_off);
@@ -419,4 +424,15 @@ void OpenstreamMainWindow::h265ConfigurationClicked() {
 void OpenstreamMainWindow::on_h265_CPU_configure_button_clicked()
 {
     h265ConfigurationClicked();
+}
+
+void OpenstreamMainWindow::configuration_changed_apply() {
+    qDebug() << "CONFIGURATION CHANGED SLOT" << Qt::endl;
+    if(proc->state() == QProcess::Running) {
+        /*Pseudo-Restart host after config changes*/
+        QMessageBox::information(this, "Info",
+                                         tr("Configuration changed. Stream host will restart."));
+        stopSunshine();
+        startSunshine();
+    }
 }

@@ -51,11 +51,14 @@ signals:
      */
     void auth_finished();
 
-private slots:
-    void on_h265_CPU_configure_button_clicked();
+
 
 private slots:
+    void on_h265_CPU_configure_button_clicked();
     void on_cancel_config_button_clicked();
+
+public slots:
+    void configuration_changed_apply();
 
 private slots:
     void trayIconActivated(QSystemTrayIcon::ActivationReason reason);

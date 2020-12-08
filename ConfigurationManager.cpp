@@ -1,9 +1,10 @@
 #include "ConfigurationManager.h"
 
-ConfigurationManager::ConfigurationManager()
+ConfigurationManager::ConfigurationManager(QString encoder_conf_filename)
     : QObject()
 {
     QHash<QString, QString> entries = QHash<QString, QString>();
+    CONFIG_FILE_PATH = QString(QCoreApplication::applicationDirPath() + encoder_conf_filename);
     loadRootConfiguration();
 }
 
@@ -38,7 +39,6 @@ void ConfigurationManager::loadRootConfiguration()
         }
     }
     inputFile.close();
-
 }
 
 void ConfigurationManager::saveConfiguration()
@@ -92,5 +92,11 @@ void ConfigurationManager::copyAssetsFiles() {
     QFile().copy(":assets/apps_windows.json", ASSETS_FOLDER_FILE_PATH + "/apps_windows.json");
     QFile().copy(":assets/box.png", ASSETS_FOLDER_FILE_PATH + "/box.png");
     QFile().copy(":assets/sunshine.conf", ASSETS_FOLDER_FILE_PATH + "/sunshine.conf");
+    QFile().copy(":assets/h265CPU.conf", ASSETS_FOLDER_FILE_PATH + "/h265CPU.conf");
     QFile::setPermissions(ASSETS_FOLDER_FILE_PATH + "/sunshine.conf", QFileDevice::ReadOwner|QFileDevice::WriteOwner);
+    QFile::setPermissions(ASSETS_FOLDER_FILE_PATH + "/h265CPU.conf", QFileDevice::ReadOwner|QFileDevice::WriteOwner);
+}
+
+void ConfigurationManager::restoreDefaultConfiguration(QString filename) {
+    QFile().copy(QString(":assets/") + filename, ASSETS_FOLDER_FILE_PATH + filename);
 }

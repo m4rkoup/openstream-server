@@ -162,26 +162,6 @@ QComboBox QAbstractItemView {
 
 </string>
        </property>
-       <item>
-        <property name="text">
-         <string>Fast</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Faster</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Super-Fast</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Ultra-Fast</string>
-        </property>
-       </item>
       </widget>
      </item>
     </layout>
@@ -270,21 +250,6 @@ QComboBox QAbstractItemView {
 
 </string>
        </property>
-       <item>
-        <property name="text">
-         <string>Above Normal</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>High</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Real Time</string>
-        </property>
-       </item>
       </widget>
      </item>
     </layout>
@@ -373,26 +338,6 @@ QComboBox QAbstractItemView {
 
 </string>
        </property>
-       <item>
-        <property name="text">
-         <string>2</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>4</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>6</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>8</string>
-        </property>
-       </item>
       </widget>
      </item>
     </layout>
@@ -481,26 +426,6 @@ QComboBox QAbstractItemView {
 
 </string>
        </property>
-       <item>
-        <property name="text">
-         <string>2</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>4</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>6</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>8</string>
-        </property>
-       </item>
       </widget>
      </item>
     </layout>
@@ -561,6 +486,9 @@ QRadioButton::indicator::checked {
         </item>
         <item>
          <widget class="QRadioButton" name="h265_cpu_vbv_max_rate_off_radio_button">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="font">
            <font>
             <pointsize>-1</pointsize>
@@ -688,26 +616,6 @@ QComboBox QAbstractItemView {
 
 </string>
        </property>
-       <item>
-        <property name="text">
-         <string>10 Mbps</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>20 Mbps</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>30 Mbps</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>40 Mbps</string>
-        </property>
-       </item>
       </widget>
      </item>
     </layout>
@@ -796,26 +704,6 @@ QComboBox QAbstractItemView {
 
 </string>
        </property>
-       <item>
-        <property name="text">
-         <string>1</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>5</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>10</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>15</string>
-        </property>
-       </item>
       </widget>
      </item>
     </layout>
@@ -825,9 +713,17 @@ QComboBox QAbstractItemView {
      <item>
       <widget class="QLabel" name="h265_cpu_crf_label">
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
+        <string notr="true">QLabel {
+color: rgb(255, 255, 255);
 font:  &quot;Open Sans Light&quot;;
-font-size: 12px;</string>
+font-size: 12px;
+}
+
+QLabel QTooTip {
+color: #000000;
+font:  &quot;Open Sans Light&quot;;
+font-size: 12px;
+}</string>
        </property>
        <property name="text">
         <string>CRF</string>
@@ -980,26 +876,6 @@ QComboBox QAbstractItemView {
 
 </string>
        </property>
-       <item>
-        <property name="text">
-         <string>10</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>20</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>25</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>30</string>
-        </property>
-       </item>
       </widget>
      </item>
     </layout>
@@ -1164,26 +1040,6 @@ QComboBox QAbstractItemView {
 
 </string>
        </property>
-       <item>
-        <property name="text">
-         <string>15</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>20</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>25</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>30</string>
-        </property>
-       </item>
       </widget>
      </item>
     </layout>
@@ -1272,32 +1128,12 @@ QComboBox QAbstractItemView {
 
 </string>
        </property>
-       <item>
-        <property name="text">
-         <string>10</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>20</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>25</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>30</string>
-        </property>
-       </item>
       </widget>
      </item>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_19">
+    <layout class="QHBoxLayout" name="horizontalLayout_14">
      <item>
       <spacer name="horizontalSpacer_16">
        <property name="orientation">
@@ -1313,6 +1149,12 @@ QComboBox QAbstractItemView {
      </item>
      <item>
       <widget class="QPushButton" name="h265_cpu_restore_button">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>1</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="styleSheet">
         <string notr="true">#h265_cpu_restore_button {
   background-color: #272640;
@@ -1335,6 +1177,12 @@ QComboBox QAbstractItemView {
      </item>
      <item>
       <widget class="QPushButton" name="h265_cpu_ok_button">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>1</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="styleSheet">
         <string notr="true">#h265_cpu_ok_button {
   background-color: #272640;
@@ -1357,6 +1205,12 @@ QComboBox QAbstractItemView {
      </item>
      <item>
       <widget class="QPushButton" name="h265_cpu_cancel_button">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>1</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="styleSheet">
         <string notr="true">#h265_cpu_cancel_button {
   background-color: #272640;
@@ -1378,13 +1232,13 @@ QComboBox QAbstractItemView {
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_15">
+      <spacer name="horizontalSpacer_17">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>118</width>
+         <width>88</width>
          <height>20</height>
         </size>
        </property>

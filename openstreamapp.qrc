@@ -30,5 +30,6 @@
         <file>images/on.jpg</file>
         <file>images/terminal-ic.png</file>
         <file>images/uncheck-ic.png</file>
+        <file>assets/h265CPU.conf</file>
     </qresource>
 </RCC>

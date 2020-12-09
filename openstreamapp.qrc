@@ -31,5 +31,6 @@
         <file>images/terminal-ic.png</file>
         <file>images/uncheck-ic.png</file>
         <file>assets/h265CPU.conf</file>
+        <file>assets/encoder.conf</file>
     </qresource>
 </RCC>

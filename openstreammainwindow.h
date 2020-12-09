@@ -22,6 +22,15 @@ namespace Ui {
 class OpenstreamMainWindow;
 }
 
+enum VideoEncoder {
+    h264CPU,
+    h265CPU,
+    h264NVENC,
+    h265NVENC,
+    h264AMDAMF,
+    h265AMDAMF
+};
+
 class OpenstreamMainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -34,8 +43,7 @@ public:
 public slots:
     /**
      * @brief on_event_loop_started
-     * Automatically starts the host for usability with
-     * Auto start functionality when systems boot.
+     * Starts the openstreamhost when the GUI has been started.
      */
     void on_event_loop_started();
 
@@ -47,17 +55,17 @@ signals:
      * @brief auth_finished is emitted when the authentication pin dialog
      * has been closed.
      * It doesn't matter if the pairing was succesful or not. After the dialog
-     * has been closed, the named pipe will be waiting again.
+     * has been closed, the named pipe will be waiting again
+     * for new pairing processes.
      */
     void auth_finished();
 
-
-
-private slots:
-    void on_h265_CPU_configure_button_clicked();
-    void on_cancel_config_button_clicked();
-
 public slots:
+    /**
+     * @brief configuration_changed_apply
+     * This slot is connected to configuration signals,
+     * to auto restart the host if configuration applies.
+     */
     void configuration_changed_apply();
 
 private slots:
@@ -92,11 +100,16 @@ private slots:
     void inputAuthPinCapture();
 
     void on_configure_button_clicked();
-    void on_apply_config_button_clicked();
+    void on_h265_CPU_configure_button_clicked();
+    void on_cancel_config_button_clicked();
+    void on_h265_CPU_select_button_clicked();
 
 private:
     Ui::OpenstreamMainWindow *ui;
     QString *SUNSHINE_CONF = new QString("/assets/sunshine.conf");
+
+    /*Holds the state of which encoder is selected*/
+    VideoEncoder current_encoder;
 
 
     //QProces to handle the Sunshine underneath binary executable.
@@ -104,7 +117,6 @@ private:
     void allocateNewProcess();
 
     /*Private API for start/stop*/
-    void startSunshineApp();
     void appStart();
     void appStarting();
     void appRunning();
@@ -150,8 +162,13 @@ private:
 
     /*Configuration Dialogs*/
     h265ConfigurationDialog *h265CPUConfigDialog;
-    void h265ConfigurationClicked();
 
+    /*Read/write encoder configuration*/
+    void readEncoderConfiguration();
+    void writeEncoderConfiguration();
+
+    void updateEncoderButtonsSelected();
+    void removeIconsFromSelectionButtons();
 };
 
 #endif // OPENSTREAMMAINWINDOW_H

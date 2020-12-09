@@ -611,11 +611,7 @@ resolution-up-to 60 fps
 }</string>
                  </property>
                  <property name="text">
-                  <string/>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="openstreamapp.qrc">
-                   <normaloff>:/images/check-ic.png</normaloff>:/images/check-ic.png</iconset>
+                  <string>Select</string>
                  </property>
                 </widget>
                </item>
@@ -1128,34 +1124,6 @@ font-size: 14px;</string>
              </size>
             </property>
            </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="apply_config_button">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-              <horstretch>1</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">#apply_config_button {
-  background-color: #272640;
-  color: #FFFFFF;
-  font-size: 14px;
-  padding: 4px;
-  margin: 4px;
-  font: &quot;Open Sans&quot;;
-  border: none;
-}
-
-#apply_config_button:hover {
-  background-color: #006466;
-}</string>
-            </property>
-            <property name="text">
-             <string>Apply</string>
-            </property>
-           </widget>
           </item>
           <item>
            <widget class="QPushButton" name="cancel_config_button">

@@ -49,7 +49,8 @@ OpenstreamMainWindow::OpenstreamMainWindow(QWidget *parent) :
             &OpenstreamMainWindow::configuration_changed_apply);
 
     setWindowTitle(tr("Open Stream"));
-
+    readEncoderConfiguration();
+    updateEncoderButtonsSelected();
     h265CPUConfigDialog->hide();
     icon_off = new QIcon(":/images/joystick.png");
     icon_on = new QIcon(":/images/joystick_on.png");
@@ -257,7 +258,13 @@ void OpenstreamMainWindow::appStart() {
     connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
             this, &OpenstreamMainWindow::set_off_host_state_indicator);
     proc->open(QProcess::Unbuffered);
-    proc->start(app_dir + "/openstreamhost/openstreamhost.exe", QStringList() << app_dir + *SUNSHINE_CONF);
+    if(current_encoder == h265CPU) {
+        proc->start(app_dir + "/openstreamhost/openstreamhost.exe", QStringList() << app_dir + "/assets/h265CPU.conf");
+    }
+    else {
+        proc->start(app_dir + "/openstreamhost/openstreamhost.exe", QStringList() << app_dir + "/assets/sunshine.conf");
+    }
+
     this->set_on_host_state_indicator();
     qDebug() << "Application started" << Qt::endl;
 }
@@ -332,6 +339,10 @@ void OpenstreamMainWindow::stopHostBeforeClose() {
     this->stopSunshine();
 }
 
+/**
+ * @brief on_event_loop_started
+ * Starts the openstreamhost when the GUI has been started.
+ */
 void OpenstreamMainWindow::on_event_loop_started() {
     appStart();
 }
@@ -396,13 +407,6 @@ void OpenstreamMainWindow::showAuthMessagePopUp() {
     trayIcon->showMessage(title, body, trayIcon->icon(), 60 * 100000);
 }
 
-void OpenstreamMainWindow::on_apply_config_button_clicked()
-{
-    ui->main_area_widget->setCurrentIndex(0);
-    ui->start_button->setEnabled(true);
-    ui->stop_button->setEnabled(true);
-}
-
 void OpenstreamMainWindow::on_cancel_config_button_clicked()
 {
     ui->main_area_widget->setCurrentIndex(0);
@@ -417,15 +421,16 @@ void OpenstreamMainWindow::on_configure_button_clicked()
     ui->stop_button->setEnabled(false);
 }
 
-void OpenstreamMainWindow::h265ConfigurationClicked() {
+void OpenstreamMainWindow::on_h265_CPU_configure_button_clicked()
+{
     h265CPUConfigDialog->exec();
 }
 
-void OpenstreamMainWindow::on_h265_CPU_configure_button_clicked()
-{
-    h265ConfigurationClicked();
-}
-
+/**
+ * @brief configuration_changed_apply
+ * This slot is connected to configuration signals,
+ * to auto restart the host if configuration applies.
+ */
 void OpenstreamMainWindow::configuration_changed_apply() {
     qDebug() << "CONFIGURATION CHANGED SLOT" << Qt::endl;
     if(proc->state() == QProcess::Running) {
@@ -435,4 +440,126 @@ void OpenstreamMainWindow::configuration_changed_apply() {
         stopSunshine();
         startSunshine();
     }
+}
+
+void OpenstreamMainWindow::readEncoderConfiguration() {
+    QFile inputFile(QCoreApplication::applicationDirPath() + "/assets/encoder.conf");
+    if(inputFile.open(QIODevice::ReadOnly))
+    {
+        QTextStream in(&inputFile);
+        while(!in.atEnd())
+        {
+            QString line = in.readLine();
+            if(line.startsWith("#") ||
+                    line.startsWith("\n") ||
+                    line.isEmpty())
+                continue;
+
+            auto key_val = line.split("=");
+            QString encoder_str =  key_val.last().trimmed();
+            qDebug() << encoder_str << Qt::endl;
+            if (encoder_str == "h264CPU") {
+                current_encoder = h264CPU;
+            }
+            else if(encoder_str == "h265CPU") {
+                current_encoder = h265CPU;
+            }
+            else if(encoder_str == "h264NVENC") {
+                current_encoder = h264NVENC;
+            }
+            else if (encoder_str == "h265NVENC") {
+                current_encoder = h265NVENC;
+            }
+            else {
+                current_encoder = h264CPU;
+            }
+        }
+    }
+    inputFile.close();
+}
+
+void OpenstreamMainWindow::writeEncoderConfiguration() {
+    QFile outputFile(QCoreApplication::applicationDirPath() + "/assets/encoder.conf");
+    outputFile.open(QIODevice::WriteOnly);
+    QTextStream outStream(&outputFile);
+    if (current_encoder == h264CPU) {
+        outStream << "encoder" << "=" << "h264CPU" << Qt::endl;
+    }
+    else if(current_encoder == h265CPU) {
+        outStream << "encoder" << "=" << "h265CPU" << Qt::endl;
+    }
+    else if(current_encoder == h264NVENC) {
+        outStream << "encoder" << "=" << "h264NVENC" << Qt::endl;
+    }
+    else if (current_encoder == h265NVENC) {
+        outStream << "encoder" << "=" << "h265NVENC" << Qt::endl;
+    }
+    else {
+       outStream << "encoder" << "=" << "h264CPU" << Qt::endl;
+    }
+}
+
+/**
+ * @brief OpenstreamMainWindow::removeIconsFromSelectionButtons
+ * Empty all the icons from encoders selection buttons.
+ */
+void OpenstreamMainWindow::removeIconsFromSelectionButtons() {
+    ui->h264_CPU_select_button->setIcon(QIcon());
+    ui->h264_CPU_select_button->setText("Select");
+    ui->h265_CPU_select_button->setIcon(QIcon());
+    ui->h265_CPU_select_button->setText("Select");
+    ui->h264_NVENC_select_button->setIcon(QIcon());
+    ui->h264_NVENC_select_button->setText("Select");
+    ui->h265_NVENC_select_button->setIcon(QIcon());
+    ui->h265_NVENC_select_button->setText("Select");
+    ui->h264_AMD_select_button->setIcon(QIcon());
+    ui->h264_AMD_select_button->setText("Select");
+    ui->h265_AMD_select_button->setIcon(QIcon());
+    ui->h265_AMD_select_button->setText("Select");
+}
+
+/**
+ * @brief OpenstreamMainWindow::updateEncoderButtonsSelected
+ * Updates the icon for the approriate select button based on which
+ * encoder is selected.
+ */
+void OpenstreamMainWindow::updateEncoderButtonsSelected() {
+    removeIconsFromSelectionButtons();
+
+    if(this->current_encoder == h264CPU) {
+        ui->h264_CPU_select_button->setIcon(QIcon(":images/check-ic.png"));
+        ui->h264_CPU_select_button->setText("");
+    }
+    else if(this->current_encoder == h265CPU) {
+        ui->h265_CPU_select_button->setIcon(QIcon(":images/check-ic.png"));
+        ui->h265_CPU_select_button->setText("");
+    }
+    else if(this->current_encoder == h264NVENC) {
+        ui->h264_NVENC_select_button->setIcon(QIcon(":images/check-ic.png"));
+        ui->h264_NVENC_select_button->setText("");
+    }
+    else if(this->current_encoder == h265NVENC) {
+        ui->h265_NVENC_select_button->setIcon(QIcon(":images/check-ic.png"));
+        ui->h265_NVENC_select_button->setText("");
+    }
+    else if(this->current_encoder == h264AMDAMF) {
+        ui->h264_AMD_select_button->setIcon(QIcon(":images/check-ic.png"));
+        ui->h264_AMD_select_button->setText("");
+    }
+    else if(this->current_encoder == h265AMDAMF) {
+        ui->h265_AMD_select_button->setIcon(QIcon(":images/check-ic.png"));
+        ui->h265_AMD_select_button->setText("");
+    }
+}
+
+void OpenstreamMainWindow::on_h265_CPU_select_button_clicked()
+{
+    if(current_encoder == h265CPU)
+        return;
+
+    current_encoder = h265CPU;
+    writeEncoderConfiguration();
+    removeIconsFromSelectionButtons();
+    updateEncoderButtonsSelected();
+    configuration_changed_apply();
 }

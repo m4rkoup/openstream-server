@@ -453,6 +453,13 @@ void h265ConfigurationDialog::on_h265_cpu_ok_button_clicked()
         config->setEntry("on_qp", "1");
         config->setEntry("crf", "0");
         config->setEntry("vbv_bufsize", "0");
+    } else {
+        config->setEntry("on_crf", "0");
+        config->setEntry("on_vbv", "0");
+        config->setEntry("on_qp", "0");
+        config->setEntry("crf", "0");
+        config->setEntry("vbv_bufsize", "0");
+        config->setEntry("qp", "0");
     }
 
     config->saveConfiguration();

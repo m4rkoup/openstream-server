@@ -101,12 +101,13 @@ private slots:
 
     void on_configure_button_clicked();
     void on_h265_CPU_configure_button_clicked();
-    void on_cancel_config_button_clicked();
+    void on_go_back_config_button_clicked();
     void on_h265_CPU_select_button_clicked();
 
 private:
     Ui::OpenstreamMainWindow *ui;
     QString *SUNSHINE_CONF = new QString("/assets/sunshine.conf");
+    QString H265_CONF = QString("/assets/h265CPU.conf");
 
     /*Holds the state of which encoder is selected*/
     VideoEncoder current_encoder;

@@ -45,56 +45,65 @@ h265ConfigurationDialog::h265ConfigurationDialog(QWidget *parent) :
 
     /*Initialize UI Elements values*/
     /*Software Encoder Speed*/
-    ui->h265_cpu_encoding_speed_combobox->addItem(this->ENCODER_SPEED_FAST);
+    /*ui->h265_cpu_encoding_speed_combobox->addItem(this->ENCODER_SPEED_FAST);
     ui->h265_cpu_encoding_speed_combobox->addItem(this->ENCODER_SPEED_FASTER);
-    ui->h265_cpu_encoding_speed_combobox->addItem(this->ENCODER_SPEED_SUPERFAST);
+    ui->h265_cpu_encoding_speed_combobox->addItem(this->ENCODER_SPEED_SUPERFAST);*/
+    ui->h265_cpu_encoding_speed_combobox->addItems(this->ENCODER_SPEED_OPT_LIST);
 
     /*Process Priority*/
-    ui->h265_cpu_process_priority_combobox->addItem(this->SYS_PRIORITY_ABOVE_NORMAL_LABEL);
+    /*ui->h265_cpu_process_priority_combobox->addItem(this->SYS_PRIORITY_ABOVE_NORMAL_LABEL);
     ui->h265_cpu_process_priority_combobox->addItem(this->SYS_PRIORITY_HIGH_LABEL);
-    ui->h265_cpu_process_priority_combobox->addItem(this->SYS_PRIORITY_REAL_TIME_LABEL);
+    ui->h265_cpu_process_priority_combobox->addItem(this->SYS_PRIORITY_REAL_TIME_LABEL);*/
+    ui->h265_cpu_process_priority_combobox->addItems(this->SYS_PRIORITY_OP_LIST);
 
     /*Frame threads*/
-    ui->h265_cpu_frame_threads_combobox->addItem(this->FRAME_THREADS_2);
+    /*ui->h265_cpu_frame_threads_combobox->addItem(this->FRAME_THREADS_2);
     ui->h265_cpu_frame_threads_combobox->addItem(this->FRAME_THREADS_4);
     ui->h265_cpu_frame_threads_combobox->addItem(this->FRAME_THREADS_6);
-    ui->h265_cpu_frame_threads_combobox->addItem(this->FRAME_THREADS_8);
+    ui->h265_cpu_frame_threads_combobox->addItem(this->FRAME_THREADS_8);*/
+    ui->h265_cpu_frame_threads_combobox->addItems(this->FRAME_THREADS_OPT_LIST);
 
     /*Pool threads*/
-    ui->h265_cpu_pool_threads_combobox->addItem(this->POOL_THREADS_2);
+    /*ui->h265_cpu_pool_threads_combobox->addItem(this->POOL_THREADS_2);
     ui->h265_cpu_pool_threads_combobox->addItem(this->POOL_THREADS_4);
     ui->h265_cpu_pool_threads_combobox->addItem(this->POOL_THREADS_6);
-    ui->h265_cpu_pool_threads_combobox->addItem(this->POOL_THREADS_8);
+    ui->h265_cpu_pool_threads_combobox->addItem(this->POOL_THREADS_8);*/
+    ui->h265_cpu_pool_threads_combobox->addItems(this->POOL_THREADS_OPT_LIST);
 
     /*VBV max rate*/
-    ui->h265_cpu_vbv_max_rate_value_combobox->addItem(VBV_MAX_RATE_10_LABEL);
+    /*ui->h265_cpu_vbv_max_rate_value_combobox->addItem(VBV_MAX_RATE_10_LABEL);
     ui->h265_cpu_vbv_max_rate_value_combobox->addItem(VBV_MAX_RATE_20_LABEL);
     ui->h265_cpu_vbv_max_rate_value_combobox->addItem(VBV_MAX_RATE_30_LABEL);
-    ui->h265_cpu_vbv_max_rate_value_combobox->addItem(VBV_MAX_RATE_40_LABEL);
+    ui->h265_cpu_vbv_max_rate_value_combobox->addItem(VBV_MAX_RATE_40_LABEL);*/
+    ui->h265_cpu_vbv_max_rate_value_combobox->addItems(VBV_MAX_RATE_LABEL_OPT_LIST);
 
     /*VBV_BUFSIZE*/
-    ui->h265_cpu_vbv_bufsize_combobox->addItem(VBV_BUFSIZE_1_LABEL);
+    /*ui->h265_cpu_vbv_bufsize_combobox->addItem(VBV_BUFSIZE_1_LABEL);
     ui->h265_cpu_vbv_bufsize_combobox->addItem(VBV_BUFSIZE_5_LABEL);
     ui->h265_cpu_vbv_bufsize_combobox->addItem(VBV_BUFSIZE_10_LABEL);
-    ui->h265_cpu_vbv_bufsize_combobox->addItem(VBV_BUFSIZE_15_LABEL);
+    ui->h265_cpu_vbv_bufsize_combobox->addItem(VBV_BUFSIZE_15_LABEL);*/
+    ui->h265_cpu_vbv_bufsize_combobox->addItems(VBV_BUFSIZE_LABEL_OPT_LIST);
 
     /*CRF*/
-    ui->h265_cpu_crf_rate_combobox->addItem(CRF_15);
+    /*ui->h265_cpu_crf_rate_combobox->addItem(CRF_15);
     ui->h265_cpu_crf_rate_combobox->addItem(CRF_20);
     ui->h265_cpu_crf_rate_combobox->addItem(CRF_25);
-    ui->h265_cpu_crf_rate_combobox->addItem(CRF_30);
+    ui->h265_cpu_crf_rate_combobox->addItem(CRF_30);*/
+    ui->h265_cpu_crf_rate_combobox->addItems(CRF_OPT_LIST);
 
     /*QP*/
-    ui->h265_cpu_qp_rate_combobox->addItem(QP_15);
+    /*ui->h265_cpu_qp_rate_combobox->addItem(QP_15);
     ui->h265_cpu_qp_rate_combobox->addItem(QP_20);
     ui->h265_cpu_qp_rate_combobox->addItem(QP_25);
-    ui->h265_cpu_qp_rate_combobox->addItem(QP_30);
+    ui->h265_cpu_qp_rate_combobox->addItem(QP_30);*/
+    ui->h265_cpu_qp_rate_combobox->addItems(QP_OPT_LIST);
 
     /*FEC*/
-    ui->h265_cpu_fec_percentage_combobox->addItem(FEC_10);
+    /*ui->h265_cpu_fec_percentage_combobox->addItem(FEC_10);
     ui->h265_cpu_fec_percentage_combobox->addItem(FEC_20);
     ui->h265_cpu_fec_percentage_combobox->addItem(FEC_30);
-    ui->h265_cpu_fec_percentage_combobox->addItem(FEC_40);
+    ui->h265_cpu_fec_percentage_combobox->addItem(FEC_40);*/
+    ui->h265_cpu_fec_percentage_combobox->addItems(FEC_OPT_LIST);
 
     setLoadedValues();
 }

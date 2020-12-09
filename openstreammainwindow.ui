@@ -1126,7 +1126,7 @@ font-size: 14px;</string>
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="cancel_config_button">
+           <widget class="QPushButton" name="go_back_config_button">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
               <horstretch>1</horstretch>
@@ -1134,7 +1134,7 @@ font-size: 14px;</string>
              </sizepolicy>
             </property>
             <property name="styleSheet">
-             <string notr="true">#cancel_config_button {
+             <string notr="true">#go_back_config_button {
   background-color: #272640;
   color: #FFFFFF;
   font-size: 14px;
@@ -1144,12 +1144,12 @@ font-size: 14px;</string>
   border: none;
 }
 
-#cancel_config_button:hover {
+#go_back_config_button:hover {
   background-color: #006466;
 }</string>
             </property>
             <property name="text">
-             <string>Cancel</string>
+             <string>Go Back</string>
             </property>
            </widget>
           </item>

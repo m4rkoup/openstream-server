@@ -259,7 +259,7 @@ void OpenstreamMainWindow::appStart() {
             this, &OpenstreamMainWindow::set_off_host_state_indicator);
     proc->open(QProcess::Unbuffered);
     if(current_encoder == h265CPU) {
-        proc->start(app_dir + "/openstreamhost/openstreamhost.exe", QStringList() << app_dir + "/assets/h265CPU.conf");
+        proc->start(app_dir + "/openstreamhost/openstreamhost.exe", QStringList() << app_dir + H265_CONF);
     }
     else {
         proc->start(app_dir + "/openstreamhost/openstreamhost.exe", QStringList() << app_dir + "/assets/sunshine.conf");
@@ -407,7 +407,7 @@ void OpenstreamMainWindow::showAuthMessagePopUp() {
     trayIcon->showMessage(title, body, trayIcon->icon(), 60 * 100000);
 }
 
-void OpenstreamMainWindow::on_cancel_config_button_clicked()
+void OpenstreamMainWindow::on_go_back_config_button_clicked()
 {
     ui->main_area_widget->setCurrentIndex(0);
     ui->start_button->setEnabled(true);

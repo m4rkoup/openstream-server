@@ -330,6 +330,7 @@ void h265ConfigurationDialog::on_h265_cpu_qp_on_radio_button_clicked()
 void h265ConfigurationDialog::on_h265_cpu_cancel_button_clicked()
 {
     this->hide();
+    //For cancel, restore loaded values
     this->setLoadedValues();
 }
 
@@ -349,7 +350,6 @@ void h265ConfigurationDialog::on_h265_cpu_restore_button_clicked()
  * @brief h265ConfigurationDialog::on_h265_cpu_ok_button_clicked
  *
  * - Go through all the values collected values from the GUI
- * - If some is diferent to the in-memory snapshot values, rewrites the configuration file.
  * - Invokes the event to auto-restart the host if app is running.
  */
 void h265ConfigurationDialog::on_h265_cpu_ok_button_clicked()

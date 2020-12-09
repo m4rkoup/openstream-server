@@ -939,6 +939,9 @@ font-size: 14px;</string>
               <layout class="QHBoxLayout" name="horizontalLayout_11">
                <item>
                 <widget class="QPushButton" name="h265_AMD_select_button">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
                  <property name="font">
                   <font>
                    <pointsize>-1</pointsize>
@@ -969,6 +972,9 @@ font-size: 14px;</string>
                </item>
                <item>
                 <widget class="QPushButton" name="h265_AMD_configure_button">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
                  <property name="styleSheet">
                   <string notr="true">#h265_AMD_configure_button {
   background-color: #272640;
@@ -1053,6 +1059,9 @@ font-size: 14px;</string>
               <layout class="QHBoxLayout" name="horizontalLayout_10">
                <item>
                 <widget class="QPushButton" name="h264_AMD_select_button">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
                  <property name="font">
                   <font>
                    <pointsize>-1</pointsize>
@@ -1083,6 +1092,9 @@ font-size: 14px;</string>
                </item>
                <item>
                 <widget class="QPushButton" name="h264_AMD_configure_button">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
                  <property name="styleSheet">
                   <string notr="true">#h264_AMD_configure_button {
   background-color: #272640;
@@ -1150,6 +1162,10 @@ font-size: 14px;</string>
             </property>
             <property name="text">
              <string>Go Back</string>
+            </property>
+            <property name="icon">
+             <iconset resource="openstreamapp.qrc">
+              <normaloff>:/images/go-back-arrow.png</normaloff>:/images/go-back-arrow.png</iconset>
             </property>
            </widget>
           </item>

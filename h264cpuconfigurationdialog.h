@@ -22,7 +22,12 @@ signals:
     void configuration_changed();
 
 private slots:
+    void on_h264_cpu_cancel_button_clicked();
     void on_h264_cpu_restore_button_clicked();
+    void on_h264_cpu_ok_button_clicked();
+    void on_h264_cpu_vbv_max_rate_on_radio_button_clicked();
+    void on_h264_cpu_crf_on_radio_button_clicked();
+    void on_h264_cpu_qp_on_radio_button_clicked();
 
 private:
     Ui::h264CPUConfigurationDialog *ui;

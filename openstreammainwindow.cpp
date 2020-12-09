@@ -11,6 +11,7 @@ OpenstreamMainWindow::OpenstreamMainWindow(QWidget *parent) :
 
     h265CPUConfigDialog = new h265ConfigurationDialog(this);
     h264CPUConfigDialog = new h264CPUConfigurationDialog(this);
+    h264NVENCConfigDialog = new h264NVENCConfigurationDialog(this);
 
 
     allocateSharedMemoryFootprint();
@@ -48,12 +49,17 @@ OpenstreamMainWindow::OpenstreamMainWindow(QWidget *parent) :
             &h265ConfigurationDialog::configuration_changed,
             this,
             &OpenstreamMainWindow::configuration_changed_apply);
+    connect(h264CPUConfigDialog,
+            &h264CPUConfigurationDialog::configuration_changed,
+            this,
+            &OpenstreamMainWindow::configuration_changed_apply);
 
     setWindowTitle(tr("Open Stream"));
     readEncoderConfiguration();
     updateEncoderButtonsSelected();
     h265CPUConfigDialog->hide();
     h264CPUConfigDialog->hide();
+    h264NVENCConfigDialog->hide();
     icon_off = new QIcon(":/images/joystick.png");
     icon_on = new QIcon(":/images/joystick_on.png");
     trayIcon->setIcon(*icon_off);
@@ -260,7 +266,10 @@ void OpenstreamMainWindow::appStart() {
     connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
             this, &OpenstreamMainWindow::set_off_host_state_indicator);
     proc->open(QProcess::Unbuffered);
-    if(current_encoder == h265CPU) {
+    if (current_encoder == h264CPU) {
+       proc->start(app_dir + "/openstreamhost/openstreamhost.exe", QStringList() << app_dir + H264_CONF);
+    }
+    else if(current_encoder == h265CPU) {
         proc->start(app_dir + "/openstreamhost/openstreamhost.exe", QStringList() << app_dir + H265_CONF);
     }
     else {
@@ -569,4 +578,20 @@ void OpenstreamMainWindow::on_h265_CPU_select_button_clicked()
 void OpenstreamMainWindow::on_h264_CPU_configuration_button_clicked()
 {
     h264CPUConfigDialog->exec();
+}
+
+void OpenstreamMainWindow::on_h264_CPU_select_button_clicked()
+{
+    if(current_encoder == h264CPU)
+        return;
+    current_encoder = h264CPU;
+    writeEncoderConfiguration();
+    removeIconsFromSelectionButtons();
+    updateEncoderButtonsSelected();
+    configuration_changed_apply();
+}
+
+void OpenstreamMainWindow::on_h264_NVENC_configure_button_clicked()
+{
+    h264NVENCConfigDialog->exec();
 }

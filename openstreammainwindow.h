@@ -17,6 +17,7 @@
 #include "auth_pin_handler.h"
 #include "h265configurationdialog.h"
 #include "h264cpuconfigurationdialog.h"
+#include "h264nvencconfigurationdialog.h"
 
 
 namespace Ui {
@@ -70,6 +71,12 @@ public slots:
     void configuration_changed_apply();
 
 private slots:
+    void on_h264_NVENC_configure_button_clicked();
+
+private slots:
+    void on_h264_CPU_select_button_clicked();
+
+private slots:
     void trayIconActivated(QSystemTrayIcon::ActivationReason reason);
     void startSunshine();
     void stopSunshine();
@@ -110,6 +117,8 @@ private:
     Ui::OpenstreamMainWindow *ui;
     QString *SUNSHINE_CONF = new QString("/assets/sunshine.conf");
     QString H265_CONF = QString("/assets/h265CPU.conf");
+    QString H264_CONF = QString("/assets/h264CPU.conf");
+    QString H264_NVENC_CONF = QString("/assets/h265NVENC.conf");
 
     /*Holds the state of which encoder is selected*/
     VideoEncoder current_encoder;
@@ -166,6 +175,7 @@ private:
     /*Configuration Dialogs*/
     h265ConfigurationDialog *h265CPUConfigDialog;
     h264CPUConfigurationDialog *h264CPUConfigDialog;
+    h264NVENCConfigurationDialog *h264NVENCConfigDialog;
 
     /*Read/write encoder configuration*/
     void readEncoderConfiguration();

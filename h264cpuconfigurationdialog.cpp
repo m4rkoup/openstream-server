@@ -299,3 +299,144 @@ void h264CPUConfigurationDialog::on_h264_cpu_restore_button_clicked()
     config->reloadInMemoryValues();
     setLoadedValues();
 }
+
+void h264CPUConfigurationDialog::on_h264_cpu_cancel_button_clicked()
+{
+    this->hide();
+    //For cancel, restore loaded values
+    this->setLoadedValues();
+}
+
+/**
+ * @brief h264CPUConfigurationDialog::on_h264_cpu_ok_button_clicked
+ * Go through all the values collected values from the GUI
+ * Invokes the event to auto-restart the host if app is running.
+ */
+void h264CPUConfigurationDialog::on_h264_cpu_ok_button_clicked()
+{
+    /*Encoder Speed*/
+    QString selected_encoder_speed_value = ui->h264_cpu_encoding_speed_combobox->currentText();
+    config->setEntry("sw_preset", selected_encoder_speed_value);
+    /*System priority*/
+    QString selected_system_priority_label = ui->h264_cpu_process_priority_combobox->currentText();
+    if(selected_system_priority_label == SYS_PRIORITY_ABOVE_NORMAL_LABEL) {
+        config->setEntry("system_priority", SYS_PRIORITY_ABOVE_NORMAL);
+    }
+    else if (selected_system_priority_label == SYS_PRIORITY_HIGH_LABEL) {
+        config->setEntry("system_priority", SYS_PRIORITY_HIGH);
+    }
+    else if(selected_system_priority_label == SYS_PRIORITY_REAL_TIME_LABEL) {
+        config->setEntry("system_priority", SYS_PRIORITY_REAL_TIME);
+    }
+    /*Frame threads*/
+    QString selected_frame_threads = ui->h264_cpu_frame_threads_combobox->currentText();
+    config->setEntry("min_threads", selected_frame_threads);
+    /*Pool threads*/
+    QString selected_pool_threads = ui->h264_cpu_pool_threads_combobox->currentText();
+    config->setEntry("pools", selected_pool_threads);
+    /*VBV maxrate value*/
+    QString selected_vbv_maxrate_label = ui->h264_cpu_vbv_max_rate_value_combobox->currentText();
+    if(selected_vbv_maxrate_label == VBV_MAX_RATE_10_LABEL) {
+        config->setEntry("vbv_maxrate", VBV_MAX_RATE_10);
+    }
+    else if(selected_vbv_maxrate_label == VBV_MAX_RATE_20_LABEL) {
+        config->setEntry("vbv_maxrate", VBV_MAX_RATE_20);
+    }
+    else if(selected_vbv_maxrate_label == VBV_MAX_RATE_30_LABEL) {
+        config->setEntry("vbv_maxrate", VBV_MAX_RATE_30);
+    }
+    else if(selected_vbv_maxrate_label == VBV_MAX_RATE_40_LABEL) {
+        config->setEntry("vbv_maxrate", VBV_MAX_RATE_40);
+    }
+    /*VBV bufsize*/
+    QString selected_vbv_bufsize_label = ui->h264_cpu_vbv_bufsize_combobox->currentText();
+    if(selected_vbv_bufsize_label == VBV_BUFSIZE_1_LABEL) {
+        config->setEntry("vbv_bufsize", VBV_BUFSIZE_1);
+    }
+    else if(selected_vbv_bufsize_label == VBV_BUFSIZE_5_LABEL) {
+        config->setEntry("vbv_bufsize", VBV_BUFSIZE_5);
+    }
+    else if(selected_vbv_bufsize_label == VBV_BUFSIZE_10) {
+        config->setEntry("vbv_bufsize", VBV_BUFSIZE_10);
+    }
+    else if(selected_vbv_bufsize_label == VBV_BUFSIZE_15_LABEL) {
+        config->setEntry("vbv_bufsize", VBV_BUFSIZE_15);
+    }
+
+    /*crf rate*/
+    QString selected_crf = ui->h264_cpu_crf_rate_combobox->currentText();
+    config->setEntry("crf", selected_crf);
+    /*qp*/
+    QString selected_qp = ui->h264_cpu_qp_rate_combobox->currentText();
+    config->setEntry("qp", selected_qp);
+    /*fec percentage*/
+    QString selected_fec = ui->h264_cpu_fec_percentage_combobox->currentText();
+    config->setEntry("fec_percentage", selected_fec);
+
+    if(ui->h264_cpu_crf_on_radio_button->isChecked()) {
+         config->setEntry("on_crf", "1");
+         config->setEntry("on_vbv", "0");
+         config->setEntry("on_qp", "0");
+         config->setEntry("vbv_bufsize", "0");
+         config->setEntry("qp", "0");
+    }
+    else if(ui->h264_cpu_vbv_max_rate_on_radio_button->isChecked()) {
+        config->setEntry("on_crf", "0");
+        config->setEntry("on_vbv", "1");
+        config->setEntry("on_qp", "0");
+        config->setEntry("qp", "0");
+        config->setEntry("crf", "0");
+    }
+    else if(ui->h264_cpu_qp_on_radio_button->isChecked()) {
+        config->setEntry("on_crf", "0");
+        config->setEntry("on_vbv", "0");
+        config->setEntry("on_qp", "1");
+        config->setEntry("crf", "0");
+        config->setEntry("vbv_bufsize", "0");
+    } else {
+        config->setEntry("on_crf", "0");
+        config->setEntry("on_vbv", "0");
+        config->setEntry("on_qp", "0");
+        config->setEntry("crf", "0");
+        config->setEntry("vbv_bufsize", "0");
+        config->setEntry("qp", "0");
+    }
+
+    config->saveConfiguration();
+    emit configuration_changed();
+    this->hide();
+    return;
+}
+
+/**
+ * @brief h265ConfigurationDialog::on_h265_cpu_vbv_max_rate_on_radio_button_clicked
+ *
+ *  When VBV is ON, CRF and QP should be disabled.
+ */
+void h264CPUConfigurationDialog::on_h264_cpu_vbv_max_rate_on_radio_button_clicked()
+{
+    ui->h264_cpu_qp_off_radio_button->setChecked(true);
+    ui->h264_cpu_crf_off_radio_button->setChecked(true);
+}
+
+/**
+ * @brief h265ConfigurationDialog::on_h265_cpu_crf_on_radio_button_clicked
+ *
+ * When CRF is ON, VBV and QP should be disabled.
+ */
+void h264CPUConfigurationDialog::on_h264_cpu_crf_on_radio_button_clicked()
+{
+    ui->h264_cpu_qp_off_radio_button->setChecked(true);
+    ui->h264_cpu_vbv_max_rate_off_radio_button->setChecked(true);
+}
+
+/**
+ * @brief h265ConfigurationDialog::on_h265_cpu_qp_on_radio_button_clicked
+ *
+ * When QP is ON, VBV and CRF should be disabled.
+ */
+void h264CPUConfigurationDialog::on_h264_cpu_qp_on_radio_button_clicked()
+{
+    ui->h264_cpu_vbv_max_rate_off_radio_button->setChecked(true);
+    ui->h264_cpu_crf_off_radio_button->setChecked(true);
+}

@@ -33,5 +33,7 @@
         <file>assets/h265CPU.conf</file>
         <file>assets/encoder.conf</file>
         <file>assets/h264CPU.conf</file>
+        <file>images/go-back-arrow.png</file>
+        <file>assets/h264NVENC.conf</file>
     </qresource>
 </RCC>

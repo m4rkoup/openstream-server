@@ -10,6 +10,7 @@ OpenstreamMainWindow::OpenstreamMainWindow(QWidget *parent) :
     ui->main_area_widget->setCurrentIndex(0);
 
     h265CPUConfigDialog = new h265ConfigurationDialog(this);
+    h264CPUConfigDialog = new h264CPUConfigurationDialog(this);
 
 
     allocateSharedMemoryFootprint();
@@ -52,6 +53,7 @@ OpenstreamMainWindow::OpenstreamMainWindow(QWidget *parent) :
     readEncoderConfiguration();
     updateEncoderButtonsSelected();
     h265CPUConfigDialog->hide();
+    h264CPUConfigDialog->hide();
     icon_off = new QIcon(":/images/joystick.png");
     icon_on = new QIcon(":/images/joystick_on.png");
     trayIcon->setIcon(*icon_off);
@@ -562,4 +564,9 @@ void OpenstreamMainWindow::on_h265_CPU_select_button_clicked()
     removeIconsFromSelectionButtons();
     updateEncoderButtonsSelected();
     configuration_changed_apply();
+}
+
+void OpenstreamMainWindow::on_h264_CPU_configuration_button_clicked()
+{
+    h264CPUConfigDialog->exec();
 }

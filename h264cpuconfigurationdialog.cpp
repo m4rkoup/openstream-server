@@ -1,0 +1,301 @@
+#include "h264cpuconfigurationdialog.h"
+#include "ui_h264cpuconfigurationdialog.h"
+
+
+h264CPUConfigurationDialog::h264CPUConfigurationDialog(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::h264CPUConfigurationDialog)
+{
+    ui->setupUi(this);
+    /**
+     * This Code deals with the Windows Size scaling
+     */
+    QDesktopWidget dw;
+    int width=dw.width()*0.3;
+    int height=dw.height()*0.7;
+    this->setFixedSize(width, height);
+
+    /**
+     * Ensures labels equal size
+     */
+    int maxWidth = 0;
+    for (QLabel* label : findChildren<QLabel*>()) {
+        if (maxWidth < label->width())
+            maxWidth = label->width();
+    }
+    for (QLabel* label : findChildren<QLabel*>()) {
+        if( label->objectName() != "h264_cpu_title_label"
+                && label->objectName() != "h264_cpu_info_label" )
+        label->setFixedWidth(maxWidth);
+    }
+
+    /**
+      * Ensure buttons equal size
+      */
+    maxWidth = 0;
+    for (QPushButton* btn : findChildren<QPushButton*>()) {
+        if (maxWidth < btn->width())
+            maxWidth = btn->width();
+    }
+    for (QPushButton* btn : findChildren<QPushButton*>()) {
+        btn->setFixedWidth(maxWidth);
+    }
+
+    config = new ConfigurationManager("/assets/h264CPU.conf");
+    entries_snapshot = QHash<QString, QString>();
+    config->setEntry("file_apps", QCoreApplication::applicationDirPath() + "/assets/apps_windows.json");
+    config->setEntry("file_state", QCoreApplication::applicationDirPath() + "/sunshine_state.json");
+    config->saveConfiguration();
+
+    /*Initialize UI Elements values*/
+    /*Software Encoder Speed*/
+    ui->h264_cpu_encoding_speed_combobox->addItems(this->ENCODER_SPEED_OPT_LIST);
+
+    /*Process Priority*/
+    ui->h264_cpu_process_priority_combobox->addItems(this->SYS_PRIORITY_OP_LIST);
+
+    /*Frame threads*/
+    ui->h264_cpu_frame_threads_combobox->addItems(this->FRAME_THREADS_OPT_LIST);
+
+    /*Pool threads*/
+    ui->h264_cpu_pool_threads_combobox->addItems(this->POOL_THREADS_OPT_LIST);
+
+    /*VBV max rate*/
+    ui->h264_cpu_vbv_max_rate_value_combobox->addItems(VBV_MAX_RATE_LABEL_OPT_LIST);
+
+    /*VBV_BUFSIZE*/
+    ui->h264_cpu_vbv_bufsize_combobox->addItems(VBV_BUFSIZE_LABEL_OPT_LIST);
+
+    /*CRF*/
+    ui->h264_cpu_crf_rate_combobox->addItems(CRF_OPT_LIST);
+
+    /*QP*/
+    ui->h264_cpu_qp_rate_combobox->addItems(QP_OPT_LIST);
+
+    /*FEC*/
+    ui->h264_cpu_fec_percentage_combobox->addItems(FEC_OPT_LIST);
+
+    setLoadedValues();
+}
+
+h264CPUConfigurationDialog::~h264CPUConfigurationDialog()
+{
+    delete ui;
+}
+
+void h264CPUConfigurationDialog::setLoadedValues() {
+    /*Encoder preset*/
+    if(config->getKey("sw_preset") == ENCODER_SPEED_FAST) {
+        ui->h264_cpu_encoding_speed_combobox->setCurrentIndex(0);
+        entries_snapshot.insert("sw_preset", ENCODER_SPEED_FAST);
+    }
+    else if(config->getKey("sw_preset") == ENCODER_SPEED_FASTER) {
+        ui->h264_cpu_encoding_speed_combobox->setCurrentIndex(1);
+        entries_snapshot.insert("sw_preset", ENCODER_SPEED_FASTER);
+    }
+    else if(config->getKey("sw_preset") == ENCODER_SPEED_SUPERFAST) {
+        ui->h264_cpu_encoding_speed_combobox->setCurrentIndex(2);
+        entries_snapshot.insert("sw_preset", ENCODER_SPEED_SUPERFAST);
+    }
+    else if(config->getKey("sw_preset") == ENCODER_SPEED_ULTRAFAST) {
+        ui->h264_cpu_encoding_speed_combobox->setCurrentIndex(3);
+        entries_snapshot.insert("sw_preset", ENCODER_SPEED_ULTRAFAST);
+    }
+
+    /*System Priority*/
+    /*Compare against the configuration values (1,2,3)*/
+    if(config->getKey("system_priority") == SYS_PRIORITY_ABOVE_NORMAL) {
+       ui->h264_cpu_process_priority_combobox->setCurrentIndex(0);
+       entries_snapshot.insert("system_priority", SYS_PRIORITY_ABOVE_NORMAL);
+    }
+    else if(config->getKey("system_priority") == SYS_PRIORITY_HIGH) {
+        ui->h264_cpu_process_priority_combobox->setCurrentIndex(1);
+        entries_snapshot.insert("system_priority", SYS_PRIORITY_HIGH);
+    }
+    else if(config->getKey("system_priority") == SYS_PRIORITY_REAL_TIME) {
+        ui->h264_cpu_process_priority_combobox->setCurrentIndex(2);
+        entries_snapshot.insert("system_priority", SYS_PRIORITY_REAL_TIME);
+    }
+
+    /*Frame threads*/
+    if(config->getKey("min_threads") == FRAME_THREADS_2) {
+        ui->h264_cpu_frame_threads_combobox->setCurrentIndex(0);
+        entries_snapshot.insert("min_threads", FRAME_THREADS_2);
+    }
+    else if(config->getKey("min_threads") == FRAME_THREADS_4) {
+        ui->h264_cpu_frame_threads_combobox->setCurrentIndex(1);
+        entries_snapshot.insert("min_threads", FRAME_THREADS_4);
+    }
+    else if(config->getKey("min_threads") == FRAME_THREADS_6) {
+        ui->h264_cpu_frame_threads_combobox->setCurrentIndex(2);
+        entries_snapshot.insert("min_threads", FRAME_THREADS_6);
+    }
+    else if(config->getKey("min_threads") == FRAME_THREADS_8) {
+        ui->h264_cpu_frame_threads_combobox->setCurrentIndex(3);
+        entries_snapshot.insert("min_threads", FRAME_THREADS_8);
+    }
+
+    /*pool threads*/
+    if(config->getKey("pools") == POOL_THREADS_2) {
+        ui->h264_cpu_pool_threads_combobox->setCurrentIndex(0);
+        entries_snapshot.insert("pools", POOL_THREADS_2);
+    }
+    else if(config->getKey("pools") == POOL_THREADS_4) {
+        ui->h264_cpu_pool_threads_combobox->setCurrentIndex(1);
+        entries_snapshot.insert("pools", POOL_THREADS_4);
+    }
+    else if(config->getKey("pools") == POOL_THREADS_6) {
+        ui->h264_cpu_pool_threads_combobox->setCurrentIndex(2);
+        entries_snapshot.insert("pools", POOL_THREADS_6);
+    }
+    else if(config->getKey("pools") == POOL_THREADS_8) {
+        ui->h264_cpu_pool_threads_combobox->setCurrentIndex(3);
+        entries_snapshot.insert("pools", POOL_THREADS_8);
+    }
+
+    /*CRF VS VBV VS QP*/
+    qDebug() << "CRF" << config->getKey("on_crf") << Qt::endl;
+    if(config->getKey("on_crf") == "1") {
+        setCRForVBVorQP("crf");
+        /*CRF*/
+        if(config->getKey("crf") == CRF_15) {
+            ui->h264_cpu_crf_rate_combobox->setCurrentIndex(0);
+            entries_snapshot.insert("crf", CRF_15);
+        }
+        else if(config->getKey("crf") == CRF_20) {
+            ui->h264_cpu_crf_rate_combobox->setCurrentIndex(1);
+            entries_snapshot.insert("crf", CRF_20);
+        }
+        else if(config->getKey("crf") == CRF_25) {
+            ui->h264_cpu_crf_rate_combobox->setCurrentIndex(2);
+            entries_snapshot.insert("crf", CRF_25);
+        }
+        else if(config->getKey("crf") == CRF_30) {
+            ui->h264_cpu_crf_rate_combobox->setCurrentIndex(3);
+            entries_snapshot.insert("crf", CRF_30);
+        }
+        entries_snapshot.insert("vbv_bufsize", "0");
+        entries_snapshot.insert("qp", "0");
+    }
+    else if(config->getKey("on_vbv") == "1") {
+        setCRForVBVorQP("vbv");
+        /*VBV Bufsize*/
+        if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_1) {
+            ui->h264_cpu_vbv_bufsize_combobox->setCurrentIndex(0);
+            entries_snapshot.insert("vbv_maxrate", VBV_BUFSIZE_1);
+        }
+        else if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_5) {
+            ui->h264_cpu_vbv_bufsize_combobox->setCurrentIndex(1);
+            entries_snapshot.insert("vbv_bufsize", VBV_BUFSIZE_5);
+        }
+        else if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_10) {
+            ui->h264_cpu_vbv_bufsize_combobox->setCurrentIndex(2);
+            entries_snapshot.insert("vbv_maxrate", VBV_BUFSIZE_10);
+
+        }
+        else if(config->getKey("vbv_bufsize") ==  VBV_BUFSIZE_15) {
+            ui->h264_cpu_vbv_bufsize_combobox->setCurrentIndex(3);
+            entries_snapshot.insert("vbv_maxrate",  VBV_BUFSIZE_15);
+        }
+        entries_snapshot.insert("crf", "0");
+        entries_snapshot.insert("qp", "0");
+    }
+    else if(config->getKey("on_qp") == "1") {
+        setCRForVBVorQP("qp");
+        /*QP*/
+        if(config->getKey("qp") == QP_15) {
+            ui->h264_cpu_qp_rate_combobox->setCurrentIndex(0);
+            entries_snapshot.insert("qp", QP_15);
+        }
+        else if(config->getKey("qp") == QP_20) {
+            ui->h264_cpu_qp_rate_combobox->setCurrentIndex(1);
+            entries_snapshot.insert("qp", QP_20);
+        }
+        else if(config->getKey("qp") == QP_25) {
+            ui->h264_cpu_qp_rate_combobox->setCurrentIndex(2);
+            entries_snapshot.insert("qp", QP_25);
+        }
+        else if(config->getKey("qp") == QP_30) {
+            ui->h264_cpu_qp_rate_combobox->setCurrentIndex(3);
+            entries_snapshot.insert("qp", QP_30);
+        }
+        entries_snapshot.insert("crf", "0");
+        entries_snapshot.insert("vbv_bufsize", "0");
+    }
+
+    entries_snapshot.insert("on_crf", config->getKey("on_crf"));
+    entries_snapshot.insert("on_vbv", config->getKey("on_vbv"));
+    entries_snapshot.insert("on_qp", config->getKey("on_qp"));
+
+    /*vbv-maxrate*/
+    if(config->getKey("vbv_maxrate") == VBV_MAX_RATE_10) {
+        ui->h264_cpu_vbv_max_rate_value_combobox->setCurrentIndex(0);
+        entries_snapshot.insert("vbv_maxrate", VBV_MAX_RATE_10);
+    }
+    else if(config->getKey("vbv_maxrate") == VBV_MAX_RATE_20) {
+        ui->h264_cpu_vbv_max_rate_value_combobox->setCurrentIndex(1);
+        entries_snapshot.insert("vbv_maxrate", VBV_MAX_RATE_20);
+    }
+    else if(config->getKey("vbv_maxrate") == VBV_MAX_RATE_30) {
+        ui->h264_cpu_vbv_max_rate_value_combobox->setCurrentIndex(2);
+        entries_snapshot.insert("vbv_maxrate", VBV_MAX_RATE_30);
+
+    }
+    else if(config->getKey("vbv_maxrate") == VBV_MAX_RATE_40) {
+        ui->h264_cpu_vbv_max_rate_value_combobox->setCurrentIndex(3);
+        entries_snapshot.insert("vbv_maxrate", VBV_MAX_RATE_40);
+    }
+
+    /*FEC*/
+    if(config->getKey("fec_percentage") == FEC_10) {
+        ui->h264_cpu_fec_percentage_combobox->setCurrentIndex(0);
+        entries_snapshot.insert("fec_percentage", FEC_10);
+    }
+    else if(config->getKey("fec_percentage") == FEC_20) {
+        ui->h264_cpu_fec_percentage_combobox->setCurrentIndex(1);
+        entries_snapshot.insert("fec_percentage", FEC_20);
+    }
+    else if(config->getKey("fec_percentage") == FEC_30) {
+        ui->h264_cpu_fec_percentage_combobox->setCurrentIndex(2);
+        entries_snapshot.insert("fec_percentage", FEC_30);
+    }
+    else if(config->getKey("fec_percentage") == FEC_40) {
+        ui->h264_cpu_fec_percentage_combobox->setCurrentIndex(3);
+        entries_snapshot.insert("fec_percentage", FEC_40);
+    }
+}
+
+/**
+ * @brief h265ConfigurationDialog::setCRForVBVorQP
+ * called to set the initial value of the QRadioButtons in the form.
+ * This function is only used by setLoadedValues() for the initial state.
+ * @param selected
+ */
+void h264CPUConfigurationDialog::setCRForVBVorQP(QString selected){
+    if(selected == QString("crf")) {
+        ui->h264_cpu_crf_on_radio_button->setChecked(true);
+        ui->h264_cpu_vbv_max_rate_off_radio_button->setChecked(true);
+        ui->h264_cpu_qp_off_radio_button->setChecked(true);
+    }
+    else if(selected == "qp") {
+        ui->h264_cpu_crf_off_radio_button->setChecked(true);
+        ui->h264_cpu_vbv_max_rate_off_radio_button->setChecked(true);
+        ui->h264_cpu_qp_on_radio_button->setChecked(true);
+    }
+    else if(selected == "vbv") {
+        ui->h264_cpu_crf_off_radio_button->setChecked(true);
+        ui->h264_cpu_vbv_max_rate_on_radio_button->setChecked(true);
+        ui->h264_cpu_qp_off_radio_button->setChecked(true);
+    }
+}
+
+void h264CPUConfigurationDialog::restoreDefaultsValues() {
+    config->restoreDefaultConfiguration("/h264CPU.conf");
+}
+
+void h264CPUConfigurationDialog::on_h264_cpu_restore_button_clicked()
+{
+    restoreDefaultsValues();
+    config->reloadInMemoryValues();
+    setLoadedValues();
+}

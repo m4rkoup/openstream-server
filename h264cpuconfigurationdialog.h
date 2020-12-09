@@ -1,5 +1,5 @@
-#ifndef H265CONFIGURATIONDIALOG_H
-#define H265CONFIGURATIONDIALOG_H
+#ifndef H264CPUCONFIGURATIONDIALOG_H
+#define H264CPUCONFIGURATIONDIALOG_H
 
 #include <QDialog>
 #include "ConfigurationManager.h"
@@ -7,30 +7,25 @@
 #include <QCoreApplication>
 
 namespace Ui {
-class h265ConfigurationDialog;
+class h264CPUConfigurationDialog;
 }
 
-class h265ConfigurationDialog : public QDialog
+class h264CPUConfigurationDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit h265ConfigurationDialog(QWidget *parent = nullptr);
-    ~h265ConfigurationDialog();
-
-public slots:
-    void on_h265_cpu_ok_button_clicked();
-    void on_h265_cpu_restore_button_clicked();
-    void on_h265_cpu_cancel_button_clicked();
-    void on_h265_cpu_qp_on_radio_button_clicked();
-    void on_h265_cpu_crf_on_radio_button_clicked();
-    void on_h265_cpu_vbv_max_rate_on_radio_button_clicked();
+    explicit h264CPUConfigurationDialog(QWidget *parent = nullptr);
+    ~h264CPUConfigurationDialog();
 
 signals:
     void configuration_changed();
 
+private slots:
+    void on_h264_cpu_restore_button_clicked();
+
 private:
-    Ui::h265ConfigurationDialog *ui;
+    Ui::h264CPUConfigurationDialog *ui;
 
     /**
      * @brief entries_snapshot keeps an In-memory snapshot
@@ -41,14 +36,15 @@ private:
 
     ConfigurationManager *config;
 
-    /*DEFAULT VALUES*/
-    //Encoder Speed
+    /*Default values*/
     QString ENCODER_SPEED_FAST = QString("fast");
     QString ENCODER_SPEED_FASTER = QString("faster");
     QString ENCODER_SPEED_SUPERFAST = QString("superfast");
+    QString ENCODER_SPEED_ULTRAFAST = QString("ultrafast");
     QStringList ENCODER_SPEED_OPT_LIST = QStringList() << ENCODER_SPEED_FAST
                                                        << ENCODER_SPEED_FASTER
-                                                       << ENCODER_SPEED_SUPERFAST;
+                                                       << ENCODER_SPEED_SUPERFAST
+                                                       << ENCODER_SPEED_ULTRAFAST;
 
     //Process Priority
     QString SYS_PRIORITY_ABOVE_NORMAL_LABEL = QString("Above Normal");
@@ -94,6 +90,7 @@ private:
                                                             << VBV_MAX_RATE_20_LABEL
                                                             << VBV_MAX_RATE_30_LABEL
                                                             << VBV_MAX_RATE_40_LABEL;
+
     //VBV_BUFSIZE
     QString VBV_BUFSIZE_1_LABEL = QString("1 Mbps");
     QString VBV_BUFSIZE_1 = QString("1");
@@ -107,7 +104,6 @@ private:
                                                            << VBV_BUFSIZE_5_LABEL
                                                            << VBV_BUFSIZE_10_LABEL
                                                            << VBV_BUFSIZE_15_LABEL;
-
     //CRF
     QString CRF_15 = QString("15");
     QString CRF_20 = QString("20");
@@ -134,4 +130,4 @@ private:
     void setCRForVBVorQP(QString selected);
 };
 
-#endif // H265CONFIGURATIONDIALOG_H
+#endif // H264CPUCONFIGURATIONDIALOG_H

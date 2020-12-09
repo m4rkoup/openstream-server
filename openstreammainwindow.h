@@ -16,6 +16,7 @@
 #include "auth_listener_worker.h"
 #include "auth_pin_handler.h"
 #include "h265configurationdialog.h"
+#include "h264cpuconfigurationdialog.h"
 
 
 namespace Ui {
@@ -101,6 +102,7 @@ private slots:
 
     void on_configure_button_clicked();
     void on_h265_CPU_configure_button_clicked();
+    void on_h264_CPU_configuration_button_clicked();
     void on_go_back_config_button_clicked();
     void on_h265_CPU_select_button_clicked();
 
@@ -163,6 +165,7 @@ private:
 
     /*Configuration Dialogs*/
     h265ConfigurationDialog *h265CPUConfigDialog;
+    h264CPUConfigurationDialog *h264CPUConfigDialog;
 
     /*Read/write encoder configuration*/
     void readEncoderConfiguration();

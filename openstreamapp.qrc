@@ -32,5 +32,6 @@
         <file>images/uncheck-ic.png</file>
         <file>assets/h265CPU.conf</file>
         <file>assets/encoder.conf</file>
+        <file>assets/h264CPU.conf</file>
     </qresource>
 </RCC>

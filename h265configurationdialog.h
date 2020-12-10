@@ -5,6 +5,7 @@
 #include "ConfigurationManager.h"
 #include <QDesktopWidget>
 #include <QCoreApplication>
+#include "VideoEncoderEnum.h"
 
 namespace Ui {
 class h265ConfigurationDialog;
@@ -27,7 +28,7 @@ public slots:
     void on_h265_cpu_vbv_max_rate_on_radio_button_clicked();
 
 signals:
-    void configuration_changed();
+    void configuration_changed(VideoEncoder);
 
 private:
     Ui::h265ConfigurationDialog *ui;

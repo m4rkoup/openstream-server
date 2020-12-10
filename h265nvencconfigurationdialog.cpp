@@ -231,7 +231,7 @@ void h265NVENCConfigurationDialog::on_h265_nvenc_ok_button_clicked()
     config->setEntry("fec_percentage", selected_fec);
 
     config->saveConfiguration();
-    emit configuration_changed();
+    emit configuration_changed(h265NVENC);
     this->hide();
     return;
 }

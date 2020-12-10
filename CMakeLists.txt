@@ -60,6 +60,7 @@ add_executable(openstreamapp
   h265nvencconfigurationdialog.h
   h265nvencconfigurationdialog.cpp
   h265nvencconfigurationdialog.ui
+  VideoEncoderEnum.h
   openstreamapp.qrc
 )
 

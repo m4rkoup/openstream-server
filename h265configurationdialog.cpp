@@ -443,7 +443,7 @@ void h265ConfigurationDialog::on_h265_cpu_ok_button_clicked()
     }
 
     config->saveConfiguration();
-    emit configuration_changed();
+    emit configuration_changed(h265CPU);
     this->hide();
     return;
 }

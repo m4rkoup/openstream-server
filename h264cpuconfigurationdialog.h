@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "ConfigurationManager.h"
+#include "VideoEncoderEnum.h"
 #include <QDesktopWidget>
 #include <QCoreApplication>
 
@@ -19,7 +20,7 @@ public:
     ~h264CPUConfigurationDialog();
 
 signals:
-    void configuration_changed();
+    void configuration_changed(VideoEncoder);
 
 private slots:
     void on_h264_cpu_cancel_button_clicked();

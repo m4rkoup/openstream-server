@@ -458,9 +458,8 @@ void OpenstreamMainWindow::on_h265_CPU_configure_button_clicked()
  * This slot is connected to configuration signals,
  * to auto restart the host if configuration applies.
  */
-void OpenstreamMainWindow::configuration_changed_apply() {
-    qDebug() << "CONFIGURATION CHANGED SLOT" << Qt::endl;
-    if(proc->state() == QProcess::Running) {
+void OpenstreamMainWindow::configuration_changed_apply(VideoEncoder sender_encoder) {
+    if(proc->state() == QProcess::Running && current_encoder == sender_encoder) {
         /*Pseudo-Restart host after config changes*/
         QMessageBox::information(this, "Info",
                                          tr("Configuration changed. Stream host will restart."));
@@ -588,7 +587,7 @@ void OpenstreamMainWindow::on_h265_CPU_select_button_clicked()
     writeEncoderConfiguration();
     removeIconsFromSelectionButtons();
     updateEncoderButtonsSelected();
-    configuration_changed_apply();
+    configuration_changed_apply(h265CPU);
 }
 
 void OpenstreamMainWindow::on_h264_CPU_configuration_button_clicked()
@@ -604,7 +603,7 @@ void OpenstreamMainWindow::on_h264_CPU_select_button_clicked()
     writeEncoderConfiguration();
     removeIconsFromSelectionButtons();
     updateEncoderButtonsSelected();
-    configuration_changed_apply();
+    configuration_changed_apply(h264CPU);
 }
 
 void OpenstreamMainWindow::on_h264_NVENC_configure_button_clicked()
@@ -620,7 +619,7 @@ void OpenstreamMainWindow::on_h264_NVENC_select_button_clicked()
     writeEncoderConfiguration();
     removeIconsFromSelectionButtons();
     updateEncoderButtonsSelected();
-    configuration_changed_apply();
+    configuration_changed_apply(h264NVENC);
 }
 
 void OpenstreamMainWindow::on_h265_NVENC_configure_button_clicked()
@@ -636,5 +635,5 @@ void OpenstreamMainWindow::on_h265_NVENC_select_button_clicked()
     writeEncoderConfiguration();
     removeIconsFromSelectionButtons();
     updateEncoderButtonsSelected();
-    configuration_changed_apply();
+    configuration_changed_apply(h265NVENC);
 }

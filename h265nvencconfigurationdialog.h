@@ -5,6 +5,7 @@
 #include <QDesktopWidget>
 #include <QCoreApplication>
 #include "ConfigurationManager.h"
+#include "VideoEncoderEnum.h"
 
 namespace Ui {
 class h265NVENCConfigurationDialog;
@@ -19,7 +20,7 @@ public:
     ~h265NVENCConfigurationDialog();
 
 signals:
-    void configuration_changed();
+    void configuration_changed(VideoEncoder);
 
 private slots:
     void on_h265_nvenc_ok_button_clicked();

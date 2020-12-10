@@ -19,20 +19,11 @@
 #include "h264cpuconfigurationdialog.h"
 #include "h264nvencconfigurationdialog.h"
 #include "h265nvencconfigurationdialog.h"
-
+#include "VideoEncoderEnum.h"
 
 namespace Ui {
 class OpenstreamMainWindow;
 }
-
-enum VideoEncoder {
-    h264CPU,
-    h265CPU,
-    h264NVENC,
-    h265NVENC,
-    h264AMDAMF,
-    h265AMDAMF
-};
 
 class OpenstreamMainWindow : public QMainWindow
 {
@@ -69,7 +60,7 @@ public slots:
      * This slot is connected to configuration signals,
      * to auto restart the host if configuration applies.
      */
-    void configuration_changed_apply();
+    void configuration_changed_apply(VideoEncoder);
 
 private slots:
     void on_h265_NVENC_configure_button_clicked();

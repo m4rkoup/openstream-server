@@ -403,7 +403,7 @@ void h264CPUConfigurationDialog::on_h264_cpu_ok_button_clicked()
     }
 
     config->saveConfiguration();
-    emit configuration_changed();
+    emit configuration_changed(h264CPU);
     this->hide();
     return;
 }

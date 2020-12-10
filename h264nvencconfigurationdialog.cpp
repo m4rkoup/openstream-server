@@ -1,6 +1,7 @@
 #include "h264nvencconfigurationdialog.h"
 #include "ui_h264nvencconfigurationdialog.h"
 
+
 h264NVENCConfigurationDialog::h264NVENCConfigurationDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::h264NVENCConfigurationDialog)
@@ -233,7 +234,7 @@ void h264NVENCConfigurationDialog::on_h264_nvenc_ok_button_clicked()
     config->setEntry("fec_percentage", selected_fec);
 
     config->saveConfiguration();
-    emit configuration_changed();
+    emit configuration_changed(h264NVENC);
     this->hide();
     return;
 }

@@ -98,11 +98,13 @@ void ConfigurationManager::copyAssetsFiles() {
     QFile().copy(":assets/h265CPU.conf", ASSETS_FOLDER_FILE_PATH + "/h265CPU.conf");
     QFile().copy(":assets/h264CPU.conf", ASSETS_FOLDER_FILE_PATH + "/h264CPU.conf");
     QFile().copy(":assets/h264NVENC.conf", ASSETS_FOLDER_FILE_PATH + "/h264NVENC.conf");
+    QFile().copy(":assets/h265NVENC.conf", ASSETS_FOLDER_FILE_PATH + "/h265NVENC.conf");
     QFile().copy(":assets/encoder.conf", ASSETS_FOLDER_FILE_PATH + "/encoder.conf");
     QFile::setPermissions(ASSETS_FOLDER_FILE_PATH + "/sunshine.conf", QFileDevice::ReadOwner|QFileDevice::WriteOwner);
     QFile::setPermissions(ASSETS_FOLDER_FILE_PATH + "/h265CPU.conf", QFileDevice::ReadOwner|QFileDevice::WriteOwner);
     QFile::setPermissions(ASSETS_FOLDER_FILE_PATH + "/h264CPU.conf", QFileDevice::ReadOwner|QFileDevice::WriteOwner);
     QFile::setPermissions(ASSETS_FOLDER_FILE_PATH + "/h264NVENC.conf", QFileDevice::ReadOwner|QFileDevice::WriteOwner);
+    QFile::setPermissions(ASSETS_FOLDER_FILE_PATH + "/h265NVENC.conf", QFileDevice::ReadOwner|QFileDevice::WriteOwner);
     QFile::setPermissions(ASSETS_FOLDER_FILE_PATH + "/encoder.conf", QFileDevice::ReadOwner|QFileDevice::WriteOwner);
 }
 

@@ -18,6 +18,7 @@
 #include "h265configurationdialog.h"
 #include "h264cpuconfigurationdialog.h"
 #include "h264nvencconfigurationdialog.h"
+#include "h265nvencconfigurationdialog.h"
 
 
 namespace Ui {
@@ -71,6 +72,12 @@ public slots:
     void configuration_changed_apply();
 
 private slots:
+    void on_h265_NVENC_configure_button_clicked();
+
+private slots:
+    void on_h265_NVENC_select_button_clicked();
+
+private slots:
     void on_h264_NVENC_select_button_clicked();
 
 private slots:
@@ -122,6 +129,7 @@ private:
     QString H265_CONF = QString("/assets/h265CPU.conf");
     QString H264_CONF = QString("/assets/h264CPU.conf");
     QString H264_NVENC_CONF = QString("/assets/h264NVENC.conf");
+    QString H265_NVENC_CONF = QString("/assets/h265NVENC.conf");
 
     /*Holds the state of which encoder is selected*/
     VideoEncoder current_encoder;
@@ -179,6 +187,7 @@ private:
     h265ConfigurationDialog *h265CPUConfigDialog;
     h264CPUConfigurationDialog *h264CPUConfigDialog;
     h264NVENCConfigurationDialog *h264NVENCConfigDialog;
+    h265NVENCConfigurationDialog *h265NVENCConfigDialog;
 
     /*Read/write encoder configuration*/
     void readEncoderConfiguration();

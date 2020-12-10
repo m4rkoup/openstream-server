@@ -12,7 +12,7 @@ h264NVENCConfigurationDialog::h264NVENCConfigurationDialog(QWidget *parent) :
      */
     QDesktopWidget dw;
     int width=dw.width()*0.3;
-    int height=dw.height()*0.7;
+    int height=dw.height()*0.5;
     this->setFixedSize(width, height);
 
     /**
@@ -163,4 +163,77 @@ void h264NVENCConfigurationDialog::setLoadedValues() {
         ui->h264_nvenc_fec_percentage_combobox->setCurrentIndex(3);
         entries_snapshot.insert("fec_percentage", FEC_40);
     }
+}
+
+void h264NVENCConfigurationDialog::restoreDefaultsValues(){
+    config->restoreDefaultConfiguration("/h264NVENC.conf");
+}
+
+
+
+void h264NVENCConfigurationDialog::on_h264_nvenc_restore_button_clicked()
+{
+    restoreDefaultsValues();
+    config->reloadInMemoryValues();
+    setLoadedValues();
+}
+
+void h264NVENCConfigurationDialog::on_h264_nvenc_cancel_button_clicked()
+{
+    this->hide();
+    setLoadedValues();
+}
+
+void h264NVENCConfigurationDialog::on_h264_nvenc_ok_button_clicked()
+{
+    //encoder preset
+    QString selected_encoder_preset_label = ui->h264_nvenc_encoding_speed_combobox->currentText();
+    if(selected_encoder_preset_label == ENCODER_SPEED_LLHP_LABEL) {
+        config->setEntry("nv_preset", ENCODER_SPEED_LLHP);
+    }
+    else if(selected_encoder_preset_label == ENCODER_SPEED_LLHQ) {
+        config->setEntry("nv_preset", ENCODER_SPEED_LLHQ);
+    }
+
+    /*System priority*/
+    QString selected_system_priority_label = ui->h264_nvenc_process_priority_combobox->currentText();
+    if(selected_system_priority_label == SYS_PRIORITY_ABOVE_NORMAL_LABEL) {
+        config->setEntry("system_priority", SYS_PRIORITY_ABOVE_NORMAL);
+    }
+    else if (selected_system_priority_label == SYS_PRIORITY_HIGH_LABEL) {
+        config->setEntry("system_priority", SYS_PRIORITY_HIGH);
+    }
+    else if(selected_system_priority_label == SYS_PRIORITY_REAL_TIME_LABEL) {
+        config->setEntry("system_priority", SYS_PRIORITY_REAL_TIME);
+    }
+    /*Frame threads*/
+    QString selected_frame_threads = ui->h264_nvenc_frame_threads_combobox->currentText();
+    config->setEntry("min_threads", selected_frame_threads);
+    /*Pool threads*/
+    QString selected_pool_threads = ui->h264_nvenc_pool_threads_combobox->currentText();
+    config->setEntry("pools", selected_pool_threads);
+
+    /*rate control*/
+    QString selected_rate_control_label = ui->h264_nvenc_rate_control_combobox->currentText();
+    if(selected_rate_control_label == RATE_CONTROL_AUTO) {
+        config->setEntry("nv_rc", RATE_CONTROL_AUTO);
+    }
+    else if(selected_rate_control_label == RATE_CONTROL_CBR_LABEL) {
+        config->setEntry("nv_rc", RATE_CONTROL_CBR);
+    }
+    else if(selected_rate_control_label == RATE_CONTROL_CONSTANT_QP_LABEL) {
+        config->setEntry("nv_rc", RATE_CONTROL_CONSTANT_QP);
+    }
+    else if(selected_rate_control_label == RATE_CONTROL_VBR_HIGH_QUALITY_LABEL) {
+        config->setEntry("nv_rc", RATE_CONTROL_VBR_HIGH_QUALITY_LABEL);
+    }
+
+    /*fec percentage*/
+    QString selected_fec = ui->h264_nvenc_fec_percentage_combobox->currentText();
+    config->setEntry("fec_percentage", selected_fec);
+
+    config->saveConfiguration();
+    emit configuration_changed();
+    this->hide();
+    return;
 }

@@ -53,6 +53,10 @@ OpenstreamMainWindow::OpenstreamMainWindow(QWidget *parent) :
             &h264CPUConfigurationDialog::configuration_changed,
             this,
             &OpenstreamMainWindow::configuration_changed_apply);
+    connect(h264NVENCConfigDialog,
+            &h264NVENCConfigurationDialog::configuration_changed,
+            this,
+            &OpenstreamMainWindow::configuration_changed_apply);
 
     setWindowTitle(tr("Open Stream"));
     readEncoderConfiguration();
@@ -271,6 +275,9 @@ void OpenstreamMainWindow::appStart() {
     }
     else if(current_encoder == h265CPU) {
         proc->start(app_dir + "/openstreamhost/openstreamhost.exe", QStringList() << app_dir + H265_CONF);
+    }
+    else if(current_encoder == h264NVENC) {
+        proc->start(app_dir + "/openstreamhost/openstreamhost.exe", QStringList() << app_dir + H264_NVENC_CONF);
     }
     else {
         proc->start(app_dir + "/openstreamhost/openstreamhost.exe", QStringList() << app_dir + "/assets/sunshine.conf");
@@ -594,4 +601,15 @@ void OpenstreamMainWindow::on_h264_CPU_select_button_clicked()
 void OpenstreamMainWindow::on_h264_NVENC_configure_button_clicked()
 {
     h264NVENCConfigDialog->exec();
+}
+
+void OpenstreamMainWindow::on_h264_NVENC_select_button_clicked()
+{
+    if(current_encoder == h264NVENC)
+        return;
+    current_encoder = h264NVENC;
+    writeEncoderConfiguration();
+    removeIconsFromSelectionButtons();
+    updateEncoderButtonsSelected();
+    configuration_changed_apply();
 }

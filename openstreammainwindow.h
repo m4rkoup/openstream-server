@@ -71,6 +71,9 @@ public slots:
     void configuration_changed_apply();
 
 private slots:
+    void on_h264_NVENC_select_button_clicked();
+
+private slots:
     void on_h264_NVENC_configure_button_clicked();
 
 private slots:
@@ -118,7 +121,7 @@ private:
     QString *SUNSHINE_CONF = new QString("/assets/sunshine.conf");
     QString H265_CONF = QString("/assets/h265CPU.conf");
     QString H264_CONF = QString("/assets/h264CPU.conf");
-    QString H264_NVENC_CONF = QString("/assets/h265NVENC.conf");
+    QString H264_NVENC_CONF = QString("/assets/h264NVENC.conf");
 
     /*Holds the state of which encoder is selected*/
     VideoEncoder current_encoder;

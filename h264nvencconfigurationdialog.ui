@@ -47,7 +47,7 @@ font:  &quot;Open Sans&quot;;
 font-size: 20px;</string>
        </property>
        <property name="text">
-        <string>h.264 CPU Encoder Options</string>
+        <string>h.264 NVENC Encoder Options</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignHCenter|Qt::AlignTop</set>

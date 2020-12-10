@@ -18,6 +18,14 @@ public:
     explicit h264NVENCConfigurationDialog(QWidget *parent = nullptr);
     ~h264NVENCConfigurationDialog();
 
+signals:
+    void configuration_changed();
+
+private slots:
+    void on_h264_nvenc_ok_button_clicked();
+    void on_h264_nvenc_cancel_button_clicked();
+    void on_h264_nvenc_restore_button_clicked();
+
 private:
     Ui::h264NVENCConfigurationDialog *ui;
 
@@ -89,6 +97,7 @@ private:
 
 
     void setLoadedValues();
+    void restoreDefaultsValues();
 
 };
 

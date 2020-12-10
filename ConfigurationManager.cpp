@@ -66,6 +66,11 @@ void ConfigurationManager::setEntry(QString entry, QString value)
               << entry << "->" << value << endl;
 }
 
+void ConfigurationManager::removeEntry(QString entry) {
+    if(this->entries.contains(entry))
+        this->entries.remove(entry);
+}
+
 QString ConfigurationManager::getKey(QString key)
 {
     return entries.value(key);

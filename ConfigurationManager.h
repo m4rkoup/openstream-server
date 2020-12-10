@@ -20,6 +20,7 @@ class ConfigurationManager : public QObject
 public:
     ConfigurationManager(QString encoder_conf_filename);
     void setEntry(QString entry, QString value);
+    void removeEntry(QString entry);
     void saveConfiguration();
     QString getKey(QString key);
     void restoreDefaultConfiguration(QString filename);

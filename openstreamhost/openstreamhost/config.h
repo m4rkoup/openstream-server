@@ -25,6 +25,9 @@ struct video_t {
   // This struct field 'pools' holds the value for --pools.
   // The value for --frame-threads is taken from 'min_threads' configuration.
   int pools;
+  int on_vbv;
+  int on_qp;
+  int on_crf;
 
   // x265 params are passed as a plain string of concatenated options.
   std::string x265_params;

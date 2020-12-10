@@ -177,6 +177,7 @@ void h264NVENCConfigurationDialog::on_h264_nvenc_restore_button_clicked()
     restoreDefaultsValues();
     config->reloadInMemoryValues();
     setLoadedValues();
+    emit configuration_changed(h264NVENC);
 }
 
 void h264NVENCConfigurationDialog::on_h264_nvenc_cancel_button_clicked()
@@ -233,8 +234,15 @@ void h264NVENCConfigurationDialog::on_h264_nvenc_ok_button_clicked()
     QString selected_fec = ui->h264_nvenc_fec_percentage_combobox->currentText();
     config->setEntry("fec_percentage", selected_fec);
 
-    config->saveConfiguration();
-    emit configuration_changed(h264NVENC);
+    if( entries_snapshot.value("nv_preset") != config->getKey("nv_preset") ||
+        entries_snapshot.value("system_priority") != config->getKey("system_priority") ||
+        entries_snapshot.value("min_threads") != config->getKey("min_threads") ||
+        entries_snapshot.value("pools") != config->getKey("pools") ||
+        entries_snapshot.value("nv_rc") != config->getKey("nv_rc") ||
+        entries_snapshot.value("fec_percentage") != config->getKey("fec_percentage")
+            ) {
+        config->saveConfiguration();
+        emit configuration_changed(h264NVENC);
+    }
     this->hide();
-    return;
 }

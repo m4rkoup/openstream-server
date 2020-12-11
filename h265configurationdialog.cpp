@@ -448,6 +448,17 @@ void h265ConfigurationDialog::on_h265_cpu_ok_button_clicked()
         entries_snapshot.value("on_crf") != config->getKey("on_crf") ||
         entries_snapshot.value("on_vbv") != config->getKey("on_vbv")
             ) {
+            entries_snapshot.insert("sw_preset", config->getKey("sw_preset"));
+            entries_snapshot.insert("system_priority", config->getKey("system_priority"));
+            entries_snapshot.insert("min_threads", config->getKey("min_threads"));
+            entries_snapshot.insert("pools", config->getKey("pools"));
+            entries_snapshot.insert("vbv_maxrate", config->getKey("vbv_maxrate"));
+            entries_snapshot.insert("vbv_bufsize", config->getKey("vbv_bufsize"));
+            entries_snapshot.insert("qp", config->getKey("qp"));
+            entries_snapshot.insert("fec_percentage", config->getKey("fec_percentage"));
+            entries_snapshot.insert("on_qp", config->getKey("on_qp"));
+            entries_snapshot.insert("on_crf", config->getKey("on_crf"));
+            entries_snapshot.insert("on_vbv",  config->getKey("on_vbv"));
             config->saveConfiguration();
             emit configuration_changed(h265CPU);
     }

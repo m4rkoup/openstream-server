@@ -238,6 +238,12 @@ void h265NVENCConfigurationDialog::on_h265_nvenc_ok_button_clicked()
         entries_snapshot.value("nv_rc") != config->getKey("nv_rc") ||
         entries_snapshot.value("fec_percentage") != config->getKey("fec_percentage")
             ) {
+        entries_snapshot.insert("nv_preset",  config->getKey("nv_preset"));
+        entries_snapshot.insert("system_priority", config->getKey("system_priority"));
+        entries_snapshot.insert("min_threads", config->getKey("min_threads"));
+        entries_snapshot.insert("pools", config->getKey("pools"));
+        entries_snapshot.insert("nv_rc", config->getKey("nv_rc"));
+        entries_snapshot.insert("fec_percentage", config->getKey("fec_percentage"));
         config->saveConfiguration();
         emit configuration_changed(h265NVENC);
     }

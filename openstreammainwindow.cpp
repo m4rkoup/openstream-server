@@ -461,8 +461,33 @@ void OpenstreamMainWindow::on_h265_CPU_configure_button_clicked()
 void OpenstreamMainWindow::configuration_changed_apply(VideoEncoder sender_encoder) {
     if(proc->state() == QProcess::Running && current_encoder == sender_encoder) {
         /*Pseudo-Restart host after config changes*/
-        QMessageBox::information(this, "Info",
-                                         tr("Configuration changed. Stream host will restart."));
+       QMessageBox m = QMessageBox(
+                    QMessageBox::Icon::Information,
+                    "Info",
+                    "Configuration changed. Stream host will restart.",
+                    QMessageBox::StandardButton::Ok);
+        m.setStyleSheet("QMessageBox"
+                        "{"
+                        "color: rgb(255, 170, 0);"
+                        "background-color: #272640;"
+                        "}"
+                        "QPushButton"
+                        "{"
+                        "background-color: #272640;"
+                        "color: #FFFFFF;"
+                        "text-align: center;"
+                        "font: \"Open Sans Light\";"
+                        "}"
+                        "QPushButton:hover"
+                        "{"
+                        "background-color: #006466;"
+                        "}"
+                        "QLabel"
+                        "{"
+                        "color: #ffffff;"
+                        "font: \"Open Sans Light\";"
+                        "}");
+        m.exec();
         stopSunshine();
         startSunshine();
     }

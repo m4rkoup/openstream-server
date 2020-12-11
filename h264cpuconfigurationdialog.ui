@@ -79,13 +79,27 @@ font-size: 20px;</string>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="toolTip">
+        <string>Change options to trade off
+compression efficiency against 
+encoding speed.</string>
+       </property>
        <property name="layoutDirection">
         <enum>Qt::LeftToRight</enum>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
+        <string notr="true">QLabel {
+color: rgb(255, 255, 255);
 font:  &quot;Open Sans Semibold&quot;;
-font-size: 12px;</string>
+font-size: 12px;
+}
+
+QToolTip {
+color: rgb(0, 0, 0);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+</string>
        </property>
        <property name="text">
         <string>Encoding Speed</string>
@@ -170,10 +184,21 @@ QComboBox QAbstractItemView {
     <layout class="QHBoxLayout" name="horizontalLayout_6">
      <item>
       <widget class="QLabel" name="h264_cpu_process_priority_label">
+       <property name="toolTip">
+        <string>Sets the priority for the specified process.</string>
+       </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-font:  &quot;Open Sans Light&quot;;
-font-size: 12px;</string>
+        <string notr="true">QLabel {
+color: rgb(255, 255, 255);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+
+QToolTip {
+color: rgb(0, 0, 0);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}</string>
        </property>
        <property name="text">
         <string>Process Priority</string>
@@ -258,10 +283,24 @@ QComboBox QAbstractItemView {
     <layout class="QHBoxLayout" name="horizontalLayout_8">
      <item>
       <widget class="QLabel" name="h264_cpu_frame_threads_label">
+       <property name="toolTip">
+        <string>Number of concurrently encoded frames.
+Over-allocation of frame threads will not
+improve performance, it will generally just
+increase memory use.</string>
+       </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-font:  &quot;Open Sans Light&quot;;
-font-size: 12px;</string>
+        <string notr="true">QLabel {
+color: rgb(255, 255, 255);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+
+QToolTip {
+color: rgb(0, 0, 0);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}</string>
        </property>
        <property name="text">
         <string>Frame Threads</string>
@@ -346,10 +385,24 @@ QComboBox QAbstractItemView {
     <layout class="QHBoxLayout" name="horizontalLayout_9">
      <item>
       <widget class="QLabel" name="h264_cpu_pool_threads_label">
+       <property name="toolTip">
+        <string>Number thread pools per encoder,
+one pool per NUMA node (typically a CPU socket). 
+Specifies the number of pools and the number 
+of threads per pool the encoder will allocate</string>
+       </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-font:  &quot;Open Sans Light&quot;;
-font-size: 12px;</string>
+        <string notr="true">QLabel {
+color: rgb(255, 255, 255);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+
+QToolTip {
+color: rgb(0, 0, 0);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}</string>
        </property>
        <property name="text">
         <string>Pool Threads</string>
@@ -440,10 +493,23 @@ QComboBox QAbstractItemView {
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="toolTip">
+        <string>Enables the VBV buffer. VBV reduces quality, 
+so you should only use this if you're encoding
+for a playback scenario that requires it.</string>
+       </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-font:  &quot;Open Sans Light&quot;;
-font-size: 12px;</string>
+        <string notr="true">QLabel {
+color: rgb(255, 255, 255);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+
+QToolTip {
+color: rgb(0, 0, 0);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}</string>
        </property>
        <property name="text">
         <string>VBV Max-Rate</string>
@@ -536,10 +602,22 @@ font-size: 12px;</string>
     <layout class="QHBoxLayout" name="horizontalLayout_11">
      <item>
       <widget class="QLabel" name="h264_cpu_vbv_max_rate_value_label">
+       <property name="toolTip">
+        <string>Sets the maximum rate the VBV buffer 
+should be assumed to refill at.</string>
+       </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-font:  &quot;Open Sans Light&quot;;
-font-size: 12px;</string>
+        <string notr="true">QLabel {
+color: rgb(255, 255, 255);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+
+QToolTip {
+color: rgb(0, 0, 0);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}</string>
        </property>
        <property name="text">
         <string>VBV Max-Rate</string>
@@ -624,10 +702,21 @@ QComboBox QAbstractItemView {
     <layout class="QHBoxLayout" name="horizontalLayout_12">
      <item>
       <widget class="QLabel" name="h264_cpu_vbv_bufsize_label">
+       <property name="toolTip">
+        <string>Sets the size of the VBV buffer </string>
+       </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-font:  &quot;Open Sans Light&quot;;
-font-size: 12px;</string>
+        <string notr="true">QLabel {
+color: rgb(255, 255, 255);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+
+QToolTip {
+color: rgb(0, 0, 0);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}</string>
        </property>
        <property name="text">
         <string>VBV Bufsize</string>
@@ -712,16 +801,24 @@ QComboBox QAbstractItemView {
     <layout class="QHBoxLayout" name="horizontalLayout_10">
      <item>
       <widget class="QLabel" name="h264_cpu_crf_label">
+       <property name="toolTip">
+        <string>Quality-controlled variable bitrate.
+It does not try to reach any particular 
+bitrate target, instead it tries to achieve 
+a given uniform quality and the size of the 
+bitstream is determined by the complexity 
+of the source video.</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">QLabel {
 color: rgb(255, 255, 255);
-font:  &quot;Open Sans Light&quot;;
+font:  &quot;Open Sans Semibold&quot;;
 font-size: 12px;
 }
 
-QLabel QTooTip {
-color: #000000;
-font:  &quot;Open Sans Light&quot;;
+QToolTip {
+color: rgb(0, 0, 0);
+font:  &quot;Open Sans Semibold&quot;;
 font-size: 12px;
 }</string>
        </property>
@@ -796,10 +893,21 @@ font-size: 12px;</string>
     <layout class="QHBoxLayout" name="horizontalLayout_15">
      <item>
       <widget class="QLabel" name="h264_cpu_crf_rate_label">
+       <property name="toolTip">
+        <string/>
+       </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-font:  &quot;Open Sans Light&quot;;
-font-size: 12px;</string>
+        <string notr="true">QLabel {
+color: rgb(255, 255, 255);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+
+QToolTip {
+color: rgb(0, 0, 0);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}</string>
        </property>
        <property name="text">
         <string>CRF-RATE</string>
@@ -884,10 +992,22 @@ QComboBox QAbstractItemView {
     <layout class="QHBoxLayout" name="horizontalLayout_13">
      <item>
       <widget class="QLabel" name="h264_cpu_qp_label">
+       <property name="toolTip">
+        <string>Constant QP rate control.
+Using this option enables Constant QP rate control.</string>
+       </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-font:  &quot;Open Sans Light&quot;;
-font-size: 12px;</string>
+        <string notr="true">QLabel {
+color: rgb(255, 255, 255);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+
+QToolTip {
+color: rgb(0, 0, 0);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}</string>
        </property>
        <property name="text">
         <string>QP</string>
@@ -961,9 +1081,17 @@ font-size: 12px;</string>
      <item>
       <widget class="QLabel" name="h264_cpu_qp_rate_label">
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-font:  &quot;Open Sans Light&quot;;
-font-size: 12px;</string>
+        <string notr="true">QLabel {
+color: rgb(255, 255, 255);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+
+QToolTip {
+color: rgb(0, 0, 0);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}</string>
        </property>
        <property name="text">
         <string>QP-Rate</string>
@@ -1049,9 +1177,17 @@ QComboBox QAbstractItemView {
      <item>
       <widget class="QLabel" name="h264_cpu_fec_percentage_label">
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-font:  &quot;Open Sans Light&quot;;
-font-size: 12px;</string>
+        <string notr="true">QLabel {
+color: rgb(255, 255, 255);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+
+QToolTip {
+color: rgb(0, 0, 0);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}</string>
        </property>
        <property name="text">
         <string>FEC-Percentage</string>

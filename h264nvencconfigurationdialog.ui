@@ -79,13 +79,27 @@ font-size: 20px;</string>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="toolTip">
+        <string>Change options to trade off
+compression efficiency against 
+encoding speed.</string>
+       </property>
        <property name="layoutDirection">
         <enum>Qt::LeftToRight</enum>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
+        <string notr="true">QLabel {
+color: rgb(255, 255, 255);
 font:  &quot;Open Sans Semibold&quot;;
-font-size: 12px;</string>
+font-size: 12px;
+}
+
+QToolTip {
+color: rgb(0, 0, 0);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+</string>
        </property>
        <property name="text">
         <string>Encoding Speed</string>
@@ -170,10 +184,22 @@ QComboBox QAbstractItemView {
     <layout class="QHBoxLayout" name="horizontalLayout_6">
      <item>
       <widget class="QLabel" name="h264_nvenc_process_priority_label">
+       <property name="toolTip">
+        <string>Sets the priority for the specified process.</string>
+       </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-font:  &quot;Open Sans Light&quot;;
-font-size: 12px;</string>
+        <string notr="true">QLabel {
+color: rgb(255, 255, 255);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+
+QToolTip {
+color: rgb(0, 0, 0);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+</string>
        </property>
        <property name="text">
         <string>Process Priority</string>
@@ -258,10 +284,25 @@ QComboBox QAbstractItemView {
     <layout class="QHBoxLayout" name="horizontalLayout_8">
      <item>
       <widget class="QLabel" name="h264_nvenc_frame_threads_label">
+       <property name="toolTip">
+        <string>Number of concurrently encoded frames.
+Over-allocation of frame threads will not
+improve performance, it will generally just
+increase memory use.</string>
+       </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-font:  &quot;Open Sans Light&quot;;
-font-size: 12px;</string>
+        <string notr="true">QLabel {
+color: rgb(255, 255, 255);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+
+QToolTip {
+color: rgb(0, 0, 0);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+</string>
        </property>
        <property name="text">
         <string>Frame Threads</string>
@@ -346,10 +387,25 @@ QComboBox QAbstractItemView {
     <layout class="QHBoxLayout" name="horizontalLayout_9">
      <item>
       <widget class="QLabel" name="h264_nvenc_pool_threads_label">
+       <property name="toolTip">
+        <string>Number thread pools per encoder,
+one pool per NUMA node (typically a CPU socket). 
+Specifies the number of pools and the number 
+of threads per pool the encoder will allocate</string>
+       </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-font:  &quot;Open Sans Light&quot;;
-font-size: 12px;</string>
+        <string notr="true">QLabel {
+color: rgb(255, 255, 255);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+
+QToolTip {
+color: rgb(0, 0, 0);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+</string>
        </property>
        <property name="text">
         <string>Pool Threads</string>
@@ -434,10 +490,22 @@ QComboBox QAbstractItemView {
     <layout class="QHBoxLayout" name="horizontalLayout_11">
      <item>
       <widget class="QLabel" name="h264_nvenc_rate_control_label">
+       <property name="toolTip">
+        <string>Specifies the preset rate-control.</string>
+       </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-font:  &quot;Open Sans Light&quot;;
-font-size: 12px;</string>
+        <string notr="true">QLabel {
+color: rgb(255, 255, 255);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+
+QToolTip {
+color: rgb(0, 0, 0);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+</string>
        </property>
        <property name="text">
         <string>Rate Control</string>
@@ -523,9 +591,18 @@ QComboBox QAbstractItemView {
      <item>
       <widget class="QLabel" name="h264_nvenc_fec_percentage_label">
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-font:  &quot;Open Sans Light&quot;;
-font-size: 12px;</string>
+        <string notr="true">QLabel {
+color: rgb(255, 255, 255);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+
+QToolTip {
+color: rgb(0, 0, 0);
+font:  &quot;Open Sans Semibold&quot;;
+font-size: 12px;
+}
+</string>
        </property>
        <property name="text">
         <string>FEC-Percentage</string>

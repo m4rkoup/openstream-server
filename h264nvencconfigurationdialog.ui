@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>h264 NVENC</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: #212f45;

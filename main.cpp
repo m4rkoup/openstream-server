@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
     QDesktopWidget dw;
     int width=dw.width()*0.7;
     int height=dw.height()*0.8;
-    w.setFixedSize(width, height);
+    w.resize(width, height);
 
     /**
       * This code disables the main widget borders and the setup bar in bottom border

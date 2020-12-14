@@ -165,9 +165,6 @@ void h264NVENCConfigurationDialog::setLoadedValues() {
 
 void h264NVENCConfigurationDialog::restoreDefaultsValues(){
     config->restoreDefaultConfiguration("/h264NVENC.conf");
-    config->setEntry("file_apps", QCoreApplication::applicationDirPath() + "/assets/apps_windows.json");
-    config->setEntry("file_state", QCoreApplication::applicationDirPath() + "/sunshine_state.json");
-    config->saveConfiguration();
 }
 
 
@@ -176,6 +173,9 @@ void h264NVENCConfigurationDialog::on_h264_nvenc_restore_button_clicked()
 {
     restoreDefaultsValues();
     config->reloadInMemoryValues();
+    config->setEntry("file_apps", QCoreApplication::applicationDirPath() + "/assets/apps_windows.json");
+    config->setEntry("file_state", QCoreApplication::applicationDirPath() + "/sunshine_state.json");
+    config->saveConfiguration();
     setLoadedValues();
     emit configuration_changed(h264NVENC);
 }
@@ -193,7 +193,7 @@ void h264NVENCConfigurationDialog::on_h264_nvenc_ok_button_clicked()
     if(selected_encoder_preset_label == ENCODER_SPEED_LLHP_LABEL) {
         config->setEntry("nv_preset", ENCODER_SPEED_LLHP);
     }
-    else if(selected_encoder_preset_label == ENCODER_SPEED_LLHQ) {
+    else if(selected_encoder_preset_label == ENCODER_SPEED_LLHQ_LABEL) {
         config->setEntry("nv_preset", ENCODER_SPEED_LLHQ);
     }
 
@@ -227,7 +227,7 @@ void h264NVENCConfigurationDialog::on_h264_nvenc_ok_button_clicked()
         config->setEntry("nv_rc", RATE_CONTROL_CONSTANT_QP);
     }
     else if(selected_rate_control_label == RATE_CONTROL_VBR_HIGH_QUALITY_LABEL) {
-        config->setEntry("nv_rc", RATE_CONTROL_VBR_HIGH_QUALITY_LABEL);
+        config->setEntry("nv_rc", RATE_CONTROL_VBR_HIGH_QUALITY);
     }
 
     /*fec percentage*/

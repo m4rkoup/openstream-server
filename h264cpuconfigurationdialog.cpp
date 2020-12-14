@@ -288,15 +288,15 @@ void h264CPUConfigurationDialog::setCRForVBVorQP(QString selected){
 
 void h264CPUConfigurationDialog::restoreDefaultsValues() {
     config->restoreDefaultConfiguration("/h264CPU.conf");
-    config->setEntry("file_apps", QCoreApplication::applicationDirPath() + "/assets/apps_windows.json");
-    config->setEntry("file_state", QCoreApplication::applicationDirPath() + "/sunshine_state.json");
-    config->saveConfiguration();
 }
 
 void h264CPUConfigurationDialog::on_h264_cpu_restore_button_clicked()
 {
     restoreDefaultsValues();
     config->reloadInMemoryValues();
+    config->setEntry("file_apps", QCoreApplication::applicationDirPath() + "/assets/apps_windows.json");
+    config->setEntry("file_state", QCoreApplication::applicationDirPath() + "/sunshine_state.json");
+    config->saveConfiguration();
     setLoadedValues();
     emit configuration_changed(h264CPU);
 }

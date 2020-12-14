@@ -356,7 +356,7 @@ void OpenstreamMainWindow::updateAppConsoleError()
 {
     QByteArray strData = proc->readAllStandardError();
     ui->main_area_console_output->moveCursor (QTextCursor::End);
-    ui->main_area_console_output->append(strData);
+    ui->main_area_console_output->appendPlainText(strData);
 }
 
 void OpenstreamMainWindow::appStoppedWatch() {

@@ -37,7 +37,9 @@ QInputDialog QPushButton:hover {
 QInputDialog QLabel {
 font: &quot;Open Sans Light&quot;;
 color: #ffffff;
-}</string>
+}
+
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -223,7 +225,7 @@ font-size: 26px;</string>
        <string notr="true">background-color: #212f45;</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -289,33 +291,21 @@ font-size: 18px;</string>
          </layout>
         </item>
         <item>
-         <widget class="QTextEdit" name="main_area_console_output">
+         <widget class="QPlainTextEdit" name="main_area_console_output">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>1</verstretch>
            </sizepolicy>
           </property>
-          <property name="font">
-           <font>
-            <family>Arial Black</family>
-            <weight>50</weight>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(241, 250, 238);
+           <string notr="true">QPlainTextEdit {
+background-color: rgb(241, 250, 238);
 color: rgb(0, 0, 0);
 font: &quot;Open Sans&quot;;
-</string>
-          </property>
-          <property name="html">
-           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Arial Black'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+font-weight: semi-bold;
+font-size: 13px;
+}</string>
           </property>
          </widget>
         </item>
@@ -588,7 +578,7 @@ font: 8pt &quot;Open Sans Bold&quot;;
 font-size: 14px;</string>
                </property>
                <property name="text">
-                <string>-up-to 1080
+                <string>-up-to 1080p
 resolution-up-to 60 fps
 -lower latency
 -requires high bandwidth

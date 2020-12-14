@@ -37,7 +37,7 @@
       <widget class="QLabel" name="h265_nvenc_title_label">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>10</horstretch>
+         <horstretch>1</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>

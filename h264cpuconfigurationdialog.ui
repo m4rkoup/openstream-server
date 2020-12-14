@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>h264 CPU</string>
+   <string>Dialog</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: #212f45;
@@ -1286,7 +1286,7 @@ QComboBox QAbstractItemView {
      <item>
       <widget class="QPushButton" name="h264_cpu_restore_button">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>1</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -1314,7 +1314,7 @@ QComboBox QAbstractItemView {
      <item>
       <widget class="QPushButton" name="h264_cpu_ok_button">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>1</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -1342,7 +1342,7 @@ QComboBox QAbstractItemView {
      <item>
       <widget class="QPushButton" name="h264_cpu_cancel_button">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>1</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -1384,6 +1384,12 @@ QComboBox QAbstractItemView {
    </item>
    <item>
     <widget class="QLabel" name="h264_cpu_info_label">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
 font:  &quot;Open Sans Semibold&quot;;
@@ -1395,7 +1401,7 @@ font-size: 12px;</string>
 When QP is ON, VBV and CRF should be disabled</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignHCenter|Qt::AlignTop</set>
      </property>
     </widget>
    </item>

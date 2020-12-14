@@ -10,10 +10,7 @@ h265NVENCConfigurationDialog::h265NVENCConfigurationDialog(QWidget *parent) :
     /**
      * This Code deals with the Windows Size scaling
      */
-    QDesktopWidget dw;
-    int width=dw.width()*0.3;
-    int height=dw.height()*0.5;
-    this->setFixedSize(width, height);
+    this->layout()->setSizeConstraint(QLayout::SetFixedSize);
 
     /**
      * Ensures labels equal size
@@ -24,7 +21,7 @@ h265NVENCConfigurationDialog::h265NVENCConfigurationDialog(QWidget *parent) :
             maxWidth = label->width();
     }
     for (QLabel* label : findChildren<QLabel*>()) {
-        if( label->objectName() != "h264_nvenc_title_label")
+        if( label->objectName() != "h265_nvenc_title_label")
         label->setFixedWidth(maxWidth);
     }
 
@@ -69,6 +66,9 @@ h265NVENCConfigurationDialog::~h265NVENCConfigurationDialog()
 
 void h265NVENCConfigurationDialog::restoreDefaultsValues() {
     config->restoreDefaultConfiguration("/h265NVENC.conf");
+    config->setEntry("file_apps", QCoreApplication::applicationDirPath() + "/assets/apps_windows.json");
+    config->setEntry("file_state", QCoreApplication::applicationDirPath() + "/sunshine_state.json");
+    config->saveConfiguration();
 }
 
 void h265NVENCConfigurationDialog::setLoadedValues() {

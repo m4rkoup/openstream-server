@@ -70,7 +70,6 @@ int main(int argc, char *argv[])
     w.show();
 
     QTimer::singleShot(1000 / 2, &w, &OpenstreamMainWindow::on_event_loop_started);
-
     return a.exec();
 
     /*Legacy code

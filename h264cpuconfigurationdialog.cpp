@@ -10,10 +10,7 @@ h264CPUConfigurationDialog::h264CPUConfigurationDialog(QWidget *parent) :
     /**
      * This Code deals with the Windows Size scaling
      */
-    QDesktopWidget dw;
-    int width=dw.width()*0.3;
-    int height=dw.height()*0.7;
-    this->setFixedSize(width, height);
+    this->layout()->setSizeConstraint(QLayout::SetFixedSize);
 
     /**
      * Ensures labels equal size
@@ -291,6 +288,9 @@ void h264CPUConfigurationDialog::setCRForVBVorQP(QString selected){
 
 void h264CPUConfigurationDialog::restoreDefaultsValues() {
     config->restoreDefaultConfiguration("/h264CPU.conf");
+    config->setEntry("file_apps", QCoreApplication::applicationDirPath() + "/assets/apps_windows.json");
+    config->setEntry("file_state", QCoreApplication::applicationDirPath() + "/sunshine_state.json");
+    config->saveConfiguration();
 }
 
 void h264CPUConfigurationDialog::on_h264_cpu_restore_button_clicked()

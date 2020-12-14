@@ -11,10 +11,7 @@ h264NVENCConfigurationDialog::h264NVENCConfigurationDialog(QWidget *parent) :
     /**
      * This Code deals with the Windows Size scaling
      */
-    QDesktopWidget dw;
-    int width=dw.width()*0.3;
-    int height=dw.height()*0.5;
-    this->setFixedSize(width, height);
+    this->layout()->setSizeConstraint(QLayout::SetFixedSize);
 
     /**
      * Ensures labels equal size
@@ -168,6 +165,9 @@ void h264NVENCConfigurationDialog::setLoadedValues() {
 
 void h264NVENCConfigurationDialog::restoreDefaultsValues(){
     config->restoreDefaultConfiguration("/h264NVENC.conf");
+    config->setEntry("file_apps", QCoreApplication::applicationDirPath() + "/assets/apps_windows.json");
+    config->setEntry("file_state", QCoreApplication::applicationDirPath() + "/sunshine_state.json");
+    config->saveConfiguration();
 }
 
 

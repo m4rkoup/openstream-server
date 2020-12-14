@@ -289,6 +289,7 @@ void OpenstreamMainWindow::appStart() {
         proc->start(app_dir + "/openstreamhost/openstreamhost.exe", QStringList() << app_dir + H265_NVENC_CONF);
     }
     else {
+        qDebug() << "DEFAULT ENCODER FILE SETTINGS" << Qt::endl;
         proc->start(app_dir + "/openstreamhost/openstreamhost.exe", QStringList() << app_dir + "/assets/sunshine.conf");
     }
 
@@ -661,4 +662,8 @@ void OpenstreamMainWindow::on_h265_NVENC_select_button_clicked()
     removeIconsFromSelectionButtons();
     updateEncoderButtonsSelected();
     configuration_changed_apply(h265NVENC);
+}
+
+void OpenstreamMainWindow::resizeEvent(QResizeEvent *event)  {
+    qDebug() << "Windows resize" << Qt::endl;
 }

@@ -188,12 +188,12 @@ void h265ConfigurationDialog::setLoadedValues() {
     }
     else if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_10) {
         ui->h265_cpu_vbv_bufsize_combobox->setCurrentIndex(2);
-        entries_snapshot.insert("vbv_maxrate", VBV_BUFSIZE_10);
+        entries_snapshot.insert("vbv_bufsize", VBV_BUFSIZE_10);
 
     }
     else if(config->getKey("vbv_bufsize") ==  VBV_BUFSIZE_15) {
         ui->h265_cpu_vbv_bufsize_combobox->setCurrentIndex(3);
-        entries_snapshot.insert("vbv_maxrate",  VBV_BUFSIZE_15);
+        entries_snapshot.insert("vbv_bufsize",  VBV_BUFSIZE_15);
     }
 
     /*QP*/
@@ -398,7 +398,7 @@ void h265ConfigurationDialog::on_h265_cpu_ok_button_clicked()
     else if(selected_vbv_bufsize_label == VBV_BUFSIZE_5_LABEL) {
         config->setEntry("vbv_bufsize", VBV_BUFSIZE_5);
     }
-    else if(selected_vbv_bufsize_label == VBV_BUFSIZE_10) {
+    else if(selected_vbv_bufsize_label == VBV_BUFSIZE_10_LABEL) {
         config->setEntry("vbv_bufsize", VBV_BUFSIZE_10);
     }
     else if(selected_vbv_bufsize_label == VBV_BUFSIZE_15_LABEL) {

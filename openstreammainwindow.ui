@@ -291,7 +291,7 @@ font-size: 18px;</string>
          </layout>
         </item>
         <item>
-         <widget class="QPlainTextEdit" name="main_area_console_output">
+         <widget class="QTextEdit" name="main_area_console_output">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -299,14 +299,13 @@ font-size: 18px;</string>
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">QPlainTextEdit {
+           <string notr="true">QTextEdit {
 background-color: rgb(241, 250, 238);
 color: rgb(0, 0, 0);
 font: &quot;Open Sans&quot;;
 font-weight: semi-bold;
 font-size: 13px;
 }
-
 QScrollBar:vertical {          
 border: 1px solid #999999;
 background:white;
@@ -329,7 +328,9 @@ background: #006466;
 height: 0 px;
 subcontrol-position: top;
 subcontrol-origin: margin;
-}</string>
+}
+
+</string>
           </property>
          </widget>
         </item>

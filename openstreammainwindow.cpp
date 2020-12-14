@@ -348,15 +348,19 @@ void OpenstreamMainWindow::set_off_host_state_indicator() {
 
 void OpenstreamMainWindow::updateAppConsole() {
     QByteArray strData = proc->readAllStandardOutput();
-    ui->main_area_console_output->moveCursor (QTextCursor::End);
-    ui->main_area_console_output->insertPlainText(strData);
+    QString lineString(strData);
+    ui->main_area_console_output->moveCursor(QTextCursor::End);
+    ui->main_area_console_output->textCursor().insertText(lineString.trimmed());
+    ui->main_area_console_output->moveCursor(QTextCursor::End);
 }
 
 void OpenstreamMainWindow::updateAppConsoleError()
 {
     QByteArray strData = proc->readAllStandardError();
+    QString lineString(strData);
     ui->main_area_console_output->moveCursor (QTextCursor::End);
-    ui->main_area_console_output->appendPlainText(strData);
+    ui->main_area_console_output->textCursor().insertText(lineString.trimmed());
+    ui->main_area_console_output->moveCursor(QTextCursor::End);
 }
 
 void OpenstreamMainWindow::appStoppedWatch() {

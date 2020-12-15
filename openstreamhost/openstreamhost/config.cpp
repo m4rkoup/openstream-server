@@ -552,6 +552,9 @@ void update_x265_options() {
         //set vbv-maxrate.
         //https://x265.readthedocs.io/en/master/cli.html?highlight=vbv-bufsize#cmdoption-vbv-maxrate
         video.x265_params = video.x265_params + ":vbv-maxrate=" + std::to_string(video.vbv_maxrate);
+        if(!video.on_crf) {
+            video.x265_params = video.x265_params + ":crf=" + std::to_string(23);
+        }
     }
     else  {
         video.x265_params = video.x265_params + ":vbv-bufsize=" + std::to_string(0);
@@ -581,6 +584,9 @@ void update_x264_options() {
         //set vbv-maxrate.
         //https://x265.readthedocs.io/en/master/cli.html?highlight=vbv-bufsize#cmdoption-vbv-maxrate
         video.x264_params = video.x264_params + ":vbv-maxrate=" + std::to_string(video.vbv_maxrate);
+        if(!video.on_crf) {
+            video.x264_params = video.x264_params + ":crf=" + std::to_string(23);
+        }
     }
     else {
         video.x264_params = video.x264_params + ":vbv-bufsize=" + std::to_string(0);

@@ -213,18 +213,25 @@ void h265ConfigurationDialog::setLoadedValues() {
 
     /*CRF VS VBV VS QP*/
     if(config->getKey("on_crf") == "1") {
-        setCRForVBVorQP("crf");
-    }
-    else if(config->getKey("on_vbv") == "1") {
-        setCRForVBVorQP("vbv");
-    }
-    else if(config->getKey("on_qp") == "1") {
-        setCRForVBVorQP("qp");
+        ui->h265_cpu_crf_on_radio_button->setChecked(true);
+        ui->h265_cpu_qp_off_radio_button->setChecked(true);
     } else {
         ui->h265_cpu_crf_off_radio_button->setChecked(true);
+    }
+    if(config->getKey("on_vbv") == "1") {
+        ui->h265_cpu_vbv_max_rate_on_radio_button->setChecked(true);
+        ui->h265_cpu_qp_off_radio_button->setChecked(true);
+    } else {
+       ui->h265_cpu_vbv_max_rate_off_radio_button->setChecked(true);
+    }
+    if(config->getKey("on_qp") == "1") {
+        ui->h265_cpu_qp_on_radio_button->setChecked(true);
+        ui->h265_cpu_crf_off_radio_button->setChecked(true);
         ui->h265_cpu_vbv_max_rate_off_radio_button->setChecked(true);
+    } else {
         ui->h265_cpu_qp_off_radio_button->setChecked(true);
     }
+
     entries_snapshot.insert("on_crf", config->getKey("on_crf"));
     entries_snapshot.insert("on_vbv", config->getKey("on_vbv"));
     entries_snapshot.insert("on_qp", config->getKey("on_qp"));
@@ -299,7 +306,6 @@ void h265ConfigurationDialog::setCRForVBVorQP(QString selected){
 void h265ConfigurationDialog::on_h265_cpu_vbv_max_rate_on_radio_button_clicked()
 {
     ui->h265_cpu_qp_off_radio_button->setChecked(true);
-    ui->h265_cpu_crf_off_radio_button->setChecked(true);
 }
 
 /**
@@ -310,7 +316,6 @@ void h265ConfigurationDialog::on_h265_cpu_vbv_max_rate_on_radio_button_clicked()
 void h265ConfigurationDialog::on_h265_cpu_crf_on_radio_button_clicked()
 {
     ui->h265_cpu_qp_off_radio_button->setChecked(true);
-    ui->h265_cpu_vbv_max_rate_off_radio_button->setChecked(true);
 }
 
 /**
@@ -416,21 +421,21 @@ void h265ConfigurationDialog::on_h265_cpu_ok_button_clicked()
 
     if(ui->h265_cpu_crf_on_radio_button->isChecked()) {
          config->setEntry("on_crf", "1");
-         config->setEntry("on_vbv", "0");
          config->setEntry("on_qp", "0");
-    }
-    else if(ui->h265_cpu_vbv_max_rate_on_radio_button->isChecked()) {
+    } else {
         config->setEntry("on_crf", "0");
+    }
+    if(ui->h265_cpu_vbv_max_rate_on_radio_button->isChecked()) {
         config->setEntry("on_vbv", "1");
         config->setEntry("on_qp", "0");
+    } else {
+        config->setEntry("on_vbv", "0");
     }
-    else if(ui->h265_cpu_qp_on_radio_button->isChecked()) {
+    if(ui->h265_cpu_qp_on_radio_button->isChecked()) {
         config->setEntry("on_crf", "0");
         config->setEntry("on_vbv", "0");
         config->setEntry("on_qp", "1");
     } else {
-        config->setEntry("on_crf", "0");
-        config->setEntry("on_vbv", "0");
         config->setEntry("on_qp", "0");
     }
 

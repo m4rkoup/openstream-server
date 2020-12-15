@@ -85,13 +85,13 @@ private:
 
     //VBV-MAX-Rate
     QString VBV_MAX_RATE_10_LABEL = QString("10 Mbps");
-    QString VBV_MAX_RATE_10 = QString("81920");
+    QString VBV_MAX_RATE_10 = QString("10000");
     QString VBV_MAX_RATE_20_LABEL = QString("20 Mbps");
-    QString VBV_MAX_RATE_20 = QString("163840");
+    QString VBV_MAX_RATE_20 = QString("20000");
     QString VBV_MAX_RATE_30_LABEL = QString("30 Mbps");
-    QString VBV_MAX_RATE_30 = QString("245760");
+    QString VBV_MAX_RATE_30 = QString("30000");
     QString VBV_MAX_RATE_40_LABEL = QString("40 Mbps");
-    QString VBV_MAX_RATE_40 = QString("327680");
+    QString VBV_MAX_RATE_40 = QString("40000");
     QStringList VBV_MAX_RATE_LABEL_OPT_LIST = QStringList() << VBV_MAX_RATE_10_LABEL
                                                             << VBV_MAX_RATE_20_LABEL
                                                             << VBV_MAX_RATE_30_LABEL
@@ -99,13 +99,13 @@ private:
 
     //VBV_BUFSIZE
     QString VBV_BUFSIZE_1_LABEL = QString("1 Mbps");
-    QString VBV_BUFSIZE_1 = QString("8192");
+    QString VBV_BUFSIZE_1 = QString("1000");
     QString VBV_BUFSIZE_5_LABEL = QString("5 Mbps");
-    QString VBV_BUFSIZE_5 = QString("40960");
+    QString VBV_BUFSIZE_5 = QString("5000");
     QString VBV_BUFSIZE_10_LABEL = QString("10 Mbps");
-    QString VBV_BUFSIZE_10 = QString("81920");
+    QString VBV_BUFSIZE_10 = QString("10000");
     QString VBV_BUFSIZE_15_LABEL = QString("15 Mbps");
-    QString VBV_BUFSIZE_15 = QString("122880");
+    QString VBV_BUFSIZE_15 = QString("15000");
     QStringList VBV_BUFSIZE_LABEL_OPT_LIST = QStringList() << VBV_BUFSIZE_1_LABEL
                                                            << VBV_BUFSIZE_5_LABEL
                                                            << VBV_BUFSIZE_10_LABEL

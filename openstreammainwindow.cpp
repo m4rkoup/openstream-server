@@ -18,7 +18,6 @@ OpenstreamMainWindow::OpenstreamMainWindow(QWidget *parent) :
     allocateSharedMemoryFootprint();
     createMinimalActions();
     createTrayIcon();
-    allocateNewProcess();
 
     /*Auth pin handling related*/
     auth_pin_handler = new AuthPinHandler();
@@ -255,9 +254,8 @@ void OpenstreamMainWindow::stopSunshine() {
     if(pid > 0) {
         //TODO: research use of kill vs terminate
         proc->kill();
+        proc->deleteLater();
         //Allocate new process
-        delete proc;
-        allocateNewProcess();
         qDebug() << "Process host stopped " << pid << Qt::endl;
     }
     else {
@@ -267,10 +265,11 @@ void OpenstreamMainWindow::stopSunshine() {
 
 void OpenstreamMainWindow::appStart() {
     qDebug() << "Start application" << Qt::endl;
+    allocateNewProcess();
     QString app_dir = QCoreApplication::applicationDirPath();
     connect(proc, &QProcess::readyReadStandardOutput, this, &OpenstreamMainWindow::updateAppConsole);
-    connect(proc, &QProcess::readyRead, this, &OpenstreamMainWindow::updateAppConsole);
-    connect(proc, &QProcess::readyReadStandardError, this, &OpenstreamMainWindow::updateAppConsoleError);
+    //connect(proc, &QProcess::readyRead, this, &OpenstreamMainWindow::updateAppConsole);
+    //connect(proc, &QProcess::readyReadStandardError, this, &OpenstreamMainWindow::updateAppConsoleError);
     connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
                 this, &OpenstreamMainWindow::appStoppedWatch);
     connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),

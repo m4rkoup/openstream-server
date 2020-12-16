@@ -225,7 +225,7 @@ font-size: 26px;</string>
        <string notr="true">background-color: #212f45;</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -603,8 +603,8 @@ font: 8pt &quot;Open Sans Bold&quot;;
 font-size: 14px;</string>
                </property>
                <property name="text">
-                <string>-up-to 1080p
-resolution-up-to 60 fps
+                <string>-up-to 1080p resolution
+-up-to 60 fps
 -lower latency
 -requires high bandwidth
 -requires mid-range CPU</string>

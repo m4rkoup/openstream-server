@@ -225,7 +225,7 @@ font-size: 26px;</string>
        <string notr="true">background-color: #212f45;</string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -305,6 +305,7 @@ color: rgb(0, 0, 0);
 font: &quot;Open Sans&quot;;
 font-weight: semi-bold;
 font-size: 13px;
+selection-background-color: lightblue;
 }
 QScrollBar:vertical {          
 border: 1px solid #999999;
@@ -329,7 +330,9 @@ height: 0 px;
 subcontrol-position: top;
 subcontrol-origin: margin;
 }
-
+QMenu {
+color: #ffffff;
+}
 </string>
           </property>
          </widget>

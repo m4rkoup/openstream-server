@@ -255,6 +255,7 @@ void OpenstreamMainWindow::stopSunshine() {
         //TODO: research use of kill vs terminate
         proc->kill();
         proc->deleteLater();
+        proc = nullptr;
         //Allocate new process
         qDebug() << "Process host stopped " << pid << Qt::endl;
     }
@@ -367,7 +368,8 @@ void OpenstreamMainWindow::appStoppedWatch() {
 }
 
 void OpenstreamMainWindow::stopHostBeforeClose() {
-    this->stopSunshine();
+    if(this->proc != nullptr)
+        this->stopSunshine();
 }
 
 /**

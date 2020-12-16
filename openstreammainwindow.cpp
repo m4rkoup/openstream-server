@@ -233,6 +233,7 @@ void OpenstreamMainWindow::allocateNewProcess() {
 }
 
 void OpenstreamMainWindow::startSunshine() {
+    allocateNewProcess();
     switch(proc->state()) {
         case QProcess::NotRunning:
             appStart();
@@ -266,7 +267,6 @@ void OpenstreamMainWindow::stopSunshine() {
 
 void OpenstreamMainWindow::appStart() {
     qDebug() << "Start application" << Qt::endl;
-    allocateNewProcess();
     QString app_dir = QCoreApplication::applicationDirPath();
     connect(proc, &QProcess::readyReadStandardOutput, this, &OpenstreamMainWindow::updateAppConsole);
     //connect(proc, &QProcess::readyRead, this, &OpenstreamMainWindow::updateAppConsole);
@@ -377,7 +377,7 @@ void OpenstreamMainWindow::stopHostBeforeClose() {
  * Starts the openstreamhost when the GUI has been started.
  */
 void OpenstreamMainWindow::on_event_loop_started() {
-    appStart();
+    startSunshine();
 }
 
 

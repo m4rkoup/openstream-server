@@ -23,9 +23,6 @@ public slots:
     void on_h265_cpu_ok_button_clicked();
     void on_h265_cpu_restore_button_clicked();
     void on_h265_cpu_cancel_button_clicked();
-    void on_h265_cpu_qp_on_radio_button_clicked();
-    void on_h265_cpu_crf_on_radio_button_clicked();
-    void on_h265_cpu_vbv_max_rate_on_radio_button_clicked();
 
 signals:
     void configuration_changed(VideoEncoder);
@@ -47,9 +44,11 @@ private:
     QString ENCODER_SPEED_FAST = QString("fast");
     QString ENCODER_SPEED_FASTER = QString("faster");
     QString ENCODER_SPEED_SUPERFAST = QString("superfast");
+    QString ENCODER_SPEED_ULTRAFAST = QString("ultrafast");
     QStringList ENCODER_SPEED_OPT_LIST = QStringList() << ENCODER_SPEED_FAST
                                                        << ENCODER_SPEED_FASTER
-                                                       << ENCODER_SPEED_SUPERFAST;
+                                                       << ENCODER_SPEED_SUPERFAST
+                                                       << ENCODER_SPEED_ULTRAFAST;
 
     //Process Priority
     QString SYS_PRIORITY_ABOVE_NORMAL_LABEL = QString("Above Normal");
@@ -110,13 +109,20 @@ private:
                                                            << VBV_BUFSIZE_15_LABEL;
 
     //CRF
-    QString CRF_15 = QString("15");
+    QString CRF_11 = QString("11");
+    QString CRF_14 = QString("14");
+    QString CRF_17 = QString("17");
     QString CRF_20 = QString("20");
+    QString CRF_23 = QString("23");
     QString CRF_25 = QString("25");
-    QString CRF_30 = QString("30");
-    QStringList CRF_OPT_LIST = QStringList() << CRF_15 << CRF_20 << CRF_25 << CRF_30;
-
+    QString CRF_28 = QString("28");
+    QString CRF_31 = QString("31");
+    QString CRF_34 = QString("34");
+    QStringList CRF_OPT_LIST = QStringList() << CRF_11 << CRF_14 << CRF_17 << CRF_20
+                                             << CRF_23 << CRF_25 << CRF_28 << CRF_31
+                                             << CRF_34;
     //QP
+    //Currently unused
     QString QP_15 = QString("15");
     QString QP_20 = QString("20");
     QString QP_25 = QString("25");
@@ -132,7 +138,6 @@ private:
 
     void setLoadedValues();
     void restoreDefaultsValues();
-    void setCRForVBVorQP(QString selected);
 };
 
 #endif // H265CONFIGURATIONDIALOG_H

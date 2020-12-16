@@ -66,9 +66,6 @@ h264CPUConfigurationDialog::h264CPUConfigurationDialog(QWidget *parent) :
     /*CRF*/
     ui->h264_cpu_crf_rate_combobox->addItems(CRF_OPT_LIST);
 
-    /*QP*/
-    ui->h264_cpu_qp_rate_combobox->addItems(QP_OPT_LIST);
-
     /*FEC*/
     ui->h264_cpu_fec_percentage_combobox->addItems(FEC_OPT_LIST);
 
@@ -151,22 +148,43 @@ void h264CPUConfigurationDialog::setLoadedValues() {
     }
 
     /*CRF*/
-    if(config->getKey("crf") == CRF_15) {
+    if(config->getKey("crf") == CRF_11) {
         ui->h264_cpu_crf_rate_combobox->setCurrentIndex(0);
-        entries_snapshot.insert("crf", CRF_15);
+        entries_snapshot.insert("crf", CRF_11);
+    }
+    else if(config->getKey("crf") == CRF_14) {
+        ui->h264_cpu_crf_rate_combobox->setCurrentIndex(1);
+        entries_snapshot.insert("crf", CRF_14);
+    }
+    else if(config->getKey("crf") == CRF_17) {
+        ui->h264_cpu_crf_rate_combobox->setCurrentIndex(2);
+        entries_snapshot.insert("crf", CRF_17);
     }
     else if(config->getKey("crf") == CRF_20) {
-        ui->h264_cpu_crf_rate_combobox->setCurrentIndex(1);
+        ui->h264_cpu_crf_rate_combobox->setCurrentIndex(3);
         entries_snapshot.insert("crf", CRF_20);
     }
+    else if(config->getKey("crf") == CRF_23) {
+        ui->h264_cpu_crf_rate_combobox->setCurrentIndex(4);
+        entries_snapshot.insert("crf", CRF_14);
+    }
     else if(config->getKey("crf") == CRF_25) {
-        ui->h264_cpu_crf_rate_combobox->setCurrentIndex(2);
+        ui->h264_cpu_crf_rate_combobox->setCurrentIndex(5);
         entries_snapshot.insert("crf", CRF_25);
     }
-    else if(config->getKey("crf") == CRF_30) {
-        ui->h264_cpu_crf_rate_combobox->setCurrentIndex(3);
-        entries_snapshot.insert("crf", CRF_30);
+    else if(config->getKey("crf") == CRF_28) {
+        ui->h264_cpu_crf_rate_combobox->setCurrentIndex(6);
+        entries_snapshot.insert("crf", CRF_28);
     }
+    else if(config->getKey("crf") == CRF_31) {
+        ui->h264_cpu_crf_rate_combobox->setCurrentIndex(7);
+        entries_snapshot.insert("crf", CRF_31);
+    }
+    else if(config->getKey("crf") == CRF_34) {
+        ui->h264_cpu_crf_rate_combobox->setCurrentIndex(8);
+        entries_snapshot.insert("crf", CRF_34);
+    }
+
 
     /*VBV Bufsize*/
     if(config->getKey("vbv_bufsize") == VBV_BUFSIZE_1) {
@@ -186,49 +204,6 @@ void h264CPUConfigurationDialog::setLoadedValues() {
         ui->h264_cpu_vbv_bufsize_combobox->setCurrentIndex(3);
         entries_snapshot.insert("vbv_bufsize",  VBV_BUFSIZE_15);
     }
-
-    /*QP*/
-    if(config->getKey("qp") == QP_15) {
-        ui->h264_cpu_qp_rate_combobox->setCurrentIndex(0);
-        entries_snapshot.insert("qp", QP_15);
-    }
-    else if(config->getKey("qp") == QP_20) {
-        ui->h264_cpu_qp_rate_combobox->setCurrentIndex(1);
-        entries_snapshot.insert("qp", QP_20);
-    }
-    else if(config->getKey("qp") == QP_25) {
-        ui->h264_cpu_qp_rate_combobox->setCurrentIndex(2);
-        entries_snapshot.insert("qp", QP_25);
-    }
-    else if(config->getKey("qp") == QP_30) {
-        ui->h264_cpu_qp_rate_combobox->setCurrentIndex(3);
-        entries_snapshot.insert("qp", QP_30);
-    }
-
-    /*CRF VS VBV VS QP*/
-    if(config->getKey("on_crf") == "1") {
-        ui->h264_cpu_crf_on_radio_button->setChecked(true);
-        ui->h264_cpu_qp_off_radio_button->setChecked(true);
-    } else {
-        ui->h264_cpu_crf_off_radio_button->setChecked(true);
-    }
-    if(config->getKey("on_vbv") == "1") {
-        ui->h264_cpu_vbv_max_rate_on_radio_button->setChecked(true);
-        ui->h264_cpu_qp_off_radio_button->setChecked(true);
-    } else {
-       ui->h264_cpu_vbv_max_rate_off_radio_button->setChecked(true);
-    }
-    if(config->getKey("on_qp") == "1") {
-        ui->h264_cpu_qp_on_radio_button->setChecked(true);
-        ui->h264_cpu_crf_off_radio_button->setChecked(true);
-        ui->h264_cpu_vbv_max_rate_off_radio_button->setChecked(true);
-    } else {
-        ui->h264_cpu_qp_off_radio_button->setChecked(true);
-    }
-
-    entries_snapshot.insert("on_crf", config->getKey("on_crf"));
-    entries_snapshot.insert("on_vbv", config->getKey("on_vbv"));
-    entries_snapshot.insert("on_qp", config->getKey("on_qp"));
 
     /*vbv-maxrate*/
     if(config->getKey("vbv_maxrate") == VBV_MAX_RATE_10) {
@@ -265,30 +240,6 @@ void h264CPUConfigurationDialog::setLoadedValues() {
     else if(config->getKey("fec_percentage") == FEC_40) {
         ui->h264_cpu_fec_percentage_combobox->setCurrentIndex(3);
         entries_snapshot.insert("fec_percentage", FEC_40);
-    }
-}
-
-/**
- * @brief h265ConfigurationDialog::setCRForVBVorQP
- * called to set the initial value of the QRadioButtons in the form.
- * This function is only used by setLoadedValues() for the initial state.
- * @param selected
- */
-void h264CPUConfigurationDialog::setCRForVBVorQP(QString selected){
-    if(selected == QString("crf")) {
-        ui->h264_cpu_crf_on_radio_button->setChecked(true);
-        ui->h264_cpu_vbv_max_rate_off_radio_button->setChecked(true);
-        ui->h264_cpu_qp_off_radio_button->setChecked(true);
-    }
-    else if(selected == "qp") {
-        ui->h264_cpu_crf_off_radio_button->setChecked(true);
-        ui->h264_cpu_vbv_max_rate_off_radio_button->setChecked(true);
-        ui->h264_cpu_qp_on_radio_button->setChecked(true);
-    }
-    else if(selected == "vbv") {
-        ui->h264_cpu_crf_off_radio_button->setChecked(true);
-        ui->h264_cpu_vbv_max_rate_on_radio_button->setChecked(true);
-        ui->h264_cpu_qp_off_radio_button->setChecked(true);
     }
 }
 
@@ -373,32 +324,10 @@ void h264CPUConfigurationDialog::on_h264_cpu_ok_button_clicked()
     /*crf rate*/
     QString selected_crf = ui->h264_cpu_crf_rate_combobox->currentText();
     config->setEntry("crf", selected_crf);
-    /*qp*/
-    QString selected_qp = ui->h264_cpu_qp_rate_combobox->currentText();
-    config->setEntry("qp", selected_qp);
+
     /*fec percentage*/
     QString selected_fec = ui->h264_cpu_fec_percentage_combobox->currentText();
     config->setEntry("fec_percentage", selected_fec);
-
-    if(ui->h264_cpu_crf_on_radio_button->isChecked()) {
-         config->setEntry("on_crf", "1");
-         config->setEntry("on_qp", "0");
-    } else {
-        config->setEntry("on_crf", "0");
-    }
-    if(ui->h264_cpu_vbv_max_rate_on_radio_button->isChecked()) {
-        config->setEntry("on_vbv", "1");
-        config->setEntry("on_qp", "0");
-    } else {
-        config->setEntry("on_vbv", "0");
-    }
-    if(ui->h264_cpu_qp_on_radio_button->isChecked()) {
-        config->setEntry("on_crf", "0");
-        config->setEntry("on_vbv", "0");
-        config->setEntry("on_qp", "1");
-    } else {
-        config->setEntry("on_qp", "0");
-    }
 
     if(
         entries_snapshot.value("sw_preset") != config->getKey("sw_preset") ||
@@ -408,11 +337,7 @@ void h264CPUConfigurationDialog::on_h264_cpu_ok_button_clicked()
         entries_snapshot.value("vbv_maxrate") != config->getKey("vbv_maxrate") ||
         entries_snapshot.value("vbv_bufsize") != config->getKey("vbv_bufsize") ||
         entries_snapshot.value("crf") != config->getKey("crf") ||
-        entries_snapshot.value("qp") != config->getKey("qp") ||
-        entries_snapshot.value("fec_percentage") != config->getKey("fec_percentage") ||
-        entries_snapshot.value("on_qp") != config->getKey("on_qp") ||
-        entries_snapshot.value("on_crf") != config->getKey("on_crf") ||
-        entries_snapshot.value("on_vbv") != config->getKey("on_vbv")
+        entries_snapshot.value("fec_percentage") != config->getKey("fec_percentage")
             ) {
             config->saveConfiguration();
             entries_snapshot.insert("sw_preset", config->getKey("sw_preset"));
@@ -421,43 +346,8 @@ void h264CPUConfigurationDialog::on_h264_cpu_ok_button_clicked()
             entries_snapshot.insert("pools", config->getKey("pools"));
             entries_snapshot.insert("vbv_maxrate", config->getKey("vbv_maxrate"));
             entries_snapshot.insert("vbv_bufsize", config->getKey("vbv_bufsize"));
-            entries_snapshot.insert("qp", config->getKey("qp"));
             entries_snapshot.insert("fec_percentage", config->getKey("fec_percentage"));
-            entries_snapshot.insert("on_qp", config->getKey("on_qp"));
-            entries_snapshot.insert("on_crf", config->getKey("on_crf"));
-            entries_snapshot.insert("on_vbv",  config->getKey("on_vbv"));
             emit configuration_changed(h264CPU);
     }
     this->hide();
-}
-
-/**
- * @brief h265ConfigurationDialog::on_h265_cpu_vbv_max_rate_on_radio_button_clicked
- *
- *  When VBV is ON, CRF and QP should be disabled.
- */
-void h264CPUConfigurationDialog::on_h264_cpu_vbv_max_rate_on_radio_button_clicked()
-{
-    ui->h264_cpu_qp_off_radio_button->setChecked(true);
-}
-
-/**
- * @brief h265ConfigurationDialog::on_h265_cpu_crf_on_radio_button_clicked
- *
- * When CRF is ON, VBV and QP should be disabled.
- */
-void h264CPUConfigurationDialog::on_h264_cpu_crf_on_radio_button_clicked()
-{
-    ui->h264_cpu_qp_off_radio_button->setChecked(true);
-}
-
-/**
- * @brief h265ConfigurationDialog::on_h265_cpu_qp_on_radio_button_clicked
- *
- * When QP is ON, VBV and CRF should be disabled.
- */
-void h264CPUConfigurationDialog::on_h264_cpu_qp_on_radio_button_clicked()
-{
-    ui->h264_cpu_vbv_max_rate_off_radio_button->setChecked(true);
-    ui->h264_cpu_crf_off_radio_button->setChecked(true);
 }

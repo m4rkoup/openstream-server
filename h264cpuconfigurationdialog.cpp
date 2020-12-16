@@ -166,7 +166,7 @@ void h264CPUConfigurationDialog::setLoadedValues() {
     }
     else if(config->getKey("crf") == CRF_23) {
         ui->h264_cpu_crf_rate_combobox->setCurrentIndex(4);
-        entries_snapshot.insert("crf", CRF_14);
+        entries_snapshot.insert("crf", CRF_23);
     }
     else if(config->getKey("crf") == CRF_25) {
         ui->h264_cpu_crf_rate_combobox->setCurrentIndex(5);
@@ -347,6 +347,7 @@ void h264CPUConfigurationDialog::on_h264_cpu_ok_button_clicked()
             entries_snapshot.insert("vbv_maxrate", config->getKey("vbv_maxrate"));
             entries_snapshot.insert("vbv_bufsize", config->getKey("vbv_bufsize"));
             entries_snapshot.insert("fec_percentage", config->getKey("fec_percentage"));
+            entries_snapshot.insert("crf", config->getKey("crf"));
             emit configuration_changed(h264CPU);
     }
     this->hide();

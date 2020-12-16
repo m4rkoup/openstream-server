@@ -176,7 +176,7 @@ void h265ConfigurationDialog::setLoadedValues() {
     }
     else if(config->getKey("crf") == CRF_23) {
         ui->h265_cpu_crf_rate_combobox->setCurrentIndex(4);
-        entries_snapshot.insert("crf", CRF_14);
+        entries_snapshot.insert("crf", CRF_23);
     }
     else if(config->getKey("crf") == CRF_25) {
         ui->h265_cpu_crf_rate_combobox->setCurrentIndex(5);
@@ -356,6 +356,7 @@ void h265ConfigurationDialog::on_h265_cpu_ok_button_clicked()
             entries_snapshot.insert("vbv_maxrate", config->getKey("vbv_maxrate"));
             entries_snapshot.insert("vbv_bufsize", config->getKey("vbv_bufsize"));
             entries_snapshot.insert("fec_percentage", config->getKey("fec_percentage"));
+            entries_snapshot.insert("crf", config->getKey("crf"));
             config->saveConfiguration();
             emit configuration_changed(h265CPU);
     }

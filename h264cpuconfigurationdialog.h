@@ -108,6 +108,9 @@ private:
                                                            << VBV_BUFSIZE_10_LABEL
                                                            << VBV_BUFSIZE_15_LABEL;
     //CRF
+    QString CRF_3 = QString("3");
+    QString CRF_6 = QString("6");
+    QString CRF_9 = QString("9");
     QString CRF_11 = QString("11");
     QString CRF_14 = QString("14");
     QString CRF_17 = QString("17");
@@ -117,7 +120,8 @@ private:
     QString CRF_28 = QString("28");
     QString CRF_31 = QString("31");
     QString CRF_34 = QString("34");
-    QStringList CRF_OPT_LIST = QStringList() << CRF_11 << CRF_14 << CRF_17 << CRF_20
+    QStringList CRF_OPT_LIST = QStringList() << CRF_3 << CRF_6 << CRF_9
+                                             << CRF_11 << CRF_14 << CRF_17 << CRF_20
                                              << CRF_23 << CRF_25 << CRF_28 << CRF_31
                                              << CRF_34;
 

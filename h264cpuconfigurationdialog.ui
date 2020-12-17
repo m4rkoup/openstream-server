@@ -775,6 +775,29 @@ QComboBox QAbstractItemView {
     font:  &quot;Open Sans Semibold&quot;;
 }
 
+QScrollBar:vertical {          
+border: 1px solid #999999;
+background:white;
+width:10px;    
+margin: 0px 0px 0px 0px;
+}
+    
+QScrollBar::handle:vertical {
+background: #006466;
+min-height: 0px;
+}
+QScrollBar::add-line:vertical {
+background: #006466;
+height: 0px;
+subcontrol-position: bottom;
+subcontrol-origin: margin;
+}
+QScrollBar::sub-line:vertical {
+background: #006466;
+height: 0 px;
+subcontrol-position: top;
+subcontrol-origin: margin;
+}
 </string>
        </property>
       </widget>

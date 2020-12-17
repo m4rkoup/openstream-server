@@ -269,8 +269,8 @@ void OpenstreamMainWindow::appStart() {
     qDebug() << "Start application" << Qt::endl;
     QString app_dir = QCoreApplication::applicationDirPath();
     connect(proc, &QProcess::readyReadStandardOutput, this, &OpenstreamMainWindow::updateAppConsole);
-    //connect(proc, &QProcess::readyRead, this, &OpenstreamMainWindow::updateAppConsole);
-    //connect(proc, &QProcess::readyReadStandardError, this, &OpenstreamMainWindow::updateAppConsoleError);
+    connect(proc, &QProcess::readyRead, this, &OpenstreamMainWindow::updateAppConsole);
+    connect(proc, &QProcess::readyReadStandardError, this, &OpenstreamMainWindow::updateAppConsoleError);
     connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
                 this, &OpenstreamMainWindow::appStoppedWatch);
     connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
@@ -350,7 +350,7 @@ void OpenstreamMainWindow::updateAppConsole() {
     QByteArray strData = proc->readAllStandardOutput();
     QString lineString(strData);
     ui->main_area_console_output->moveCursor(QTextCursor::End);
-    ui->main_area_console_output->textCursor().insertText(lineString.trimmed());
+    ui->main_area_console_output->textCursor().insertText(lineString);
     ui->main_area_console_output->moveCursor(QTextCursor::End);
 }
 
@@ -359,7 +359,7 @@ void OpenstreamMainWindow::updateAppConsoleError()
     QByteArray strData = proc->readAllStandardError();
     QString lineString(strData);
     ui->main_area_console_output->moveCursor (QTextCursor::End);
-    ui->main_area_console_output->textCursor().insertText(lineString.trimmed());
+    ui->main_area_console_output->textCursor().insertText(lineString);
     ui->main_area_console_output->moveCursor(QTextCursor::End);
 }
 

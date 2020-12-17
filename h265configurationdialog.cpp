@@ -158,40 +158,50 @@ void h265ConfigurationDialog::setLoadedValues() {
     }
 
     /*CRF*/
-    if(config->getKey("crf") == CRF_11) {
+    if(config->getKey("crf") == CRF_3) {
         ui->h265_cpu_crf_rate_combobox->setCurrentIndex(0);
+        entries_snapshot.insert("crf", CRF_3);
+    } else if(config->getKey("crf") == CRF_6) {
+        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(1);
+        entries_snapshot.insert("crf", CRF_6);
+    } else if(config->getKey("crf") == CRF_9) {
+        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(2);
+        entries_snapshot.insert("crf", CRF_9);
+    }
+    else if(config->getKey("crf") == CRF_11) {
+        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(3);
         entries_snapshot.insert("crf", CRF_11);
     }
     else if(config->getKey("crf") == CRF_14) {
-        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(1);
+        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(4);
         entries_snapshot.insert("crf", CRF_14);
     }
     else if(config->getKey("crf") == CRF_17) {
-        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(2);
+        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(5);
         entries_snapshot.insert("crf", CRF_17);
     }
     else if(config->getKey("crf") == CRF_20) {
-        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(3);
+        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(6);
         entries_snapshot.insert("crf", CRF_20);
     }
     else if(config->getKey("crf") == CRF_23) {
-        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(4);
+        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(7);
         entries_snapshot.insert("crf", CRF_23);
     }
     else if(config->getKey("crf") == CRF_25) {
-        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(5);
+        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(8);
         entries_snapshot.insert("crf", CRF_25);
     }
     else if(config->getKey("crf") == CRF_28) {
-        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(6);
+        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(9);
         entries_snapshot.insert("crf", CRF_28);
     }
     else if(config->getKey("crf") == CRF_31) {
-        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(7);
+        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(10);
         entries_snapshot.insert("crf", CRF_31);
     }
     else if(config->getKey("crf") == CRF_34) {
-        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(8);
+        ui->h265_cpu_crf_rate_combobox->setCurrentIndex(11);
         entries_snapshot.insert("crf", CRF_34);
     }
 

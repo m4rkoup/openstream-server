@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
         return 1;
     }
     QApplication::setQuitOnLastWindowClosed(false);
+    QApplication::setEffectEnabled(Qt::UI_AnimateCombo, false);
 
     /**
       * This code deals with the Auto Star mechanism

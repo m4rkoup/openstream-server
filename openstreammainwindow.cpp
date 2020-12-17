@@ -465,7 +465,7 @@ void OpenstreamMainWindow::on_h265_CPU_configure_button_clicked()
  * to auto restart the host if configuration applies.
  */
 void OpenstreamMainWindow::configuration_changed_apply(VideoEncoder sender_encoder) {
-    if(proc->state() == QProcess::Running && current_encoder == sender_encoder) {
+    if(proc != nullptr && proc->state() == QProcess::Running && current_encoder == sender_encoder) {
         /*Pseudo-Restart host after config changes*/
        QMessageBox m = QMessageBox(
                     QMessageBox::Icon::Information,

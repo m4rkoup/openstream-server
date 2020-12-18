@@ -255,6 +255,8 @@ void OpenstreamMainWindow::stopSunshine() {
     if(pid > 0) {
         //TODO: research use of kill vs terminate
         proc->kill();
+        proc->disconnect();
+        this->set_off_host_state_indicator();
         proc->deleteLater();
         proc = nullptr;
         //Allocate new process
@@ -271,6 +273,7 @@ void OpenstreamMainWindow::appStart() {
     connect(proc, &QProcess::readyReadStandardOutput, this, &OpenstreamMainWindow::updateAppConsole);
     connect(proc, &QProcess::readyRead, this, &OpenstreamMainWindow::updateAppConsole);
     connect(proc, &QProcess::readyReadStandardError, this, &OpenstreamMainWindow::updateAppConsoleError);
+    connect(proc, &QProcess::started, this, &OpenstreamMainWindow::set_on_host_state_indicator);
     connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
                 this, &OpenstreamMainWindow::appStoppedWatch);
     connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
@@ -292,8 +295,6 @@ void OpenstreamMainWindow::appStart() {
         qDebug() << "DEFAULT ENCODER FILE SETTINGS" << Qt::endl;
         proc->start(app_dir + "/openstreamhost/openstreamhost.exe", QStringList() << app_dir + "/assets/sunshine.conf");
     }
-
-    this->set_on_host_state_indicator();
     qDebug() << "Application started" << Qt::endl;
 }
 

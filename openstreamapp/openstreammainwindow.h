@@ -19,6 +19,8 @@
 #include "h264cpuconfigurationdialog.h"
 #include "h264nvencconfigurationdialog.h"
 #include "h265nvencconfigurationdialog.h"
+#include "h264amdamfconfigurationdialog.h"
+#include "h265amdamfconfigurationdialog.h"
 #include "VideoEncoderEnum.h"
 
 namespace Ui {
@@ -62,6 +64,12 @@ public slots:
      * to auto restart the host if configuration applies.
      */
     void configuration_changed_apply(VideoEncoder);
+
+private slots:
+    void on_h265_AMD_select_button_clicked();
+
+private slots:
+    void on_h264_AMD_select_button_clicked();
 
 private slots:
     void on_h265_NVENC_configure_button_clicked();
@@ -122,6 +130,8 @@ private:
     QString H264_CONF = QString("/assets/h264CPU.conf");
     QString H264_NVENC_CONF = QString("/assets/h264NVENC.conf");
     QString H265_NVENC_CONF = QString("/assets/h265NVENC.conf");
+    QString H264_AMD_AMF_CONF = QString("/assets/h264AMDAMF.conf");
+    QString H265_AMD_AMF_CONF = QString("/assets/h265AMDAMF.conf");
 
     /*Holds the state of which encoder is selected*/
     VideoEncoder current_encoder;
@@ -180,6 +190,8 @@ private:
     h264CPUConfigurationDialog *h264CPUConfigDialog;
     h264NVENCConfigurationDialog *h264NVENCConfigDialog;
     h265NVENCConfigurationDialog *h265NVENCConfigDialog;
+    h264AMDAMFConfigurationDialog *h264AMDAMFConfigDialog;
+    h265AMDAMFConfigurationDialog *h265AMDAMFConfigDialog;
 
     /*Read/write encoder configuration*/
     void readEncoderConfiguration();

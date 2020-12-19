@@ -60,6 +60,12 @@ add_executable(openstreamapp
   openstreamapp/h265nvencconfigurationdialog.h
   openstreamapp/h265nvencconfigurationdialog.cpp
   openstreamapp/h265nvencconfigurationdialog.ui
+  openstreamapp/h264amdamfconfigurationdialog.h
+  openstreamapp/h264amdamfconfigurationdialog.cpp
+  openstreamapp/h264amdamfconfigurationdialog.ui
+  openstreamapp/h265amdamfconfigurationdialog.h
+  openstreamapp/h265amdamfconfigurationdialog.cpp
+  openstreamapp/h265amdamfconfigurationdialog.ui
   openstreamapp/VideoEncoderEnum.h
   openstreamapp.qrc
 )

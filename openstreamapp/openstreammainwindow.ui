@@ -123,7 +123,7 @@ font-size: 26px;</string>
           <string>Start</string>
          </property>
          <property name="icon">
-          <iconset resource="openstreamapp.qrc">
+          <iconset resource="../openstreamapp.qrc">
            <normaloff>:/images/on-ic.png</normaloff>:/images/on-ic.png</iconset>
          </property>
         </widget>
@@ -156,7 +156,7 @@ font-size: 26px;</string>
           <string>Stop</string>
          </property>
          <property name="icon">
-          <iconset resource="openstreamapp.qrc">
+          <iconset resource="../openstreamapp.qrc">
            <normaloff>:/images/off-ic.png</normaloff>:/images/off-ic.png</iconset>
          </property>
         </widget>
@@ -189,7 +189,7 @@ font-size: 26px;</string>
           <string>Configure</string>
          </property>
          <property name="icon">
-          <iconset resource="openstreamapp.qrc">
+          <iconset resource="../openstreamapp.qrc">
            <normaloff>:/images/configure-ic.png</normaloff>:/images/configure-ic.png</iconset>
          </property>
         </widget>
@@ -225,7 +225,7 @@ font-size: 26px;</string>
        <string notr="true">background-color: #212f45;</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -250,7 +250,7 @@ font-size: 26px;</string>
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap resource="openstreamapp.qrc">:/images/terminal-ic.png</pixmap>
+             <pixmap resource="../openstreamapp.qrc">:/images/terminal-ic.png</pixmap>
             </property>
            </widget>
           </item>
@@ -974,7 +974,7 @@ font-size: 14px;</string>
                <item>
                 <widget class="QPushButton" name="h265_AMD_select_button">
                  <property name="enabled">
-                  <bool>false</bool>
+                  <bool>true</bool>
                  </property>
                  <property name="font">
                   <font>
@@ -1094,7 +1094,7 @@ font-size: 14px;</string>
                <item>
                 <widget class="QPushButton" name="h264_AMD_select_button">
                  <property name="enabled">
-                  <bool>false</bool>
+                  <bool>true</bool>
                  </property>
                  <property name="font">
                   <font>
@@ -1198,7 +1198,7 @@ font-size: 14px;</string>
              <string>Go Back</string>
             </property>
             <property name="icon">
-             <iconset resource="openstreamapp.qrc">
+             <iconset resource="../openstreamapp.qrc">
               <normaloff>:/images/go-back-arrow.png</normaloff>:/images/go-back-arrow.png</iconset>
             </property>
            </widget>
@@ -1227,7 +1227,7 @@ font-size: 14px;</string>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="openstreamapp.qrc"/>
+  <include location="../openstreamapp.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -13,6 +13,8 @@ OpenstreamMainWindow::OpenstreamMainWindow(QWidget *parent) :
     h264CPUConfigDialog = new h264CPUConfigurationDialog(this);
     h264NVENCConfigDialog = new h264NVENCConfigurationDialog(this);
     h265NVENCConfigDialog = new h265NVENCConfigurationDialog(this);
+    h264AMDAMFConfigDialog = new h264AMDAMFConfigurationDialog(this);
+    h265AMDAMFConfigDialog = new h265AMDAMFConfigurationDialog(this);
 
 
     allocateSharedMemoryFootprint();
@@ -69,6 +71,8 @@ OpenstreamMainWindow::OpenstreamMainWindow(QWidget *parent) :
     h264CPUConfigDialog->hide();
     h264NVENCConfigDialog->hide();
     h265NVENCConfigDialog->hide();
+    h264AMDAMFConfigDialog->hide();
+    h265AMDAMFConfigDialog->hide();
     icon_off = new QIcon(":/images/joystick.png");
     icon_on = new QIcon(":/images/joystick_on.png");
     trayIcon->setIcon(*icon_off);
@@ -290,6 +294,12 @@ void OpenstreamMainWindow::appStart() {
     }
     else if(current_encoder == h265NVENC) {
         proc->start(app_dir + "/openstreamhost/openstreamhost.exe", QStringList() << app_dir + H265_NVENC_CONF);
+    }
+    else if(current_encoder == h264AMDAMF) {
+        proc->start(app_dir + "/openstreamhost/openstreamhost.exe", QStringList() << app_dir + H264_AMD_AMF_CONF);
+    }
+    else if(current_encoder == h265AMDAMF) {
+        proc->start(app_dir + "/openstreamhost/openstreamhost.exe", QStringList() << app_dir + H265_AMD_AMF_CONF);
     }
     else {
         qDebug() << "DEFAULT ENCODER FILE SETTINGS" << Qt::endl;
@@ -551,6 +561,10 @@ void OpenstreamMainWindow::writeEncoderConfiguration() {
     }
     else if (current_encoder == h265NVENC) {
         outStream << "encoder" << "=" << "h265NVENC" << Qt::endl;
+    } else if(current_encoder == h264AMDAMF) {
+        outStream << "encoder" << "=" << "h264AMDAMF" << Qt::endl;
+    } else if(current_encoder == h265AMDAMF) {
+        outStream << "encoder" << "=" << "h265AMDAMF" << Qt::endl;
     }
     else {
        outStream << "encoder" << "=" << "h264CPU" << Qt::endl;
@@ -672,4 +686,26 @@ void OpenstreamMainWindow::on_h265_NVENC_select_button_clicked()
 
 void OpenstreamMainWindow::resizeEvent(QResizeEvent *event)  {
     qDebug() << "Windows resize" << Qt::endl;
+}
+
+void OpenstreamMainWindow::on_h264_AMD_select_button_clicked()
+{
+    if(current_encoder == h264AMDAMF)
+        return;
+    current_encoder = h264AMDAMF;
+    writeEncoderConfiguration();
+    removeIconsFromSelectionButtons();
+    updateEncoderButtonsSelected();
+    configuration_changed_apply(h264AMDAMF);
+}
+
+void OpenstreamMainWindow::on_h265_AMD_select_button_clicked()
+{
+    if(current_encoder == h265AMDAMF)
+        return;
+    current_encoder = h265AMDAMF;
+    writeEncoderConfiguration();
+    removeIconsFromSelectionButtons();
+    updateEncoderButtonsSelected();
+    configuration_changed_apply(h265AMDAMF);
 }

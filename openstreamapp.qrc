@@ -36,5 +36,7 @@
         <file>images/go-back-arrow.png</file>
         <file>assets/h264NVENC.conf</file>
         <file>assets/h265NVENC.conf</file>
+        <file>assets/h264AMDAMF.conf</file>
+        <file>assets/h265AMDAMF.conf</file>
     </qresource>
 </RCC>
